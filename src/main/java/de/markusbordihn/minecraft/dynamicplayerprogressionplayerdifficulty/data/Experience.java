@@ -82,7 +82,7 @@ public class Experience {
     levelExperienceMap.put(minLevel, experience);
 
     // Calculate experience for the rest based on https://oldschool.runescape.wiki/w/Experience
-    for (int level = minLevel; level < maxLevel - 1; level++) {
+    for (int level = minLevel; level < maxLevel; level++) {
       experience += Math.floor(0.25 * (level + experienceFactor * Math.pow(2.0, level / 7.0)));
       log.debug("level: {} | exp: {}", level + 1, experience);
       levelExperienceMap.put(level + 1, experience);
@@ -91,6 +91,14 @@ public class Experience {
 
   public static Map<Integer, Integer> getlevelExperienceMap() {
     return levelExperienceMap;
+  }
+
+  public static int getExperienceForMinLevel() {
+    return levelExperienceMap.getOrDefault(minLevel + 1, null);
+  }
+
+  public static int getExperienceForMaxLevel() {
+    return levelExperienceMap.getOrDefault(maxLevel, null);
   }
 
   public static int getExperienceForLevel(int level) {
@@ -120,11 +128,23 @@ public class Experience {
   }
 
   public static int getLevelFromExperience(int experience) {
-    for (int level = minLevel; level < maxLevel; level++) {
+    // Check for min. level
+    if (experience < getExperienceForMinLevel()) {
+      return minLevel;
+    }
+
+    // Check for max. level
+    if (experience >= getExperienceForMaxLevel()) {
+      return maxLevel;
+    }
+
+    // Check all other levels
+    for (int level = minLevel + 1; level < maxLevel; level++) {
       if (getExperienceForLevel(level) > experience) {
         return level - 1;
       }
     }
+
     return 1;
   }
 
@@ -133,7 +153,7 @@ public class Experience {
     if (level <= levelCap) {
       int hurtDamageReduction = COMMON.hurtDamageReduction.get();
       return hurtDamageReduction == 0 ? 0.0f
-          : (((float) ((levelCap + 1) - level) / levelCap) * hurtDamageReduction) / 100f;
+          : 1.0f - ((((float) ((levelCap + 1) - level) / levelCap) * hurtDamageReduction) / 100f);
     } else {
       int hurtDamageIncrease = COMMON.hurtDamageIncrease.get();
       return hurtDamageIncrease == 0 ? 0.0f

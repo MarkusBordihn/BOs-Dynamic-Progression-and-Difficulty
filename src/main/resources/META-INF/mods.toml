@@ -18,35 +18,27 @@ license="MIT"
 
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
-    modId="dynamic_player_progression_and_player_difficulty"
-    version="${file.jarVersion}"
-    displayName="Dynamic Player Progression and Player Difficulty"
-    # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
-    #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-    # A URL for the "homepage" for this mod, displayed in the mod UI
-    #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-    # A file name (in the root of the mod JAR) containing a logo for display
-    logoFile="logo.png"
-    credits=""
-    authors="Markus Bordihn"
-    description='''Dynamically balanced the progression and difficulty for new and experienced player on the same server.'''
-
-[[dependencies.dynamic_player_progression_and_player_difficulty]] #optional
-    # the modid of the dependency
-    modId="forge" #mandatory
-    # Does this dependency have to exist - if not, ordering below must be specified
-    mandatory=true #mandatory
-    # The version range of the dependency
-    versionRange="[40,)" #mandatory
-    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
-    ordering="NONE"
-    # Side this dependency is applied on - BOTH, CLIENT or SERVER
-    side="BOTH"
+  modId="dynamic_player_progression_and_player_difficulty"
+  version="${file.jarVersion}"
+  displayName="Dynamic Player Progression and Player Difficulty"
+  # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
+  #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+  displayURL="https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty"
+  logoFile="logo.png"
+  credits=""
+  authors="Markus Bordihn"
+  description='''Dynamically balanced the progression and difficulty for new and experienced player on the same server.'''
 
 [[dependencies.dynamic_player_progression_and_player_difficulty]]
-    modId="minecraft"
-    mandatory=true
-    # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.18.2,1.19)"
-    ordering="NONE"
-    side="BOTH"
+  modId="forge"
+  mandatory=true
+  versionRange="[40,)"
+  ordering="NONE"
+  side="BOTH"
+
+[[dependencies.dynamic_player_progression_and_player_difficulty]]
+  modId="minecraft"
+  mandatory=true
+  versionRange="[1.18.2,1.19)"
+  ordering="NONE"
+  side="BOTH"

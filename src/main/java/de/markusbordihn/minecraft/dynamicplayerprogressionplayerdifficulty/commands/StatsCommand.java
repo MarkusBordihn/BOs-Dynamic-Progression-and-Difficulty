@@ -27,6 +27,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.Experience;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
 
@@ -48,16 +49,22 @@ public class StatsCommand extends CustomCommand {
     sendFeedback(context, "⚔ Stats\n=============");
 
     // Levels
-    sendFeedback(context, String.format("Damage Level (Mob): %s (%s exp)",
+    sendFeedback(context, String.format("⧫ Damage Level (Mob): %s (%s exp)",
         playerData.getDamageLevelMob(), playerData.getDamageExperienceMob()));
-    sendFeedback(context, String.format("Damage Level (Player): %s (%s exp)",
+    sendFeedback(context, String.format("⧫ Damage Level (Player): %s (%s exp)",
         playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer()));
 
     // Adjustments
-    sendFeedback(context, String.format("Dealt Damage adjustments to Mob %s / to Player %s",
+    sendFeedback(context, String.format("⚔ Dealt Damage adjustments to Mob %s / to Player %s",
         playerData.getDealtDamageAdjustmentMob(), playerData.getDealtDamageAdjustmentPlayer()));
-    sendFeedback(context, String.format("Hurt Damage adjustments by Mob %s / by Player %s",
+    sendFeedback(context, String.format("🛡 Hurt Damage adjustments by Mob %s / by Player %s",
         playerData.getHurtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentPlayer()));
+
+    // Misc
+    sendFeedback(context,
+        String.format("☠ Number of Deaths: %s / Death penalty: %s xp", playerData.getNumberOfDeaths(),
+            playerData.getNumberOfDeaths() * Experience.getExperienceForMinLevel() * 0.75));
+
     return 0;
   }
 

@@ -43,6 +43,18 @@ You should install it on the server and client to make sure everything works as 
 
 The adjustments are prioritized with a LOW priority, which mean every mod with a normal or higher priority is able to overwrite or cancel the adjustments. This makes sure it's compatible with other mods with similar features.
 
+## 🖩 Calculations
+
+This sections give a short overview how the different experience are calculated.
+
+```math
+Damage Experience Mob = (Damage Dealt * (Mob Kills / Damage Base)) - (Player Deaths * Experience Minus Points)
+```
+
+```math
+Damage Experience Player = (Damage Dealt * (Player Kills / Damage Base)) - (Player Deaths * Experience Minus Points)
+```
+
 ## Version Status Overview 🛠️
 
 | Version        | Status                |

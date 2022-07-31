@@ -104,9 +104,11 @@ public class PlayerData {
 
     // Calculate experience
     double damageBase = this.playerKills + (double) this.mobKills;
-    this.damageExperienceMob = (int) Math.round(this.damageDealt * (this.mobKills / damageBase));
-    this.damageExperiencePlayer =
-        (int) Math.round(this.damageDealt * (this.playerKills / damageBase));
+    int experienceMalus = Math.round(this.numberOfDeaths * Experience.getExperienceForMinLevel() * 0.75f);
+    this.damageExperienceMob = Math.max(
+        (int) Math.round(this.damageDealt * (this.mobKills / damageBase)) - experienceMalus, 0);
+    this.damageExperiencePlayer = Math.max(
+        (int) Math.round(this.damageDealt * (this.playerKills / damageBase)) - experienceMalus, 0);
 
     // Calculate levels
     this.damageLevelMob = Experience.getLevelFromExperience(this.damageExperienceMob);
