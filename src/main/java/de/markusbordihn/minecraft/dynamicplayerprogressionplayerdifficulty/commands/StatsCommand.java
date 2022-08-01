@@ -46,24 +46,36 @@ public class StatsCommand extends CustomCommand {
     // Update stats to make sure we should current values
     playerData.updateStats();
 
-    sendFeedback(context, "⚔ Stats\n=============");
+    sendFeedback(context, "▶ Player Stats\n=============");
 
-    // Levels
-    sendFeedback(context, String.format("⧫ Damage Level (Mob): %s (%s exp)",
-        playerData.getDamageLevelMob(), playerData.getDamageExperienceMob()));
-    sendFeedback(context, String.format("⧫ Damage Level (Player): %s (%s exp)",
-        playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer()));
-
-    // Adjustments
-    sendFeedback(context, String.format("⚔ Dealt Damage adjustments to Mob %s / to Player %s",
-        playerData.getDealtDamageAdjustmentMob(), playerData.getDealtDamageAdjustmentPlayer()));
-    sendFeedback(context, String.format("🛡 Hurt Damage adjustments by Mob %s / by Player %s",
-        playerData.getHurtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentPlayer()));
-
-    // Misc
+    // General
     sendFeedback(context,
-        String.format("☠ Number of Deaths: %s / Death penalty: %s xp", playerData.getNumberOfDeaths(),
+        String.format("☠ Number of Deaths: %s / Death penalty: %s xp",
+            playerData.getNumberOfDeaths(),
             playerData.getNumberOfDeaths() * Experience.getExperienceForMinLevel() * 0.75));
+
+    // Damage Levels
+    sendFeedback(context, String.format("⧫ Damage Level (Mob): %s (%s exp) / ⚔ %s / 🛡 %s",
+        playerData.getDamageLevelMob(), playerData.getDamageExperienceMob(),
+        playerData.getDealtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentMob()));
+    sendFeedback(context, String.format("⧫ Damage Level (Player): %s (%s exp) / ⚔ %s / 🛡 %s",
+        playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
+        playerData.getDealtDamageAdjustmentPlayer(), playerData.getHurtDamageAdjustmentPlayer()));
+
+    // Item Usage
+    sendFeedback(context,
+        String.format("🪓 Axe Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelAxe(),
+            playerData.getItemExperienceAxe(), playerData.getItemDamageAdjustmentAxe()));
+    sendFeedback(context, String.format("🏹 Bow Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelBow(),
+        playerData.getItemExperienceBow(), playerData.getItemDamageAdjustmentBow()));
+    sendFeedback(context, String.format("🏹 Crossbow Level: %s (%s exp) / ⚔ %s",
+        playerData.getItemLevelCrossbow(), playerData.getItemExperienceCrossbow(), playerData.getItemDamageAdjustmentCrossbow()));
+    sendFeedback(context, String.format("⛏ Pickaxe Level: %s (%s exp) / ⚔ %s",
+        playerData.getItemLevelPickaxe(), playerData.getItemExperiencePickaxe(), playerData.getItemDamageAdjustmentPickaxe()));
+    sendFeedback(context, String.format("🛡 Shield Level: %s (%s exp) / ⚔ %s",
+        playerData.getItemLevelShield(), playerData.getItemExperienceShield(), playerData.getItemDamageAdjustmentShield()));
+    sendFeedback(context, String.format("⚔ Sword Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelSword(),
+        playerData.getItemExperienceSword(), playerData.getItemDamageAdjustmentSword()));
 
     return 0;
   }

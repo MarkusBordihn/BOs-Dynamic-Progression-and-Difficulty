@@ -44,7 +44,7 @@ public class PlayerHurtManager {
   @SubscribeEvent(priority = EventPriority.LOW)
   public static void handleLivingHurtEvent(LivingHurtEvent event) {
 
-    // We only care about server players for now.
+    // We only care about hurt damage to server players for now.
     if (event.getEntity() instanceof ServerPlayer serverPlayer) {
       PlayerData playerData = PlayerDataManager.getPlayer(serverPlayer);
       if (playerData != null) {

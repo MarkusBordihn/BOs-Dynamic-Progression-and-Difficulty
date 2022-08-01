@@ -46,7 +46,7 @@ public class LevelCommand extends CustomCommand {
   }
 
   public int runOverview(CommandContext<CommandSourceStack> context) {
-    Map<Integer, Integer> experienceMap = Experience.getlevelExperienceMap();
+    Map<Integer, Integer> experienceMap = Experience.getLevelExperienceMap();
     for (var entry : experienceMap.entrySet()) {
       sendFeedback(context, String.format("lvl %s : %s exp", entry.getKey(), entry.getValue()));
       log.info("Level overview: {}", experienceMap);

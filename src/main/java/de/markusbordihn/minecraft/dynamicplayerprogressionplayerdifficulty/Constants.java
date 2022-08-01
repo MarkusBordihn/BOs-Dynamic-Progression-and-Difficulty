@@ -19,6 +19,8 @@
 
 package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty;
 
+import net.minecraft.ChatFormatting;
+
 public final class Constants {
 
   protected Constants() {
@@ -35,4 +37,11 @@ public final class Constants {
   public static final String MOD_URL =
       "https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty";
 
+  // Colors
+  public static final int FONT_COLOR_BLACK = ChatFormatting.BLACK.getColor();
+  public static final int FONT_COLOR_DARK_GREEN = ChatFormatting.DARK_GREEN.getColor();
+  public static final int FONT_COLOR_GRAY = ChatFormatting.GRAY.getColor();
+  public static final int FONT_COLOR_GREEN = ChatFormatting.GREEN.getColor();
+  public static final int FONT_COLOR_WARNING = ChatFormatting.RED.getColor();
+  public static final int FONT_COLOR_YELLOW = ChatFormatting.YELLOW.getColor();
 }

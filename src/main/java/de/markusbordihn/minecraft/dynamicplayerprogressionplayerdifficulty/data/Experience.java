@@ -59,6 +59,7 @@ public class Experience {
   private static int minLevel = 1;
   private static int maxLevel = 100;
   private static int experienceFactor = 300;
+  private static float experienceFactorItems = 1.25f;
 
   protected Experience() {}
 
@@ -66,6 +67,12 @@ public class Experience {
   public static void handleServerAboutToStartEvent(ServerAboutToStartEvent event) {
     maxLevel = COMMON.levelMax.get();
     experienceFactor = COMMON.levelFactor.get();
+    if (COMMON.levelFactorItems.get() > 0) {
+      experienceFactorItems = COMMON.levelFactorItems.get() / 100.0f;
+    }
+    log.info(
+        "Calculations will use {} as general experience factor and {} as item experience factor ...",
+        experienceFactor, experienceFactorItems);
     calculateLevelExperienceMap();
   }
 
@@ -89,7 +96,23 @@ public class Experience {
     }
   }
 
-  public static Map<Integer, Integer> getlevelExperienceMap() {
+  public static int getMinLevel() {
+    return minLevel;
+  }
+
+  public static int getMaxLevel() {
+    return maxLevel;
+  }
+
+  public static int getExperienceFactor() {
+    return experienceFactor;
+  }
+
+  public static float getExperienceFactorItems() {
+    return experienceFactorItems;
+  }
+
+  public static Map<Integer, Integer> getLevelExperienceMap() {
     return levelExperienceMap;
   }
 
@@ -127,7 +150,25 @@ public class Experience {
     return 0;
   }
 
+  public static int getExperienceDeathPenalty() {
+    return COMMON.levelExperienceDeathPenalty.get();
+  }
+
+  public static int getExperienceDeathPenaltyItems() {
+    return COMMON.levelExperienceDeathPenaltyItems.get();
+  }
+
   public static int getLevelFromExperience(int experience) {
+    return getLevelFromExperience(experience, 0);
+  }
+
+  public static int getLevelFromExperience(int experience, int adjustments) {
+
+    // Consider adjustments. if needed.
+    if (adjustments != 0) {
+      experience = Math.max(experience - adjustments, 0);
+    }
+
     // Check for min. level
     if (experience < getExperienceForMinLevel()) {
       return minLevel;
@@ -172,6 +213,66 @@ public class Experience {
       return dealtDamageReduction == 0 ? 0.0f
           : 1.0f - ((((float) level / maxLevel) * dealtDamageReduction) / 100f);
     }
+  }
+
+  public static float getItemDamageAdjustmentAxe(int level) {
+    int adjustment = COMMON.axeItemDamageIncrease.get();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public static float getItemDamageAdjustmentBow(int level) {
+    int adjustment = COMMON.bowItemDamageIncrease.get();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public static float getItemDamageAdjustmentCrossbow(int level) {
+    int adjustment = COMMON.crossbowItemDamageIncrease.get();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public static float getItemDamageAdjustmentPickaxe(int level) {
+    int adjustment = COMMON.pickaxeItemDamageIncrease.get();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public static float getItemDamageAdjustmentShield(int level) {
+    int adjustment = COMMON.shieldItemDamageIncrease.get();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public static float getItemDamageAdjustmentSword(int level) {
+    int adjustment = COMMON.swordItemDamageIncrease.get();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public static float getItemDamageIncreaseAxe() {
+    return COMMON.axeItemDamageIncrease.get();
+  }
+
+  public static float getItemDamageIncreaseBow() {
+    return COMMON.bowItemDamageIncrease.get();
+  }
+
+  public static float getItemDamageIncreaseCrossbow() {
+    return COMMON.crossbowItemDamageIncrease.get();
+  }
+
+  public static float getItemDamageIncreasePickaxe() {
+    return COMMON.pickaxeItemDamageIncrease.get();
+  }
+
+  public static float getItemDamageIncreaseShield() {
+    return COMMON.shieldItemDamageIncrease.get();
+  }
+
+  public static float getItemDamageIncreaseSword() {
+    return COMMON.swordItemDamageIncrease.get();
   }
 
 }

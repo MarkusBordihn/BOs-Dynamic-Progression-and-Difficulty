@@ -12,7 +12,8 @@ In most cases it's difficult to balanced new players with experience players wit
 - Dynamically adjust hurt damage (to the Player)
 - Experience points / levels for different kind of areas based on existing stats
 - Customization over config file
-- Weapon classes with weapon progression (more damage, faster, ...) (WIP)
+- Weapon classes with weapon progression (more damage, faster, ...)
+- Use the existing user stats, which mean existing experienced players will start with a higher level and not with level 1.
 - Scoreboard (WIP)
 - Player specific title (WIP)
 
