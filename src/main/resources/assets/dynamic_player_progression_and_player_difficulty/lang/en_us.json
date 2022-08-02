@@ -1,4 +1,4 @@
 {
-  "block.placeholder.text": "Template placeholder do not remove!",
-  "item.placeholder.text": "Template placeholder do not remove!"
+  "text.dynamic_player_progression_and_player_difficulty.tooltip.level": "Level: %1$s/%2$s",
+  "text.dynamic_player_progression_and_player_difficulty.tooltip.attack_damage": "%1$s Attack Damage"
 }

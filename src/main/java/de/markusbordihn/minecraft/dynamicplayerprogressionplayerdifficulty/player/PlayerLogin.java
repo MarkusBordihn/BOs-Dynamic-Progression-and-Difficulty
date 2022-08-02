@@ -32,6 +32,7 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerServerDataClientSync;
 
 @EventBusSubscriber
 public class PlayerLogin {
@@ -49,6 +50,7 @@ public class PlayerLogin {
         ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByName(username);
     PlayerData playerData = PlayerDataManager.addPlayer(player);
     log.info("Player {} ({}) logged in with data {}", username, player, playerData);
+    PlayerServerDataClientSync.syncPlayerData(playerData);
   }
 
   @SubscribeEvent

@@ -17,29 +17,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty;
+package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraft.nbt.CompoundTag;
 
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.network.NetworkHandler;
 
-@Mod(Constants.MOD_ID)
-public class DynamicPlayerProgressionAndPlayerDifficulty {
+public class PlayerServerDataClientSync {
 
-  public static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  public DynamicPlayerProgressionAndPlayerDifficulty() {
-    final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+  protected PlayerServerDataClientSync() {}
 
-    modEventBus.addListener(NetworkHandler::registerNetworkHandler);
-
-    forgeEventBus.addListener(ServerSetup::handleServerStartingEvent);
+  public static void syncPlayerData(PlayerData playerData) {
+    if (playerData == null) {
+      return;
+    }
+    log.debug("Sync player data for {} with {}", playerData.getUserUUID(), playerData);
+    CompoundTag data = exportPlayerData(playerData);
+    if (!data.isEmpty()) {
+      NetworkHandler.updatePlayerData(playerData.getUserUUID(), data);
+    }
   }
+
+  public static CompoundTag exportPlayerData(PlayerData playerData) {
+    CompoundTag compoundTag = new CompoundTag();
+    if (playerData != null && playerData.getUserUUID() != null) {
+      playerData.save(compoundTag);
+    }
+    return compoundTag;
+  }
+
 }

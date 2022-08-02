@@ -12,7 +12,7 @@ In most cases it's difficult to balanced new players with experience players wit
 - Dynamically adjust hurt damage (to the Player)
 - Experience points / levels for different kind of areas based on existing stats
 - Customization over config file
-- Weapon classes with weapon progression (more damage, faster, ...)
+- Weapon classes with weapon progression (more damage, faster, ...) and mod support
 - Use the existing user stats, which mean existing experienced players will start with a higher level and not with level 1.
 - Scoreboard (WIP)
 - Player specific title (WIP)
@@ -33,6 +33,44 @@ The mods has the following commands to get more insights in your stats.
 - `/player_progression stats` will provide a overview for the player with their current stats.
 - `/player_progression level overview` shows the calculated level and needed experience based on the settings from the configuration. (Op only)
 
+## Player Stats
+
+There are different internal stats for the player which are used for the calculations.
+You can use the `/player_progression stats` command to get an detailed overview.
+
+![Example Player Stats](examples/player_stats.png)
+
+The stats will not conflict with other mods so you can still use any other RPG or MMO mod.
+
+## Weapon Classes
+
+Each weapon will be categorize in on of the following classes, you can customize them over the config file in the case items are missing from other mods.
+Depending on your weapon class the your weapon class level you will get additional bonus stats for the weapon class like additional **Attack Damage**.
+
+### Axe Class
+
+![Tooltip for Axe Class](examples/weapon_class_axe.png)
+
+### Bow Class
+
+![Tooltip for Bow Class](examples/weapon_class_bow.png)
+
+### Crossbow Class
+
+![Tooltip for Crossbow Class](examples/weapon_class_crossbow.png)
+
+### Pickaxe Class
+
+![Tooltip for Pickaxe Class](examples/weapon_class_pickaxe.png)
+
+### Shield Class
+
+![Tooltip for Shield Class](examples/weapon_class_shield.png)
+
+### Sword Class
+
+![Tooltip for Sword Class](examples/weapon_class_sword.png)
+
 ## 🙋FAQ
 
 ### Is this a server side / client side mod❓
@@ -42,18 +80,28 @@ You should install it on the server and client to make sure everything works as 
 
 ### Does it work with xyz❓
 
-The adjustments are prioritized with a LOW priority, which mean every mod with a normal or higher priority is able to overwrite or cancel the adjustments. This makes sure it's compatible with other mods with similar features.
+The adjustments are prioritized with a LOW priority, which mean every mod with a NORMAL or HIGH priority is able to overwrite or cancel the adjustments. This makes sure it's compatible with other mods with similar features.
+
+### I updated the mod, but something is not working❓
+
+In some cases it could be that I need to adjusted the default values like for additional mod support, better distribution, ...
+If you run into any issue, please try first to delete the existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file and restart the client / server.
+After the restart the file should be automatically re-crated with the correct default values.
 
 ## 🖩 Calculations
 
 This sections give a short overview how the different experience are calculated.
 
 ```math
-Damage Experience Mob = (Damage Dealt * (Mob Kills / Damage Base)) - (Player Deaths * Experience Minus Points)
+Damage Experience Mob = (Damage Dealt * (Mob Kills / Damage Base)) - (Player Deaths * Experience Death Penalty)
 ```
 
 ```math
-Damage Experience Player = (Damage Dealt * (Player Kills / Damage Base)) - (Player Deaths * Experience Minus Points)
+Damage Experience Player = (Damage Dealt * (Player Kills / Damage Base)) - (Player Deaths * Experience Death Penalty)
+```
+
+```math
+Item Experience = (Item Used * Item Experience Factor) - (Player Deaths * Item Experience Death Penalty)
 ```
 
 ## Version Status Overview 🛠️

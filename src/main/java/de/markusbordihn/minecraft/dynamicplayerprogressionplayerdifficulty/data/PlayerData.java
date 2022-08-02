@@ -20,7 +20,9 @@
 package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data;
 
 import java.util.Set;
+import java.util.UUID;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.ServerStatsCounter;
@@ -30,10 +32,41 @@ import net.minecraft.world.item.Item;
 
 public class PlayerData {
 
+  // Tag definitions
+  public static final String DAMAGE_EXPERIENCE_MOB_TAG = "DamageExperienceMob";
+  public static final String DAMAGE_EXPERIENCE_PLAYER_TAG = "DamageExperiencePlayer";
+  public static final String DAMAGE_LEVEL_MOB_TAG = "DamageLevelMob";
+  public static final String DAMAGE_LEVEL_PLAYER_TAG = "DamageLevelPlayer";
+  public static final String DEALT_DAMAGE_ADJUSTMENT_MOB_TAG = "DealtDamageAdjustmentMob";
+  public static final String DEALT_DAMAGE_ADJUSTMENT_PLAYER_TAG = "DealtDamageAdjustmentPlayer";
+  public static final String HURT_DAMAGE_ADJUSTMENT_MOB_TAG = "HurtDamageAdjustmentMob";
+  public static final String HURT_DAMAGE_ADJUSTMENT_PLAYER_TAG = "HurtDamageAdjustmentPlayer";
+  public static final String ITEM_DAMAGE_ADJUSTMENT_AXE_TAG = "ItemDamageAdjustmentAxe";
+  public static final String ITEM_DAMAGE_ADJUSTMENT_BOW_TAG = "ItemDamageAdjustmentBow";
+  public static final String ITEM_DAMAGE_ADJUSTMENT_CROSSBOW_TAG = "ItemDamageAdjustmentCrossbow";
+  public static final String ITEM_DAMAGE_ADJUSTMENT_PICKAXE_TAG = "ItemDamageAdjustmentPickaxe";
+  public static final String ITEM_DAMAGE_ADJUSTMENT_SHIELD_TAG = "ItemDamageAdjustmentShield";
+  public static final String ITEM_DAMAGE_ADJUSTMENT_SWORD_TAG = "ItemDamageAdjustmentSword";
+  public static final String ITEM_EXPERIENCE_AXE_TAG = "ItemExperienceAxe";
+  public static final String ITEM_EXPERIENCE_BOW_TAG = "ItemExperienceBow";
+  public static final String ITEM_EXPERIENCE_CROSSBOW_TAG = "ItemExperienceCrossbow";
+  public static final String ITEM_EXPERIENCE_PICKAXE_TAG = "ItemExperiencePickaxe";
+  public static final String ITEM_EXPERIENCE_SHIELD_TAG = "ItemExperienceShield";
+  public static final String ITEM_EXPERIENCE_SWORD_TAG = "ItemExperienceSword";
+  public static final String ITEM_LEVEL_AXE_TAG = "ItemLevelAxe";
+  public static final String ITEM_LEVEL_BOW_TAG = "ItemLevelBow";
+  public static final String ITEM_LEVEL_CROSSBOW_TAG = "ItemLevelCrossbow";
+  public static final String ITEM_LEVEL_PICKAXE_TAG = "ItemLevelPickaxe";
+  public static final String ITEM_LEVEL_SHIELD_TAG = "ItemLevelShield";
+  public static final String ITEM_LEVEL_SWORD_TAG = "ItemLevelSword";
+  public static final String NAME_TAG = "Name";
+  public static final String UUID_TAG = "UUID";
+
   private ServerPlayer player;
   private ServerStatsCounter stats;
 
   private String username;
+  private UUID userUUID;
 
   // General stats
   private float damageAbsorbed = 0;
@@ -83,11 +116,22 @@ public class PlayerData {
   private float itemDamageAdjustmentShield = 0;
   private float itemDamageAdjustmentSword = 0;
 
+  public PlayerData() {}
+
+  public PlayerData(CompoundTag compoundTag) {
+    if (compoundTag == null || compoundTag.isEmpty()) {
+      return;
+    }
+    load(compoundTag);
+  }
+
   public PlayerData(ServerPlayer player) {
     if (player == null) {
       return;
     }
     this.player = player;
+    this.username = player.getName().getString();
+    this.userUUID = player.getUUID();
     this.stats = player.getStats();
     updateStats();
   }
@@ -183,6 +227,10 @@ public class PlayerData {
 
   public String getUsername() {
     return username;
+  }
+
+  public UUID getUserUUID() {
+    return userUUID;
   }
 
   public float getDamageAbsorbed() {
@@ -345,10 +393,67 @@ public class PlayerData {
     return itemDamageAdjustmentSword;
   }
 
-  @Override
-  public String toString() {
-    return "PlayerData['" + player.getDisplayName().getString() + "', damage dealt="
-        + this.damageDealt + "]";
+  public void load(CompoundTag compoundTag) {
+    this.damageExperienceMob = compoundTag.getInt(DAMAGE_EXPERIENCE_MOB_TAG);
+    this.damageExperiencePlayer = compoundTag.getInt(DAMAGE_EXPERIENCE_PLAYER_TAG);
+    this.damageLevelMob = compoundTag.getInt(DAMAGE_LEVEL_MOB_TAG);
+    this.damageLevelPlayer = compoundTag.getInt(DAMAGE_LEVEL_PLAYER_TAG);
+    this.dealtDamageAdjustmentMob = compoundTag.getFloat(DEALT_DAMAGE_ADJUSTMENT_MOB_TAG);
+    this.dealtDamageAdjustmentPlayer = compoundTag.getFloat(DEALT_DAMAGE_ADJUSTMENT_PLAYER_TAG);
+    this.hurtDamageAdjustmentMob = compoundTag.getFloat(HURT_DAMAGE_ADJUSTMENT_MOB_TAG);
+    this.hurtDamageAdjustmentPlayer = compoundTag.getFloat(HURT_DAMAGE_ADJUSTMENT_PLAYER_TAG);
+    this.itemDamageAdjustmentAxe = compoundTag.getFloat(ITEM_DAMAGE_ADJUSTMENT_AXE_TAG);
+    this.itemDamageAdjustmentBow = compoundTag.getFloat(ITEM_DAMAGE_ADJUSTMENT_BOW_TAG);
+    this.itemDamageAdjustmentCrossbow = compoundTag.getFloat(ITEM_DAMAGE_ADJUSTMENT_CROSSBOW_TAG);
+    this.itemDamageAdjustmentPickaxe = compoundTag.getFloat(ITEM_DAMAGE_ADJUSTMENT_PICKAXE_TAG);
+    this.itemDamageAdjustmentShield = compoundTag.getFloat(ITEM_DAMAGE_ADJUSTMENT_SHIELD_TAG);
+    this.itemDamageAdjustmentSword = compoundTag.getFloat(ITEM_DAMAGE_ADJUSTMENT_SWORD_TAG);
+    this.itemExperienceAxe = compoundTag.getInt(ITEM_EXPERIENCE_AXE_TAG);
+    this.itemExperienceBow = compoundTag.getInt(ITEM_EXPERIENCE_BOW_TAG);
+    this.itemExperienceCrossbow = compoundTag.getInt(ITEM_EXPERIENCE_CROSSBOW_TAG);
+    this.itemExperiencePickaxe = compoundTag.getInt(ITEM_EXPERIENCE_PICKAXE_TAG);
+    this.itemExperienceShield = compoundTag.getInt(ITEM_EXPERIENCE_SHIELD_TAG);
+    this.itemExperienceSword = compoundTag.getInt(ITEM_EXPERIENCE_SWORD_TAG);
+    this.itemLevelAxe = compoundTag.getInt(ITEM_LEVEL_AXE_TAG);
+    this.itemLevelBow = compoundTag.getInt(ITEM_LEVEL_BOW_TAG);
+    this.itemLevelCrossbow = compoundTag.getInt(ITEM_LEVEL_CROSSBOW_TAG);
+    this.itemLevelPickaxe = compoundTag.getInt(ITEM_LEVEL_PICKAXE_TAG);
+    this.itemLevelShield = compoundTag.getInt(ITEM_LEVEL_SHIELD_TAG);
+    this.itemLevelSword = compoundTag.getInt(ITEM_LEVEL_SWORD_TAG);
+    this.userUUID = compoundTag.getUUID(UUID_TAG);
+    this.username = compoundTag.getString(NAME_TAG);
+  }
+
+  public CompoundTag save(CompoundTag compoundTag) {
+    compoundTag.putInt(DAMAGE_EXPERIENCE_MOB_TAG, this.damageExperienceMob);
+    compoundTag.putInt(DAMAGE_EXPERIENCE_PLAYER_TAG, this.damageExperiencePlayer);
+    compoundTag.putInt(DAMAGE_LEVEL_MOB_TAG, this.damageLevelMob);
+    compoundTag.putInt(DAMAGE_LEVEL_PLAYER_TAG, this.damageLevelPlayer);
+    compoundTag.putFloat(DEALT_DAMAGE_ADJUSTMENT_MOB_TAG, this.dealtDamageAdjustmentMob);
+    compoundTag.putFloat(DEALT_DAMAGE_ADJUSTMENT_PLAYER_TAG, this.dealtDamageAdjustmentPlayer);
+    compoundTag.putFloat(HURT_DAMAGE_ADJUSTMENT_MOB_TAG, this.hurtDamageAdjustmentMob);
+    compoundTag.putFloat(HURT_DAMAGE_ADJUSTMENT_PLAYER_TAG, this.hurtDamageAdjustmentPlayer);
+    compoundTag.putFloat(ITEM_DAMAGE_ADJUSTMENT_AXE_TAG, this.itemDamageAdjustmentAxe);
+    compoundTag.putFloat(ITEM_DAMAGE_ADJUSTMENT_BOW_TAG, this.itemDamageAdjustmentBow);
+    compoundTag.putFloat(ITEM_DAMAGE_ADJUSTMENT_CROSSBOW_TAG, this.itemDamageAdjustmentCrossbow);
+    compoundTag.putFloat(ITEM_DAMAGE_ADJUSTMENT_PICKAXE_TAG, this.itemDamageAdjustmentPickaxe);
+    compoundTag.putFloat(ITEM_DAMAGE_ADJUSTMENT_SHIELD_TAG, this.itemDamageAdjustmentShield);
+    compoundTag.putFloat(ITEM_DAMAGE_ADJUSTMENT_SWORD_TAG, this.itemDamageAdjustmentSword);
+    compoundTag.putInt(ITEM_EXPERIENCE_AXE_TAG, this.itemExperienceAxe);
+    compoundTag.putInt(ITEM_EXPERIENCE_BOW_TAG, this.itemExperienceBow);
+    compoundTag.putInt(ITEM_EXPERIENCE_CROSSBOW_TAG, this.itemExperienceCrossbow);
+    compoundTag.putInt(ITEM_EXPERIENCE_PICKAXE_TAG, this.itemExperiencePickaxe);
+    compoundTag.putInt(ITEM_EXPERIENCE_SHIELD_TAG, this.itemExperienceShield);
+    compoundTag.putInt(ITEM_EXPERIENCE_SWORD_TAG, this.itemExperienceSword);
+    compoundTag.putInt(ITEM_LEVEL_AXE_TAG, this.itemLevelAxe);
+    compoundTag.putInt(ITEM_LEVEL_BOW_TAG, this.itemLevelBow);
+    compoundTag.putInt(ITEM_LEVEL_CROSSBOW_TAG, this.itemLevelCrossbow);
+    compoundTag.putInt(ITEM_LEVEL_PICKAXE_TAG, this.itemLevelPickaxe);
+    compoundTag.putInt(ITEM_LEVEL_SHIELD_TAG, this.itemLevelShield);
+    compoundTag.putInt(ITEM_LEVEL_SWORD_TAG, this.itemLevelSword);
+    compoundTag.putString(NAME_TAG, this.username);
+    compoundTag.putUUID(UUID_TAG, this.userUUID);
+    return compoundTag;
   }
 
   private int getItemUsage(Item item) {
@@ -364,6 +469,12 @@ public class PlayerData {
       }
     }
     return usage;
+  }
+
+  @Override
+  public String toString() {
+    return "PlayerData['" + player.getDisplayName().getString() + "', damage dealt="
+        + this.damageDealt + "]";
   }
 
   private static float getStatsFloatValue(ServerStatsCounter stats,

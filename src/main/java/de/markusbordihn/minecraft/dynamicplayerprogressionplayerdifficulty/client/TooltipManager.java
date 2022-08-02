@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -37,6 +38,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.Experience;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
 
 @EventBusSubscriber(value = Dist.CLIENT)
@@ -56,11 +58,16 @@ public class TooltipManager {
 
     Item item = itemStack.getItem();
     List<Component> tooltip = event.getToolTip();
+    PlayerData playerData = PlayerDataManager.getLocalPlayer();
 
     // Sword item damage
     if (PlayerDataManager.isSwordItem(item)) {
       if (Experience.getItemDamageIncreaseSword() > 0.0f) {
         tooltip.add(1, new TextComponent("⚔ Weapon Class: Sword").withStyle(ChatFormatting.GRAY));
+        if (playerData != null) {
+          tooltip.add(2, formatLevel(playerData.getItemLevelSword()));
+          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentSword()));
+        }
       }
     }
 
@@ -68,6 +75,10 @@ public class TooltipManager {
     else if (PlayerDataManager.isAxeItem(item)) {
       if (Experience.getItemDamageIncreaseAxe() > 0.0f) {
         tooltip.add(1, new TextComponent("🪓 Weapon Class: Axe").withStyle(ChatFormatting.GRAY));
+        if (playerData != null) {
+          tooltip.add(2, formatLevel(playerData.getItemLevelAxe()));
+          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentAxe()));
+        }
       }
     }
 
@@ -75,6 +86,10 @@ public class TooltipManager {
     else if (PlayerDataManager.isBowItem(item)) {
       if (Experience.getItemDamageIncreaseBow() > 0.0f) {
         tooltip.add(1, new TextComponent("🏹 Weapon Class: Bow").withStyle(ChatFormatting.GRAY));
+        if (playerData != null) {
+          tooltip.add(2, formatLevel(playerData.getItemLevelBow()));
+          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentBow()));
+        }
       }
     }
 
@@ -83,6 +98,10 @@ public class TooltipManager {
       if (Experience.getItemDamageIncreaseCrossbow() > 0.0f) {
         tooltip.add(1,
             new TextComponent("🏹 Weapon Class: Crossbow").withStyle(ChatFormatting.GRAY));
+        if (playerData != null) {
+          tooltip.add(2, formatLevel(playerData.getItemLevelCrossbow()));
+          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentCrossbow()));
+        }
       }
     }
 
@@ -90,6 +109,10 @@ public class TooltipManager {
     else if (PlayerDataManager.isPickaxeItem(item)) {
       if (Experience.getItemDamageIncreasePickaxe() > 0.0f) {
         tooltip.add(1, new TextComponent("⛏ Weapon Class: Pickaxe").withStyle(ChatFormatting.GRAY));
+        if (playerData != null) {
+          tooltip.add(2, formatLevel(playerData.getItemLevelPickaxe()));
+          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentPickaxe()));
+        }
       }
     }
 
@@ -97,9 +120,29 @@ public class TooltipManager {
     else if (PlayerDataManager.isShieldItem(item)) {
       if (Experience.getItemDamageIncreaseShield() > 0.0f) {
         tooltip.add(1, new TextComponent("🛡 Weapon Class: Shield").withStyle(ChatFormatting.GRAY));
+        if (playerData != null) {
+          tooltip.add(2, formatLevel(playerData.getItemLevelShield()));
+          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentShield()));
+        }
       }
     }
 
+    else {
+      // Do nothing.
+    }
+
+  }
+
+  private static Component formatLevel(int level) {
+    return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "level", level,
+        Experience.getMaxLevel()).withStyle(ChatFormatting.YELLOW);
+  }
+
+  private static Component formatAttackDamage(float attackDamage) {
+    return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "attack_damage",
+        new TextComponent(
+            String.format("+%.2f%%", attackDamage > 1 ? (attackDamage - 1) * 100 : attackDamage))
+                .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY);
   }
 
 }

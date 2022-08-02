@@ -17,29 +17,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty;
+package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import com.google.gson.JsonSyntaxException;
 
-import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.network.NetworkHandler;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-@Mod(Constants.MOD_ID)
-public class DynamicPlayerProgressionAndPlayerDifficulty {
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 
-  public static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 
-  public DynamicPlayerProgressionAndPlayerDifficulty() {
-    final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+public class PlayerClientData {
 
-    modEventBus.addListener(NetworkHandler::registerNetworkHandler);
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-    forgeEventBus.addListener(ServerSetup::handleServerStartingEvent);
+  protected PlayerClientData() {}
+
+  public static void load(String data) {
+    CompoundTag compoundTag;
+    try {
+      compoundTag = TagParser.parseTag(data);
+    } catch (CommandSyntaxException commandSyntaxException) {
+      throw new JsonSyntaxException("Invalid nbt tag: " + commandSyntaxException.getMessage());
+    }
+    if (compoundTag != null) {
+      load(compoundTag);
+    }
   }
+
+  public static void load(CompoundTag compoundTag) {
+    if (compoundTag.contains(PlayerData.UUID_TAG)) {
+      PlayerDataManager.loadClientData(compoundTag);
+    } else {
+      log.error("Unable to load Player Companion data from {}!", compoundTag);
+    }
+  }
+
 }

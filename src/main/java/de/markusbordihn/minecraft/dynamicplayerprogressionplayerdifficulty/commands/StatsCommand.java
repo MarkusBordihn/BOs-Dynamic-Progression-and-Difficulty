@@ -50,14 +50,16 @@ public class StatsCommand extends CustomCommand {
 
     // General
     sendFeedback(context,
-        String.format("☠ Number of Deaths: %s / Death penalty: %s xp",
+        String.format("☠ Deaths: %s / Deaths Penalty: %s xp / Item Penalty: %s xp",
             playerData.getNumberOfDeaths(),
-            playerData.getNumberOfDeaths() * Experience.getExperienceForMinLevel() * 0.75));
+            playerData.getNumberOfDeaths() * Experience.getExperienceDeathPenalty(),
+            playerData.getNumberOfDeaths() * Experience.getExperienceDeathPenaltyItems()));
 
     // Damage Levels
-    sendFeedback(context, String.format("⧫ Damage Level (Mob): %s (%s exp) / ⚔ %s / 🛡 %s",
-        playerData.getDamageLevelMob(), playerData.getDamageExperienceMob(),
-        playerData.getDealtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentMob()));
+    sendFeedback(context,
+        String.format("⧫ Damage Level (Mob): %s (%s exp) / ⚔ %s / 🛡 %s",
+            playerData.getDamageLevelMob(), playerData.getDamageExperienceMob(),
+            playerData.getDealtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentMob()));
     sendFeedback(context, String.format("⧫ Damage Level (Player): %s (%s exp) / ⚔ %s / 🛡 %s",
         playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
         playerData.getDealtDamageAdjustmentPlayer(), playerData.getHurtDamageAdjustmentPlayer()));
@@ -66,16 +68,21 @@ public class StatsCommand extends CustomCommand {
     sendFeedback(context,
         String.format("🪓 Axe Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelAxe(),
             playerData.getItemExperienceAxe(), playerData.getItemDamageAdjustmentAxe()));
-    sendFeedback(context, String.format("🏹 Bow Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelBow(),
-        playerData.getItemExperienceBow(), playerData.getItemDamageAdjustmentBow()));
-    sendFeedback(context, String.format("🏹 Crossbow Level: %s (%s exp) / ⚔ %s",
-        playerData.getItemLevelCrossbow(), playerData.getItemExperienceCrossbow(), playerData.getItemDamageAdjustmentCrossbow()));
-    sendFeedback(context, String.format("⛏ Pickaxe Level: %s (%s exp) / ⚔ %s",
-        playerData.getItemLevelPickaxe(), playerData.getItemExperiencePickaxe(), playerData.getItemDamageAdjustmentPickaxe()));
-    sendFeedback(context, String.format("🛡 Shield Level: %s (%s exp) / ⚔ %s",
-        playerData.getItemLevelShield(), playerData.getItemExperienceShield(), playerData.getItemDamageAdjustmentShield()));
-    sendFeedback(context, String.format("⚔ Sword Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelSword(),
-        playerData.getItemExperienceSword(), playerData.getItemDamageAdjustmentSword()));
+    sendFeedback(context,
+        String.format("🏹 Bow Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelBow(),
+            playerData.getItemExperienceBow(), playerData.getItemDamageAdjustmentBow()));
+    sendFeedback(context,
+        String.format("🏹 Crossbow Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelCrossbow(),
+            playerData.getItemExperienceCrossbow(), playerData.getItemDamageAdjustmentCrossbow()));
+    sendFeedback(context,
+        String.format("⛏ Pickaxe Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelPickaxe(),
+            playerData.getItemExperiencePickaxe(), playerData.getItemDamageAdjustmentPickaxe()));
+    sendFeedback(context,
+        String.format("🛡 Shield Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelShield(),
+            playerData.getItemExperienceShield(), playerData.getItemDamageAdjustmentShield()));
+    sendFeedback(context,
+        String.format("⚔ Sword Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelSword(),
+            playerData.getItemExperienceSword(), playerData.getItemDamageAdjustmentSword()));
 
     return 0;
   }

@@ -7,6 +7,14 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 
 ### 2022.08.02
 
+- Added additional mod support
+- Added client sync for stats
+- Improved tooltips to display synced client side data
+- Adjusted default config values
+  **Note:** It could be that you need to delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
+
+### 2022.08.01
+
 - Added Weapon classes and adjustments based on experience
 - Added prepared tooltips for supported weapons
 

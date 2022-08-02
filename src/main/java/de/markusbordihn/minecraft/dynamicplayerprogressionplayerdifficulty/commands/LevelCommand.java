@@ -41,7 +41,8 @@ public class LevelCommand extends CustomCommand {
 
   @Override
   public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-    sendFeedback(context, "The level command which show you the current level definition.\n===");
+    sendFeedback(context,
+        "The level command show you the current level definition.\n===\n- level overview\n- level recalculate\n");
     return 0;
   }
 

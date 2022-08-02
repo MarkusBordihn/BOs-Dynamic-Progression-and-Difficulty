@@ -24,10 +24,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
@@ -48,6 +50,7 @@ public class PlayerDataManager {
 
   private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
 
+  private static PlayerData localPlayerData = null;
   private static ConcurrentHashMap<UUID, PlayerData> playerMap = new ConcurrentHashMap<>();
 
   private static Set<Item> axeItems = new HashSet<>();
@@ -69,9 +72,10 @@ public class PlayerDataManager {
         playerMap = new ConcurrentHashMap<>();
       } else {
         log.info("Preparing Player Data Manager (client)...");
+        localPlayerData = new PlayerData();
       }
 
-      log.info("Mapping items to categories");
+      log.info("Mapping waepon items to weapon categories");
       processConfigItems(COMMON.axeItems.get(), axeItems);
       processConfigItems(COMMON.bowItems.get(), bowItems);
       processConfigItems(COMMON.crossbowItems.get(), crossbowItems);
@@ -102,6 +106,14 @@ public class PlayerDataManager {
     return playerMap.getOrDefault(playerUUID, null);
   }
 
+  public static PlayerData getLocalPlayer() {
+    return localPlayerData;
+  }
+
+  public static ConcurrentMap<UUID, PlayerData> getPlayerMap() {
+    return playerMap;
+  }
+
   public static void updatePlayer(ServerPlayer player) {
     updatePlayer(player.getUUID());
   }
@@ -110,6 +122,7 @@ public class PlayerDataManager {
     PlayerData playerData = getPlayer(playerUUID);
     if (playerData != null) {
       playerData.updateStats();
+      PlayerServerDataClientSync.syncPlayerData(playerData);
     }
   }
 
@@ -168,6 +181,10 @@ public class PlayerDataManager {
       }
     }
     return false;
+  }
+
+  public static void loadClientData(CompoundTag compoundTag) {
+    localPlayerData = new PlayerData(compoundTag);
   }
 
   private static void processConfigItems(List<String> itemNames, Set<Item> targetedItemSet) {

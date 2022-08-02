@@ -19,15 +19,19 @@
 
 package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data;
 
+import java.util.Iterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 
 public class PlayerServerData extends SavedData {
@@ -35,6 +39,8 @@ public class PlayerServerData extends SavedData {
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
   private static final String PLAYER_FILE_ID = Constants.MOD_ID;
+
+  public static final String PLAYER_DATA_TAG = "PlayerData";
 
   private static MinecraftServer server;
   private static PlayerServerData data;
@@ -78,6 +84,19 @@ public class PlayerServerData extends SavedData {
   @Override
   public CompoundTag save(CompoundTag compoundTag) {
     log.info("{} saving data ... {}", Constants.LOG_ICON_NAME, this);
+
+    // Iterate throw all players and store their player data.
+    ListTag playerDataListTag = new ListTag();
+    Iterator<PlayerData> playerDataIterator = PlayerDataManager.getPlayerMap().values().iterator();
+    while (playerDataIterator.hasNext()) {
+      PlayerData playerData = playerDataIterator.next();
+      if (playerData != null) {
+        CompoundTag playerDataCompoundTag = new CompoundTag();
+        playerData.save(playerDataCompoundTag);
+        playerDataListTag.add(playerDataCompoundTag);
+      }
+    }
+    compoundTag.put(PLAYER_DATA_TAG, playerDataListTag);
 
     return compoundTag;
   }

@@ -44,4 +44,7 @@ public final class Constants {
   public static final int FONT_COLOR_GREEN = ChatFormatting.GREEN.getColor();
   public static final int FONT_COLOR_WARNING = ChatFormatting.RED.getColor();
   public static final int FONT_COLOR_YELLOW = ChatFormatting.YELLOW.getColor();
+
+  // Prefixes
+  public static final String TOOLTIP_TEXT_PREFIX = "text." + MOD_ID + ".tooltip.";
 }

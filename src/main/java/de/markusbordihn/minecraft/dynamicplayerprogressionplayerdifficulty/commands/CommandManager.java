@@ -48,6 +48,7 @@ public class CommandManager {
     CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
     commandDispatcher.register(Commands.literal(Constants.MOD_COMMAND)
     // @formatter:off
+        .then(ItemsCommand.register())
         .then(LevelCommand.register())
         .then(StatsCommand.register())
       // @formatter:on
