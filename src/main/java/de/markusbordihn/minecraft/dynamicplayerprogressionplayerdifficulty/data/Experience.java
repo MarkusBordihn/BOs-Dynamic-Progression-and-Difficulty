@@ -164,14 +164,14 @@ public class Experience {
 
   public static int getLevelFromExperience(int experience, int adjustments) {
 
-    // Consider adjustments. if needed.
-    if (adjustments != 0) {
-      experience = Math.max(experience - adjustments, 0);
-    }
-
     // Check for min. level
     if (experience < getExperienceForMinLevel()) {
       return minLevel;
+    }
+
+    // Consider adjustments. if needed.
+    if (adjustments != 0) {
+      experience = Math.max(experience - adjustments, 0);
     }
 
     // Check for max. level

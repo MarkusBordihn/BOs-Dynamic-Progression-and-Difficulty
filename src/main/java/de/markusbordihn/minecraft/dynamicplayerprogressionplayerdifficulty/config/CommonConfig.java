@@ -55,6 +55,10 @@ public class CommonConfig {
 
   public static class Config {
 
+    public final ForgeConfigSpec.BooleanValue guiButtonEnabled;
+    public final ForgeConfigSpec.IntValue guiButtonPositionLeft;
+    public final ForgeConfigSpec.IntValue guiButtonPositionTop;
+
     public final ForgeConfigSpec.IntValue levelMax;
     public final ForgeConfigSpec.IntValue levelFactor;
     public final ForgeConfigSpec.IntValue levelFactorItems;
@@ -89,9 +93,17 @@ public class CommonConfig {
 
     Config(ForgeConfigSpec.Builder builder) {
       builder.comment(
-          "Dynamic Player Progression and Difficulty\nNote: Changes requires are server restart!");
+          "Dynamic Player Progression and Difficulty\nNote: Some changes requires are server restart!");
 
-      builder.push("General");
+      builder.push("Gui");
+      guiButtonEnabled = builder.comment("Enable/Disable stats button in the inventory screen.")
+          .define("guiButtonEnabled", true);
+      guiButtonPositionLeft =
+          builder.comment("Defines the left position relative to the inventory screen.")
+              .defineInRange("guiButtonPositionLeft", 64, 0, 640);
+      guiButtonPositionTop =
+          builder.comment("Defines the top position relative to the inventory screen.")
+              .defineInRange("guiButtonPositionTop", 9, 0, 480);
       builder.pop();
 
       builder.push("Level System");
