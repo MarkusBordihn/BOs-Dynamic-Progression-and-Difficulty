@@ -59,6 +59,8 @@ public class PlayerData {
   public static final String ITEM_LEVEL_PICKAXE_TAG = "ItemLevelPickaxe";
   public static final String ITEM_LEVEL_SHIELD_TAG = "ItemLevelShield";
   public static final String ITEM_LEVEL_SWORD_TAG = "ItemLevelSword";
+  public static final String KILLS_MOB = "KillsMob";
+  public static final String KILLS_PLAYER = "KillsPlayer";
   public static final String NAME_TAG = "Name";
   public static final String UUID_TAG = "UUID";
 
@@ -420,6 +422,8 @@ public class PlayerData {
     this.itemLevelPickaxe = compoundTag.getInt(ITEM_LEVEL_PICKAXE_TAG);
     this.itemLevelShield = compoundTag.getInt(ITEM_LEVEL_SHIELD_TAG);
     this.itemLevelSword = compoundTag.getInt(ITEM_LEVEL_SWORD_TAG);
+    this.mobKills = compoundTag.getInt(KILLS_MOB);
+    this.playerKills = compoundTag.getInt(KILLS_PLAYER);
     this.userUUID = compoundTag.getUUID(UUID_TAG);
     this.username = compoundTag.getString(NAME_TAG);
   }
@@ -451,6 +455,8 @@ public class PlayerData {
     compoundTag.putInt(ITEM_LEVEL_PICKAXE_TAG, this.itemLevelPickaxe);
     compoundTag.putInt(ITEM_LEVEL_SHIELD_TAG, this.itemLevelShield);
     compoundTag.putInt(ITEM_LEVEL_SWORD_TAG, this.itemLevelSword);
+    compoundTag.putInt(KILLS_MOB, this.mobKills);
+    compoundTag.putInt(KILLS_PLAYER, this.playerKills);
     compoundTag.putString(NAME_TAG, this.username);
     compoundTag.putUUID(UUID_TAG, this.userUUID);
     return compoundTag;

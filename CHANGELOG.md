@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.10
+
+- Added stats button to directly show current stats and level.
+
 ### 2022.08.02
 
 - Added additional mod support

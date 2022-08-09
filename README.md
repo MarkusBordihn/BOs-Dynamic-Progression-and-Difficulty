@@ -36,7 +36,12 @@ The mods has the following commands to get more insights in your stats.
 ## Player Stats
 
 There are different internal stats for the player which are used for the calculations.
-You can use the `/player_progression stats` command to get an detailed overview.
+
+There is a build in stats button inside the inventory screen like:
+
+![Example Player Stats button](/examples/player_stats_button.png)
+
+Alternative you can use the `/player_progression stats` command to get an detailed overview.
 
 ![Example Player Stats](examples/player_stats.png)
 
