@@ -1,4 +1,4 @@
-# Changelog for Player Companions
+# Changelog for Player Companions (1.19.2)
 
 ## Note
 
@@ -7,6 +7,7 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 
 ### 2022.08.12
 
+- Refactored code for version 1.19.2-43.0.8
 - Refactored code for version 1.19.1-42.0.9
 - Refactored code for version 1.19-41.1.0
 - Changed static text to translated text to allow better language support.
