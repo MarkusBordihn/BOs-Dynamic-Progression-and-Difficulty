@@ -75,7 +75,7 @@ public class PlayerDataManager {
         localPlayerData = new PlayerData();
       }
 
-      log.info("Mapping waepon items to weapon categories");
+      log.info("Mapping weapon items to weapon categories");
       processConfigItems(COMMON.axeItems.get(), axeItems);
       processConfigItems(COMMON.bowItems.get(), bowItems);
       processConfigItems(COMMON.crossbowItems.get(), crossbowItems);
@@ -196,10 +196,10 @@ public class PlayerDataManager {
 
         // Ignore all items which are unknown or mapped to air.
         if (item != null && !item.equals(Items.AIR)) {
-          log.debug("Mapped {} to {}", itemName, item);
+          log.info("Mapped {} to {}", itemName, item);
           targetedItemSet.add(item);
         } else {
-          log.warn("Skipping item {}, not found.", itemName);
+          log.debug("Skipping item {}, not found.", itemName);
         }
       }
     }

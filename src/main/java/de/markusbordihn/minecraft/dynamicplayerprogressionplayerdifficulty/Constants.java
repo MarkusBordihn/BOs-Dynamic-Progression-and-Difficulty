@@ -47,4 +47,5 @@ public final class Constants {
 
   // Prefixes
   public static final String TOOLTIP_TEXT_PREFIX = "text." + MOD_ID + ".tooltip.";
+  public static final String CLASS_TEXT_PREFIX = "text." + MOD_ID + ".class.";
 }

@@ -118,6 +118,9 @@ Item Experience = (Item Used * Item Experience Factor) - (Player Deaths * Item E
 | Forge 1.17.1   | ❌ Not planned        |
 | Forge 1.18.1   | ❌ Not planned        |
 | Forge 1.18.2   | ✔️ Active development |
+| Forge 1.19     | ⚠️ Deprecated         |
+| Forge 1.19.1   | ⚠️ Deprecated         |
+| Forge 1.19.2   | ✔️ Active development |
 
 ## License
 

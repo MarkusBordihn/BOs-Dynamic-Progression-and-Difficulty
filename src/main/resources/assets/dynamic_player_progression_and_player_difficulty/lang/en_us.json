@@ -1,4 +1,12 @@
 {
   "text.dynamic_player_progression_and_player_difficulty.tooltip.level": "Level: %1$s/%2$s",
-  "text.dynamic_player_progression_and_player_difficulty.tooltip.attack_damage": "%1$s Attack Damage"
+  "text.dynamic_player_progression_and_player_difficulty.tooltip.attack_damage": "%1$s Attack Damage",
+
+  "text.dynamic_player_progression_and_player_difficulty.class.": "Weapon class: %1$s",
+  "text.dynamic_player_progression_and_player_difficulty.class.axe": "Axe 🪓",
+  "text.dynamic_player_progression_and_player_difficulty.class.bow": "Bow 🏹",
+  "text.dynamic_player_progression_and_player_difficulty.class.crossbow": "Crossbow 🏹",
+  "text.dynamic_player_progression_and_player_difficulty.class.pickaxe": "Pickaxe ⛏",
+  "text.dynamic_player_progression_and_player_difficulty.class.shield": "Shield 🛡",
+  "text.dynamic_player_progression_and_player_difficulty.class.sword": "Sword ⚔"
 }

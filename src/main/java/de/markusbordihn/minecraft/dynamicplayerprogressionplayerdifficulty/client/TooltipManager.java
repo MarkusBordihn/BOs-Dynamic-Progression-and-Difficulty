@@ -63,10 +63,12 @@ public class TooltipManager {
     // Sword item damage
     if (PlayerDataManager.isSwordItem(item)) {
       if (Experience.getItemDamageIncreaseSword() > 0.0f) {
-        tooltip.add(1, new TextComponent("⚔ Weapon Class: Sword").withStyle(ChatFormatting.GRAY));
+        tooltip.add(1, formatWeaponClass("sword"));
         if (playerData != null) {
           tooltip.add(2, formatLevel(playerData.getItemLevelSword()));
-          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentSword()));
+          if (playerData.getItemDamageAdjustmentSword() > 0.0f) {
+            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentSword()));
+          }
         }
       }
     }
@@ -74,10 +76,12 @@ public class TooltipManager {
     // Axe item damage
     else if (PlayerDataManager.isAxeItem(item)) {
       if (Experience.getItemDamageIncreaseAxe() > 0.0f) {
-        tooltip.add(1, new TextComponent("🪓 Weapon Class: Axe").withStyle(ChatFormatting.GRAY));
+        tooltip.add(1, formatWeaponClass("axe"));
         if (playerData != null) {
           tooltip.add(2, formatLevel(playerData.getItemLevelAxe()));
-          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentAxe()));
+          if (playerData.getItemDamageAdjustmentAxe() > 0.0f) {
+            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentAxe()));
+          }
         }
       }
     }
@@ -85,10 +89,12 @@ public class TooltipManager {
     // Bow item damage
     else if (PlayerDataManager.isBowItem(item)) {
       if (Experience.getItemDamageIncreaseBow() > 0.0f) {
-        tooltip.add(1, new TextComponent("🏹 Weapon Class: Bow").withStyle(ChatFormatting.GRAY));
+        tooltip.add(1, formatWeaponClass("bow"));
         if (playerData != null) {
           tooltip.add(2, formatLevel(playerData.getItemLevelBow()));
-          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentBow()));
+          if (playerData.getItemDamageAdjustmentBow() > 0.0f) {
+            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentBow()));
+          }
         }
       }
     }
@@ -96,11 +102,12 @@ public class TooltipManager {
     // Crossbow item damage
     else if (PlayerDataManager.isCrossbowItem(item)) {
       if (Experience.getItemDamageIncreaseCrossbow() > 0.0f) {
-        tooltip.add(1,
-            new TextComponent("🏹 Weapon Class: Crossbow").withStyle(ChatFormatting.GRAY));
+        tooltip.add(1, formatWeaponClass("crossbow"));
         if (playerData != null) {
           tooltip.add(2, formatLevel(playerData.getItemLevelCrossbow()));
-          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentCrossbow()));
+          if (playerData.getItemDamageAdjustmentCrossbow() > 0.0f) {
+            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentCrossbow()));
+          }
         }
       }
     }
@@ -108,10 +115,12 @@ public class TooltipManager {
     // Pickaxe item damage
     else if (PlayerDataManager.isPickaxeItem(item)) {
       if (Experience.getItemDamageIncreasePickaxe() > 0.0f) {
-        tooltip.add(1, new TextComponent("⛏ Weapon Class: Pickaxe").withStyle(ChatFormatting.GRAY));
+        tooltip.add(1, formatWeaponClass("pickaxe"));
         if (playerData != null) {
           tooltip.add(2, formatLevel(playerData.getItemLevelPickaxe()));
-          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentPickaxe()));
+          if (playerData.getItemDamageAdjustmentPickaxe() > 0.0f) {
+            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentPickaxe()));
+          }
         }
       }
     }
@@ -119,10 +128,12 @@ public class TooltipManager {
     // Shield item damage
     else if (PlayerDataManager.isShieldItem(item)) {
       if (Experience.getItemDamageIncreaseShield() > 0.0f) {
-        tooltip.add(1, new TextComponent("🛡 Weapon Class: Shield").withStyle(ChatFormatting.GRAY));
+        tooltip.add(1, formatWeaponClass("shield"));
         if (playerData != null) {
           tooltip.add(2, formatLevel(playerData.getItemLevelShield()));
-          tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentShield()));
+          if (playerData.getItemDamageAdjustmentShield() > 0.0f) {
+            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentShield()));
+          }
         }
       }
     }
@@ -131,6 +142,12 @@ public class TooltipManager {
       // Do nothing.
     }
 
+  }
+
+  private static Component formatWeaponClass(String weaponClass) {
+    return new TranslatableComponent(Constants.CLASS_TEXT_PREFIX,
+        new TranslatableComponent(Constants.CLASS_TEXT_PREFIX + weaponClass)
+            .withStyle(ChatFormatting.BLUE)).withStyle(ChatFormatting.GRAY);
   }
 
   private static Component formatLevel(int level) {
