@@ -26,8 +26,6 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -145,21 +143,23 @@ public class TooltipManager {
   }
 
   private static Component formatWeaponClass(String weaponClass) {
-    return new TranslatableComponent(Constants.CLASS_TEXT_PREFIX,
-        new TranslatableComponent(Constants.CLASS_TEXT_PREFIX + weaponClass)
-            .withStyle(ChatFormatting.BLUE)).withStyle(ChatFormatting.GRAY);
+    return Component
+        .translatable(Constants.CLASS_TEXT_PREFIX, Component
+            .translatable(Constants.CLASS_TEXT_PREFIX + weaponClass).withStyle(ChatFormatting.BLUE))
+        .withStyle(ChatFormatting.GRAY);
   }
 
   private static Component formatLevel(int level) {
-    return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "level", level,
-        Experience.getMaxLevel()).withStyle(ChatFormatting.YELLOW);
+    return Component
+        .translatable(Constants.TOOLTIP_TEXT_PREFIX + "level", level, Experience.getMaxLevel())
+        .withStyle(ChatFormatting.YELLOW);
   }
 
   private static Component formatAttackDamage(float attackDamage) {
-    return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "attack_damage",
-        new TextComponent(
+    return Component.translatable(Constants.TOOLTIP_TEXT_PREFIX + "attack_damage", Component
+        .literal(
             String.format("+%.2f%%", attackDamage > 1 ? (attackDamage - 1) * 100 : attackDamage))
-                .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY);
+        .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY);
   }
 
 }

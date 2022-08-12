@@ -31,7 +31,6 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -54,7 +53,7 @@ public class StatsButton extends Button {
       new ResourceLocation("textures/gui/container/bundle.png");
 
   public StatsButton(int x, int y, int width, int height, OnPress onPress) {
-    super(x, y, width, height, new TextComponent(""), onPress);
+    super(x, y, width, height, Component.translatable(""), onPress);
     this.minecraft = Minecraft.getInstance();
     this.font = this.minecraft.font;
   }
@@ -104,29 +103,33 @@ public class StatsButton extends Button {
     x += 4;
 
     // General Stats
-    y = drawStats(poseStack, x, y, new TextComponent("Player Stats"));
-    y = drawStats(poseStack, x, y, new TextComponent("☠ Deaths " + playerData.getNumberOfDeaths()));
-    y = drawStats(poseStack, x, y, new TextComponent("⛄ Mob killed " + playerData.getMobKills()));
+    y = drawStats(poseStack, x, y, Component.translatable("Player Stats"));
     y = drawStats(poseStack, x, y,
-        new TextComponent("♕ Player killed " + playerData.getPlayerKills()));
+        Component.translatable("☠ Deaths " + playerData.getNumberOfDeaths()));
     y = drawStats(poseStack, x, y,
-        new TextComponent("⛄ Mob Damage Lvl. " + playerData.getDamageLevelMob()));
+        Component.translatable("⛄ Mob killed " + playerData.getMobKills()));
     y = drawStats(poseStack, x, y,
-        new TextComponent("♕ Player Damage Lvl. " + playerData.getDamageLevelPlayer()));
-    y = drawStats(poseStack, x, y, new TextComponent(""));
+        Component.translatable("♕ Player killed " + playerData.getPlayerKills()));
+    y = drawStats(poseStack, x, y,
+        Component.translatable("⛄ Mob Damage Lvl. " + playerData.getDamageLevelMob()));
+    y = drawStats(poseStack, x, y,
+        Component.translatable("♕ Player Damage Lvl. " + playerData.getDamageLevelPlayer()));
+    y = drawStats(poseStack, x, y, Component.translatable(""));
 
     // Weapon Stats
-    y = drawStats(poseStack, x, y, new TextComponent("Weapon Stats"));
-    y = drawStats(poseStack, x, y, new TextComponent("🪓 Axe Lvl." + playerData.getItemLevelAxe()));
-    y = drawStats(poseStack, x, y, new TextComponent("🏹 Bow Lvl." + playerData.getItemLevelBow()));
+    y = drawStats(poseStack, x, y, Component.translatable("Weapon Stats"));
     y = drawStats(poseStack, x, y,
-        new TextComponent("🏹 Crossbow Lvl." + playerData.getItemLevelCrossbow()));
+        Component.translatable("🪓 Axe Lvl." + playerData.getItemLevelAxe()));
     y = drawStats(poseStack, x, y,
-        new TextComponent("⛏ Pickaxe Lvl." + playerData.getItemLevelPickaxe()));
+        Component.translatable("🏹 Bow Lvl." + playerData.getItemLevelBow()));
     y = drawStats(poseStack, x, y,
-        new TextComponent("⚔ Sword Lvl." + playerData.getItemLevelSword()));
+        Component.translatable("🏹 Crossbow Lvl." + playerData.getItemLevelCrossbow()));
     y = drawStats(poseStack, x, y,
-        new TextComponent("🛡 Shield Lvl." + playerData.getItemLevelShield()));
+        Component.translatable("⛏ Pickaxe Lvl." + playerData.getItemLevelPickaxe()));
+    y = drawStats(poseStack, x, y,
+        Component.translatable("⚔ Sword Lvl." + playerData.getItemLevelSword()));
+    y = drawStats(poseStack, x, y,
+        Component.translatable("🛡 Shield Lvl." + playerData.getItemLevelShield()));
     poseStack.popPose();
   }
 

@@ -49,7 +49,7 @@ public class GuiManager {
     });
   }
 
-  public static void handleScreenEventInitPost(ScreenEvent.InitScreenEvent.Post event) {
+  public static void handleScreenEventInitPost(ScreenEvent.Init.Post event) {
     if (event.getScreen() instanceof InventoryScreen inventoryScreen) {
       if (Boolean.FALSE.equals(COMMON.guiButtonEnabled.get())) {
         return;
