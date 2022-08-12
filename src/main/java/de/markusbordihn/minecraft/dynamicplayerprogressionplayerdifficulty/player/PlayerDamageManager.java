@@ -124,7 +124,7 @@ public class PlayerDamageManager {
         }
 
         // 2. Dealt damage adjustment for player and mob targets.
-        if (event.getEntityLiving() instanceof ServerPlayer) {
+        if (event.getEntity() instanceof ServerPlayer) {
           if (playerData.getDealtDamageAdjustmentPlayer() > 0.0f) {
             attackDamage = attackDamage * playerData.getDealtDamageAdjustmentPlayer();
             log.debug("[Player Dealt Damage] {} from {} by {} to {}", serverPlayer,

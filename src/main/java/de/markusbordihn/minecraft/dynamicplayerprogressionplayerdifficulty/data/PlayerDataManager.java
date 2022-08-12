@@ -34,8 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-
-import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -64,10 +63,10 @@ public class PlayerDataManager {
   protected PlayerDataManager() {}
 
   @SubscribeEvent
-  public static void handleWorldEventLoad(WorldEvent.Load event) {
+  public static void handleLevelEventLoad(LevelEvent.Load event) {
     if (!init) {
 
-      if (!event.getWorld().isClientSide()) {
+      if (!event.getLevel().isClientSide()) {
         log.info("Preparing Player Data Manager (server)...");
         playerMap = new ConcurrentHashMap<>();
       } else {

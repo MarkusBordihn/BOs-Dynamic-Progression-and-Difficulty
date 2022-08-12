@@ -42,7 +42,7 @@ public class PlayerDeathManager {
 
   @SubscribeEvent
   public static void handleLivingDeathEvent(LivingDeathEvent event) {
-    LivingEntity livingEntity = event.getEntityLiving();
+    LivingEntity livingEntity = event.getEntity();
     DamageSource damageSource = event.getSource();
 
     // Update stats if target was player
