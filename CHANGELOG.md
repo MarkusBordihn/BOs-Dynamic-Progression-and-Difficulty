@@ -5,12 +5,16 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.14
+
+- Fixed client side death counter.
+
 ### 2022.08.12
 
 - Refactored code for version 1.19-41.1.0
 - Changed static text to translated text to allow better language support.
 - Added additional mod items to the default list.
-**Note:** It could be that you need to delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
+  **Note:** It could be that you need to delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
 
 ### 2022.08.10
 
