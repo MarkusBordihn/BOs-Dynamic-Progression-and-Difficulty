@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.14
+
+- Fixed client side death counter.
+
 ### 2022.08.12
 
 - Changed static text to translated text to allow better language support.
