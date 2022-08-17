@@ -6,10 +6,11 @@
 Dynamically balanced the progression and difficulty for new and experienced player on the same server.
 In most cases it's difficult to balanced new players with experience players without frustrating one group.
 
-## Features
+## ✨ Features
 
 - Dynamically adjust dealt damage (from the Player)
 - Dynamically adjust hurt damage (to the Player)
+- Dynamically adjust item damage and durability (per Weapon Class)
 - Experience points / levels for different kind of areas based on existing stats
 - Customization over config file
 - Weapon classes with weapon progression (more damage, faster, ...) and mod support
@@ -17,7 +18,7 @@ In most cases it's difficult to balanced new players with experience players wit
 - Scoreboard (WIP)
 - Player specific title (WIP)
 
-## What does the mod do ?
+## ℹ️ What does the mod do ?
 
 For new players it will increase the dealt damage and decrease hurt damage to the player.
 For more experience players it will slight increase the dealt damage per weapon class (over time) and increase the hurt damage to the player for a more challenging experience with additional getting more experience and loot.
@@ -25,6 +26,8 @@ For more experience players it will slight increase the dealt damage per weapon 
 With each kill you will earn experience points for a specific areas and weapon classes, which is used to adjust the progression and difficulty per player dynamically.
 
 This means new players will not get killed every few seconds and experience players will get a harder time to kill mobs and need to find new strategies and better equipment.
+
+Depending on your preferred weapons the durability of the items will be also automatically adjusted so that you can play with an axe or even with a hoe.
 
 ## 🎱 Commands
 
@@ -52,29 +55,19 @@ The stats will not conflict with other mods so you can still use any other RPG o
 Each weapon will be categorize in on of the following classes, you can customize them over the config file in the case items are missing from other mods.
 Depending on your weapon class the your weapon class level you will get additional bonus stats for the weapon class like additional **Attack Damage**.
 
-### Axe Class
-
-![Tooltip for Axe Class](examples/weapon_class_axe.png)
-
-### Bow Class
-
-![Tooltip for Bow Class](examples/weapon_class_bow.png)
-
-### Crossbow Class
-
-![Tooltip for Crossbow Class](examples/weapon_class_crossbow.png)
-
-### Pickaxe Class
-
-![Tooltip for Pickaxe Class](examples/weapon_class_pickaxe.png)
-
-### Shield Class
-
-![Tooltip for Shield Class](examples/weapon_class_shield.png)
-
-### Sword Class
-
-![Tooltip for Sword Class](examples/weapon_class_sword.png)
+- Axe Class
+- Bow Class
+- Crossbow Class
+- Dagger Class
+- Great Sword Class
+- Gun Class
+- Hammer Class
+- Hoe class
+- Keyblade Class
+- Pickaxe Class
+- Shield Class
+- Spear Class
+- Sword Class
 
 ## 🙋FAQ
 
@@ -108,6 +101,16 @@ Damage Experience Player = (Damage Dealt * (Player Kills / Damage Base)) - (Play
 ```math
 Item Experience = (Item Used * Item Experience Factor) - (Player Deaths * Item Experience Death Penalty)
 ```
+
+## Adjustments
+
+### Player Adjustments
+
+The player adjustment happing with the `EventPriority.LOW` priority, which mean they will be added before any weapon adjustments of the calculation chain and could be canceled by any other mod with a higher priority.
+
+### Weapon Adjustments
+
+The weapon adjustment happing with the `EventPriority.LOWEST` priority, which mean they will be added at the end of the calculation chain and could be canceled by any other mod with a higher priority.
 
 ## Version Status Overview 🛠️
 

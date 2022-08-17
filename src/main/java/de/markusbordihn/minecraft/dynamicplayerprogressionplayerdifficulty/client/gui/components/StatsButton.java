@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -32,6 +33,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,6 +42,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClass;
 
 public class StatsButton extends Button {
 
@@ -73,9 +76,9 @@ public class StatsButton extends Button {
 
   @Override
   public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
-    int x = mouseX + 10;
+    int x = mouseX + 5;
     int y = mouseY - 20;
-    int width = 8;
+    int width = 12;
     int height = 9;
 
     // Player Data
@@ -87,8 +90,8 @@ public class StatsButton extends Button {
     // Background
     poseStack.pushPose();
     poseStack.translate(0, 0, 1000);
-    this.fillGradient(poseStack, x + 1, y + 1, (x + width * 18) + 1, (y + height * 18 + 18),
-        -1072689136, -804253680);
+    this.fillGradient(poseStack, x + 1, y + 1, (x + width * 18) + 1, (y + height * 20), -1072689136,
+        -804253680);
     poseStack.popPose();
 
     // Border
@@ -117,16 +120,21 @@ public class StatsButton extends Button {
 
     // Weapon Stats
     y = drawStats(poseStack, x, y, new TextComponent("Weapon Stats"));
-    y = drawStats(poseStack, x, y, new TextComponent("🪓 Axe Lvl." + playerData.getItemLevelAxe()));
-    y = drawStats(poseStack, x, y, new TextComponent("🏹 Bow Lvl." + playerData.getItemLevelBow()));
-    y = drawStats(poseStack, x, y,
-        new TextComponent("🏹 Crossbow Lvl." + playerData.getItemLevelCrossbow()));
-    y = drawStats(poseStack, x, y,
-        new TextComponent("⛏ Pickaxe Lvl." + playerData.getItemLevelPickaxe()));
-    y = drawStats(poseStack, x, y,
-        new TextComponent("⚔ Sword Lvl." + playerData.getItemLevelSword()));
-    y = drawStats(poseStack, x, y,
-        new TextComponent("🛡 Shield Lvl." + playerData.getItemLevelShield()));
+    boolean evenTextPlacement = true;
+    for (WeaponClass weaponClass : WeaponClass.values()) {
+      if (evenTextPlacement) {
+        drawStats(poseStack, x, y,
+            new TranslatableComponent(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
+                weaponClass.text.withStyle(ChatFormatting.RESET),
+                playerData.getWeaponClassLevel(weaponClass)));
+      } else {
+        y = drawStats(poseStack, x + 120, y,
+            new TranslatableComponent(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
+                weaponClass.text.withStyle(ChatFormatting.RESET),
+                playerData.getWeaponClassLevel(weaponClass)));
+      }
+      evenTextPlacement = !evenTextPlacement;
+    }
     poseStack.popPose();
   }
 
@@ -158,8 +166,13 @@ public class StatsButton extends Button {
 
   @OnlyIn(Dist.CLIENT)
   enum Texture {
-    BORDER_VERTICAL(0, 18, 1, 20), BORDER_HORIZONTAL_TOP(0, 20, 18, 1), BORDER_HORIZONTAL_BOTTOM(0,
-        60, 18, 1), BORDER_CORNER_TOP(0, 20, 1, 1), BORDER_CORNER_BOTTOM(0, 60, 1, 1);
+    //@formatter:off
+    BORDER_VERTICAL(0, 18, 1, 20),
+    BORDER_HORIZONTAL_TOP(0, 20, 18, 1),
+    BORDER_HORIZONTAL_BOTTOM(0,60, 18, 1),
+    BORDER_CORNER_TOP(0, 20, 1, 1),
+    BORDER_CORNER_BOTTOM(0, 60, 1, 1);
+    //@formatter:on
 
     public final int x;
     public final int y;

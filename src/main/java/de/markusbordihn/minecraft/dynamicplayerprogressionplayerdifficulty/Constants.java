@@ -23,8 +23,7 @@ import net.minecraft.ChatFormatting;
 
 public final class Constants {
 
-  protected Constants() {
-  }
+  protected Constants() {}
 
   // General Mod definitions
   public static final String LOG_NAME = "Dynamic Player Progression and Player Difficulty";
@@ -46,6 +45,8 @@ public final class Constants {
   public static final int FONT_COLOR_YELLOW = ChatFormatting.YELLOW.getColor();
 
   // Prefixes
-  public static final String TOOLTIP_TEXT_PREFIX = "text." + MOD_ID + ".tooltip.";
-  public static final String CLASS_TEXT_PREFIX = "text." + MOD_ID + ".class.";
+  public static final String TEXT_PREFIX = "text." + MOD_ID;
+  public static final String CLASS_TEXT_PREFIX = TEXT_PREFIX + ".class.";
+  public static final String LEVEL_TEXT_PREFIX = TEXT_PREFIX + ".level.";
+  public static final String TOOLTIP_TEXT_PREFIX = TEXT_PREFIX + ".tooltip.";
 }
