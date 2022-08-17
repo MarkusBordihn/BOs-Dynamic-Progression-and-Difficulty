@@ -38,6 +38,8 @@ import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Const
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.Experience;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClass;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClassData;
 
 @EventBusSubscriber(value = Dist.CLIENT)
 public class TooltipManager {
@@ -56,96 +58,28 @@ public class TooltipManager {
 
     Item item = itemStack.getItem();
     List<Component> tooltip = event.getToolTip();
-    PlayerData playerData = PlayerDataManager.getLocalPlayer();
-
-    // Sword item damage
-    if (PlayerDataManager.isSwordItem(item)) {
-      if (Experience.getItemDamageIncreaseSword() > 0.0f) {
-        tooltip.add(1, formatWeaponClass("sword"));
-        if (playerData != null) {
-          tooltip.add(2, formatLevel(playerData.getItemLevelSword()));
-          if (playerData.getItemDamageAdjustmentSword() > 0.0f) {
-            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentSword()));
-          }
+    WeaponClass weaponClass = WeaponClassData.getWeaponClass(item);
+    int index = 1;
+    if (weaponClass != null) {
+      tooltip.add(index++, formatWeaponClass(weaponClass));
+      PlayerData playerData = PlayerDataManager.getLocalPlayer();
+      if (playerData != null) {
+        tooltip.add(index++, formatLevel(playerData.getWeaponClassLevel(weaponClass)));
+        float itemDamageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
+        if (itemDamageAdjustment > 0.0f) {
+          tooltip.add(index++, formatDamageAdjustment(itemDamageAdjustment));
+        }
+        float itemDurabilityAdjustment = playerData.getWeaponClassDurabilityAdjustment(weaponClass);
+        if (itemDurabilityAdjustment > 0.0f) {
+          tooltip.add(index++, formatDurabilityAdjustment(itemDurabilityAdjustment));
         }
       }
     }
-
-    // Axe item damage
-    else if (PlayerDataManager.isAxeItem(item)) {
-      if (Experience.getItemDamageIncreaseAxe() > 0.0f) {
-        tooltip.add(1, formatWeaponClass("axe"));
-        if (playerData != null) {
-          tooltip.add(2, formatLevel(playerData.getItemLevelAxe()));
-          if (playerData.getItemDamageAdjustmentAxe() > 0.0f) {
-            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentAxe()));
-          }
-        }
-      }
-    }
-
-    // Bow item damage
-    else if (PlayerDataManager.isBowItem(item)) {
-      if (Experience.getItemDamageIncreaseBow() > 0.0f) {
-        tooltip.add(1, formatWeaponClass("bow"));
-        if (playerData != null) {
-          tooltip.add(2, formatLevel(playerData.getItemLevelBow()));
-          if (playerData.getItemDamageAdjustmentBow() > 0.0f) {
-            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentBow()));
-          }
-        }
-      }
-    }
-
-    // Crossbow item damage
-    else if (PlayerDataManager.isCrossbowItem(item)) {
-      if (Experience.getItemDamageIncreaseCrossbow() > 0.0f) {
-        tooltip.add(1, formatWeaponClass("crossbow"));
-        if (playerData != null) {
-          tooltip.add(2, formatLevel(playerData.getItemLevelCrossbow()));
-          if (playerData.getItemDamageAdjustmentCrossbow() > 0.0f) {
-            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentCrossbow()));
-          }
-        }
-      }
-    }
-
-    // Pickaxe item damage
-    else if (PlayerDataManager.isPickaxeItem(item)) {
-      if (Experience.getItemDamageIncreasePickaxe() > 0.0f) {
-        tooltip.add(1, formatWeaponClass("pickaxe"));
-        if (playerData != null) {
-          tooltip.add(2, formatLevel(playerData.getItemLevelPickaxe()));
-          if (playerData.getItemDamageAdjustmentPickaxe() > 0.0f) {
-            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentPickaxe()));
-          }
-        }
-      }
-    }
-
-    // Shield item damage
-    else if (PlayerDataManager.isShieldItem(item)) {
-      if (Experience.getItemDamageIncreaseShield() > 0.0f) {
-        tooltip.add(1, formatWeaponClass("shield"));
-        if (playerData != null) {
-          tooltip.add(2, formatLevel(playerData.getItemLevelShield()));
-          if (playerData.getItemDamageAdjustmentShield() > 0.0f) {
-            tooltip.add(3, formatAttackDamage(playerData.getItemDamageAdjustmentShield()));
-          }
-        }
-      }
-    }
-
-    else {
-      // Do nothing.
-    }
-
   }
 
-  private static Component formatWeaponClass(String weaponClass) {
-    return Component
-        .translatable(Constants.CLASS_TEXT_PREFIX, Component
-            .translatable(Constants.CLASS_TEXT_PREFIX + weaponClass).withStyle(ChatFormatting.BLUE))
+  private static Component formatWeaponClass(WeaponClass weaponClass) {
+    return Component.translatable(Constants.CLASS_TEXT_PREFIX,
+        weaponClass.text.withStyle(ChatFormatting.BLUE), Component.literal(weaponClass.textIcon))
         .withStyle(ChatFormatting.GRAY);
   }
 
@@ -155,11 +89,19 @@ public class TooltipManager {
         .withStyle(ChatFormatting.YELLOW);
   }
 
-  private static Component formatAttackDamage(float attackDamage) {
+  private static Component formatDamageAdjustment(float attackDamage) {
     return Component.translatable(Constants.TOOLTIP_TEXT_PREFIX + "attack_damage", Component
         .literal(
             String.format("+%.2f%%", attackDamage > 1 ? (attackDamage - 1) * 100 : attackDamage))
         .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY);
+  }
+
+  private static Component formatDurabilityAdjustment(float durability) {
+    return Component.translatable(Constants.TOOLTIP_TEXT_PREFIX + "durability",
+        Component
+            .literal(String.format("+%.2f%%", durability > 1 ? (durability - 1) * 100 : durability))
+            .withStyle(ChatFormatting.GREEN))
+        .withStyle(ChatFormatting.GRAY);
   }
 
 }
