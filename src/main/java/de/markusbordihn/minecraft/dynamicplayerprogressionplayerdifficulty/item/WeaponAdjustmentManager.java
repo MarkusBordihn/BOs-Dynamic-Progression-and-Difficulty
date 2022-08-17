@@ -91,8 +91,7 @@ public class WeaponAdjustmentManager {
               if (itemDamage > 0 && itemDamageHistory < itemDamage
                   && itemDamage + 10 < maxItemDamage) {
                 float damageReduction = (itemDamage - itemDamageHistory) * durabilityAdjustment;
-                int adjustedItemDamage = Math
-                    .round(itemDamage - ((itemDamage - itemDamageHistory) * durabilityAdjustment));
+                int adjustedItemDamage = Math.round(itemDamage - damageReduction);
 
                 // Store small adjustments in damage stack so that they get could be used later.
                 if (damageReduction < 1.0f) {
@@ -103,7 +102,7 @@ public class WeaponAdjustmentManager {
                 // Check for damage stack values and use them if we have more than 1.0f.
                 float itemDamageReductionStack = damageStackCache.get(handItemStack);
                 if (itemDamageReductionStack >= 1.0f) {
-                  adjustedItemDamage = adjustedItemDamage - Math.round(itemDamageReductionStack);
+                  adjustedItemDamage = itemDamage - Math.round(itemDamageReductionStack);
                   log.debug(
                       "[Item Durability {}] {} {} from {}/{} by {} stacked damage reduction and factor {} to {}",
                       weaponClass, serverPlayer, handItem, itemDamage, maxItemDamage,
