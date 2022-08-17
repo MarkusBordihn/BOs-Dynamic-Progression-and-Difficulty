@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -39,6 +40,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClass;
 
 public class StatsButton extends Button {
 
@@ -53,7 +55,7 @@ public class StatsButton extends Button {
       new ResourceLocation("textures/gui/container/bundle.png");
 
   public StatsButton(int x, int y, int width, int height, OnPress onPress) {
-    super(x, y, width, height, Component.translatable(""), onPress);
+    super(x, y, width, height, Component.literal(""), onPress);
     this.minecraft = Minecraft.getInstance();
     this.font = this.minecraft.font;
   }
@@ -72,9 +74,9 @@ public class StatsButton extends Button {
 
   @Override
   public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
-    int x = mouseX + 10;
+    int x = mouseX + 5;
     int y = mouseY - 20;
-    int width = 8;
+    int width = 12;
     int height = 9;
 
     // Player Data
@@ -86,8 +88,8 @@ public class StatsButton extends Button {
     // Background
     poseStack.pushPose();
     poseStack.translate(0, 0, 1000);
-    this.fillGradient(poseStack, x + 1, y + 1, (x + width * 18) + 1, (y + height * 18 + 18),
-        -1072689136, -804253680);
+    this.fillGradient(poseStack, x + 1, y + 1, (x + width * 18) + 1, (y + height * 20), -1072689136,
+        -804253680);
     poseStack.popPose();
 
     // Border
@@ -103,33 +105,34 @@ public class StatsButton extends Button {
     x += 4;
 
     // General Stats
-    y = drawStats(poseStack, x, y, Component.translatable("Player Stats"));
+    y = drawStats(poseStack, x, y, Component.literal("Player Stats"));
+    y = drawStats(poseStack, x, y, Component.literal("☠ Deaths " + playerData.getNumberOfDeaths()));
+    y = drawStats(poseStack, x, y, Component.literal("⛄ Mob killed " + playerData.getMobKills()));
     y = drawStats(poseStack, x, y,
-        Component.translatable("☠ Deaths " + playerData.getNumberOfDeaths()));
+        Component.literal("♕ Player killed " + playerData.getPlayerKills()));
     y = drawStats(poseStack, x, y,
-        Component.translatable("⛄ Mob killed " + playerData.getMobKills()));
+        Component.literal("⛄ Mob Damage Lvl. " + playerData.getDamageLevelMob()));
     y = drawStats(poseStack, x, y,
-        Component.translatable("♕ Player killed " + playerData.getPlayerKills()));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("⛄ Mob Damage Lvl. " + playerData.getDamageLevelMob()));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("♕ Player Damage Lvl. " + playerData.getDamageLevelPlayer()));
-    y = drawStats(poseStack, x, y, Component.translatable(""));
+        Component.literal("♕ Player Damage Lvl. " + playerData.getDamageLevelPlayer()));
+    y = drawStats(poseStack, x, y, Component.literal(""));
 
     // Weapon Stats
-    y = drawStats(poseStack, x, y, Component.translatable("Weapon Stats"));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("🪓 Axe Lvl." + playerData.getItemLevelAxe()));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("🏹 Bow Lvl." + playerData.getItemLevelBow()));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("🏹 Crossbow Lvl." + playerData.getItemLevelCrossbow()));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("⛏ Pickaxe Lvl." + playerData.getItemLevelPickaxe()));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("⚔ Sword Lvl." + playerData.getItemLevelSword()));
-    y = drawStats(poseStack, x, y,
-        Component.translatable("🛡 Shield Lvl." + playerData.getItemLevelShield()));
+    y = drawStats(poseStack, x, y, Component.literal("Weapon Stats"));
+    boolean evenTextPlacement = true;
+    for (WeaponClass weaponClass : WeaponClass.values()) {
+      if (evenTextPlacement) {
+        drawStats(poseStack, x, y,
+            Component.translatable(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
+                weaponClass.text.withStyle(ChatFormatting.RESET),
+                playerData.getWeaponClassLevel(weaponClass)));
+      } else {
+        y = drawStats(poseStack, x + 120, y,
+            Component.translatable(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
+                weaponClass.text.withStyle(ChatFormatting.RESET),
+                playerData.getWeaponClassLevel(weaponClass)));
+      }
+      evenTextPlacement = !evenTextPlacement;
+    }
     poseStack.popPose();
   }
 
@@ -161,8 +164,13 @@ public class StatsButton extends Button {
 
   @OnlyIn(Dist.CLIENT)
   enum Texture {
-    BORDER_VERTICAL(0, 18, 1, 20), BORDER_HORIZONTAL_TOP(0, 20, 18, 1), BORDER_HORIZONTAL_BOTTOM(0,
-        60, 18, 1), BORDER_CORNER_TOP(0, 20, 1, 1), BORDER_CORNER_BOTTOM(0, 60, 1, 1);
+    //@formatter:off
+    BORDER_VERTICAL(0, 18, 1, 20),
+    BORDER_HORIZONTAL_TOP(0, 20, 18, 1),
+    BORDER_HORIZONTAL_BOTTOM(0,60, 18, 1),
+    BORDER_CORNER_TOP(0, 20, 1, 1),
+    BORDER_CORNER_BOTTOM(0, 60, 1, 1);
+    //@formatter:on
 
     public final int x;
     public final int y;

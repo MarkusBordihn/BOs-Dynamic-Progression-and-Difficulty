@@ -5,6 +5,15 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.17
+
+- Added configurable durability adjustments for weapons like axe, hoe, pickaxe so that they could be better used in fights.
+
+### 2022.08.16
+
+- Added new weapon classes with additional support for about 400 modded items.
+- Optimized performance.
+
 ### 2022.08.14
 
 - Fixed client side death counter.
