@@ -1,12 +1,22 @@
 {
   "text.dynamic_player_progression_and_player_difficulty.tooltip.level": "Level: %1$s/%2$s",
   "text.dynamic_player_progression_and_player_difficulty.tooltip.attack_damage": "%1$s Attack Damage",
+  "text.dynamic_player_progression_and_player_difficulty.tooltip.durability": "%1$s Durability",
 
-  "text.dynamic_player_progression_and_player_difficulty.class.": "Weapon class: %1$s",
-  "text.dynamic_player_progression_and_player_difficulty.class.axe": "Axe 🪓",
-  "text.dynamic_player_progression_and_player_difficulty.class.bow": "Bow 🏹",
-  "text.dynamic_player_progression_and_player_difficulty.class.crossbow": "Crossbow 🏹",
-  "text.dynamic_player_progression_and_player_difficulty.class.pickaxe": "Pickaxe ⛏",
-  "text.dynamic_player_progression_and_player_difficulty.class.shield": "Shield 🛡",
-  "text.dynamic_player_progression_and_player_difficulty.class.sword": "Sword ⚔"
+  "text.dynamic_player_progression_and_player_difficulty.level.": "%1$s %2$s Lvl. %3$s",
+
+  "text.dynamic_player_progression_and_player_difficulty.class.": "Weapon class: %1$s %2$s",
+  "text.dynamic_player_progression_and_player_difficulty.class.axe": "Axe",
+  "text.dynamic_player_progression_and_player_difficulty.class.bow": "Bow",
+  "text.dynamic_player_progression_and_player_difficulty.class.crossbow": "Crossbow",
+  "text.dynamic_player_progression_and_player_difficulty.class.dagger": "Dagger",
+  "text.dynamic_player_progression_and_player_difficulty.class.great_sword": "Great Sword",
+  "text.dynamic_player_progression_and_player_difficulty.class.gun": "Gun",
+  "text.dynamic_player_progression_and_player_difficulty.class.hammer": "Hammer",
+  "text.dynamic_player_progression_and_player_difficulty.class.hoe": "Hoe",
+  "text.dynamic_player_progression_and_player_difficulty.class.keyblade": "Keyblade",
+  "text.dynamic_player_progression_and_player_difficulty.class.pickaxe": "Pickaxe",
+  "text.dynamic_player_progression_and_player_difficulty.class.shield": "Shield",
+  "text.dynamic_player_progression_and_player_difficulty.class.spear": "Spear",
+  "text.dynamic_player_progression_and_player_difficulty.class.sword": "Sword"
 }

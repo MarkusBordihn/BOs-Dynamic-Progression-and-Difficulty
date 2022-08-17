@@ -30,6 +30,7 @@ import net.minecraft.server.level.ServerPlayer;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.Experience;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClass;
 
 public class StatsCommand extends CustomCommand {
   private static final StatsCommand command = new StatsCommand();
@@ -45,44 +46,37 @@ public class StatsCommand extends CustomCommand {
 
     // Update stats to make sure we should current values
     playerData.updateStats();
-
-    sendFeedback(context, "▶ Player Stats\n=============");
+    sendFeedback(context, String.format("▶ Player Stats for %s\n═════════════════════════════",
+        player.getName().getString()));
 
     // General
     sendFeedback(context,
-        String.format("☠ Deaths: %s / Deaths Penalty: %s xp / Item Penalty: %s xp",
+        String.format("☠ Deaths: %s ┃ Deaths Penalty: %s xp ┃ Item Penalty: %s xp",
             playerData.getNumberOfDeaths(),
             playerData.getNumberOfDeaths() * Experience.getExperienceDeathPenalty(),
             playerData.getNumberOfDeaths() * Experience.getExperienceDeathPenaltyItems()));
 
     // Damage Levels
     sendFeedback(context,
-        String.format("⧫ Damage Level (Mob): %s (%s exp) / ⚔ %s / 🛡 %s",
+        String.format("⧫ Damage Level (Mob): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
             playerData.getDamageLevelMob(), playerData.getDamageExperienceMob(),
             playerData.getDealtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentMob()));
-    sendFeedback(context, String.format("⧫ Damage Level (Player): %s (%s exp) / ⚔ %s / 🛡 %s",
+    sendFeedback(context, String.format("⧫ Damage Level (Player): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
         playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
         playerData.getDealtDamageAdjustmentPlayer(), playerData.getHurtDamageAdjustmentPlayer()));
 
-    // Item Usage
-    sendFeedback(context,
-        String.format("🪓 Axe Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelAxe(),
-            playerData.getItemExperienceAxe(), playerData.getItemDamageAdjustmentAxe()));
-    sendFeedback(context,
-        String.format("🏹 Bow Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelBow(),
-            playerData.getItemExperienceBow(), playerData.getItemDamageAdjustmentBow()));
-    sendFeedback(context,
-        String.format("🏹 Crossbow Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelCrossbow(),
-            playerData.getItemExperienceCrossbow(), playerData.getItemDamageAdjustmentCrossbow()));
-    sendFeedback(context,
-        String.format("⛏ Pickaxe Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelPickaxe(),
-            playerData.getItemExperiencePickaxe(), playerData.getItemDamageAdjustmentPickaxe()));
-    sendFeedback(context,
-        String.format("🛡 Shield Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelShield(),
-            playerData.getItemExperienceShield(), playerData.getItemDamageAdjustmentShield()));
-    sendFeedback(context,
-        String.format("⚔ Sword Level: %s (%s exp) / ⚔ %s", playerData.getItemLevelSword(),
-            playerData.getItemExperienceSword(), playerData.getItemDamageAdjustmentSword()));
+    // Weapon Classes Stats
+    sendFeedback(context, "\nWeapon Classes\n═════════════");
+    for (WeaponClass weaponClass : WeaponClass.values()) {
+      float damageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
+      float durabilityAdjustment = playerData.getWeaponClassDurabilityAdjustment(weaponClass);
+      sendFeedback(context,
+          String.format("%s %s Level. %s/%s (%s exp) ┃ ⚔ +%.4s%% ┃ ⚒ +%.4s%%", weaponClass.textIcon,
+              weaponClass.text.getString(), playerData.getWeaponClassLevel(weaponClass),
+              Experience.getMaxLevel(), playerData.getWeaponClassExperience(weaponClass),
+              damageAdjustment > 0 ? (damageAdjustment - 1) * 100 : 0,
+              durabilityAdjustment > 0 ? (durabilityAdjustment - 1) * 100 : 0));
+    }
 
     return 0;
   }
