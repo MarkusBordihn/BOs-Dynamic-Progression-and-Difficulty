@@ -5,6 +5,11 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.19
+
+- Added dynamic weapon class detection to covering more mods without manually defining them.
+  **Note:** Please delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
+
 ### 2022.08.17
 
 - Added configurable durability adjustments for weapons like axe, hoe, pickaxe so that they could be better used in fights.
@@ -22,7 +27,7 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 
 - Changed static text to translated text to allow better language support.
 - Added additional mod items to the default list.
-**Note:** It could be that you need to delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
+  **Note:** It could be that you need to delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
 
 ### 2022.08.10
 
