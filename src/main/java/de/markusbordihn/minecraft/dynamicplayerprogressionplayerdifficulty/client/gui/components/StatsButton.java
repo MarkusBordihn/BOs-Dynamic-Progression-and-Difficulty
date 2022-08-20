@@ -75,9 +75,10 @@ public class StatsButton extends Button {
   @Override
   public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
     int x = mouseX + 5;
-    int y = mouseY - 20;
-    int width = 12;
-    int height = 9;
+    int y = mouseY - 40;
+    int spacingSecondColum = 100;
+    int width = 11;
+    int height = 10;
 
     // Player Data
     PlayerData playerData = PlayerDataManager.getLocalPlayer();
@@ -106,18 +107,26 @@ public class StatsButton extends Button {
 
     // General Stats
     y = drawStats(poseStack, x, y, Component.literal("Player Stats"));
-    y = drawStats(poseStack, x, y, Component.literal("☠ Deaths " + playerData.getNumberOfDeaths()));
-    y = drawStats(poseStack, x, y, Component.literal("⛄ Mob killed " + playerData.getMobKills()));
+    y = drawStats(poseStack, x, y, Component.literal(""));
+
+    // Penalty Stats
+    y = drawStats(poseStack, x, y, Component.literal("▼ Experience Penalty (e.g. deaths, ...)"));
+    y = drawStats(poseStack, x, y, Component.translatable(Constants.STATS_TEXT_PREFIX + "penalty",
+        playerData.getExperiencePenaltyGeneral(), playerData.getExperiencePenaltyWeaponClass()));
+    y = drawStats(poseStack, x, y, Component.literal(""));
+
+    // Damage Stats
+    y = drawStats(poseStack, x, y, Component.literal("Damage Stats"));
     y = drawStats(poseStack, x, y,
-        Component.literal("♕ Player killed " + playerData.getPlayerKills()));
+        Component.translatable(Constants.STATS_TEXT_PREFIX + "mob_damage", playerData.getMobKills(),
+            playerData.getDamageLevelMob()));
     y = drawStats(poseStack, x, y,
-        Component.literal("⛄ Mob Damage Lvl. " + playerData.getDamageLevelMob()));
-    y = drawStats(poseStack, x, y,
-        Component.literal("♕ Player Damage Lvl. " + playerData.getDamageLevelPlayer()));
+        Component.translatable(Constants.STATS_TEXT_PREFIX + "player_damage",
+            playerData.getPlayerKills(), playerData.getDamageLevelPlayer()));
     y = drawStats(poseStack, x, y, Component.literal(""));
 
     // Weapon Stats
-    y = drawStats(poseStack, x, y, Component.literal("Weapon Stats"));
+    y = drawStats(poseStack, x, y, Component.literal("Weapon Stats Level"));
     boolean evenTextPlacement = true;
     for (WeaponClass weaponClass : WeaponClass.values()) {
       if (evenTextPlacement) {
@@ -126,7 +135,7 @@ public class StatsButton extends Button {
                 weaponClass.text.withStyle(ChatFormatting.RESET),
                 playerData.getWeaponClassLevel(weaponClass)));
       } else {
-        y = drawStats(poseStack, x + 120, y,
+        y = drawStats(poseStack, x + spacingSecondColum, y,
             Component.translatable(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
                 weaponClass.text.withStyle(ChatFormatting.RESET),
                 playerData.getWeaponClassLevel(weaponClass)));

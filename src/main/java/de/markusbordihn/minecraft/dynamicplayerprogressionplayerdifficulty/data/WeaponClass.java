@@ -19,11 +19,16 @@
 
 package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.config.CommonConfig;
 
 public enum WeaponClass {
   //@formatter:off
@@ -42,6 +47,8 @@ public enum WeaponClass {
   SWORD("⚔", null);
   //@formatter:on
 
+  private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
+
   public final ResourceLocation icon;
   public final String textIcon;
   public final String translationId;
@@ -53,4 +60,116 @@ public enum WeaponClass {
     this.translationId = Constants.CLASS_TEXT_PREFIX + this.name().toLowerCase();
     this.text = Component.translatable(this.translationId);
   }
+
+  public float getDamageAdjustment() {
+    switch (this) {
+      case AXE:
+        return COMMON.axeItemDamageIncrease.get();
+      case BOW:
+        return COMMON.bowItemDamageIncrease.get();
+      case CROSSBOW:
+        return COMMON.crossbowItemDamageIncrease.get();
+      case DAGGER:
+        return COMMON.daggerItemDamageIncrease.get();
+      case GREAT_SWORD:
+        return COMMON.greatSwordItemDamageIncrease.get();
+      case GUN:
+        return COMMON.gunItemDamageIncrease.get();
+      case HAMMER:
+        return COMMON.hammerItemDamageIncrease.get();
+      case HOE:
+        return COMMON.hoeItemDamageIncrease.get();
+      case KEYBLADE:
+        return COMMON.keybladeItemDamageIncrease.get();
+      case PICKAXE:
+        return COMMON.pickaxeItemDamageIncrease.get();
+      case SHIELD:
+        return COMMON.shieldItemDamageIncrease.get();
+      case SPEAR:
+        return COMMON.spearItemDamageIncrease.get();
+      case SWORD:
+        return COMMON.swordItemDamageIncrease.get();
+      default:
+        return 0.0f;
+    }
+  }
+
+  public float getDamageAdjustment(int level, int maxLevel) {
+    float adjustment = getDamageAdjustment();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public int getDurabilityAdjustment() {
+    switch (this) {
+      case AXE:
+        return COMMON.axeItemDurabilityIncrease.get();
+      case BOW:
+        return COMMON.bowItemDurabilityIncrease.get();
+      case CROSSBOW:
+        return COMMON.crossbowItemDurabilityIncrease.get();
+      case DAGGER:
+        return COMMON.daggerItemDurabilityIncrease.get();
+      case GREAT_SWORD:
+        return COMMON.greatSwordItemDurabilityIncrease.get();
+      case GUN:
+        return COMMON.gunItemDurabilityIncrease.get();
+      case HAMMER:
+        return COMMON.hammerItemDurabilityIncrease.get();
+      case HOE:
+        return COMMON.hoeItemDurabilityIncrease.get();
+      case KEYBLADE:
+        return COMMON.keybladeItemDurabilityIncrease.get();
+      case PICKAXE:
+        return COMMON.pickaxeItemDurabilityIncrease.get();
+      case SHIELD:
+        return COMMON.shieldItemDurabilityIncrease.get();
+      case SPEAR:
+        return COMMON.spearItemDurabilityIncrease.get();
+      case SWORD:
+        return COMMON.swordItemDurabilityIncrease.get();
+      default:
+        return 0;
+    }
+  }
+
+  public float getDurabilityAdjustment(int level, int maxLevel) {
+    int adjustment = getDurabilityAdjustment();
+    return adjustment == 0 || level == 1 ? 0.0f
+        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
+  }
+
+  public Set<Item> getItems() {
+    switch (this) {
+      case AXE:
+        return WeaponClassData.getAxeItems();
+      case BOW:
+        return WeaponClassData.getBowItems();
+      case CROSSBOW:
+        return WeaponClassData.getCrossbowItems();
+      case DAGGER:
+        return WeaponClassData.getDaggerItems();
+      case GREAT_SWORD:
+        return WeaponClassData.getGreatSwordItems();
+      case GUN:
+        return WeaponClassData.getGunItems();
+      case HAMMER:
+        return WeaponClassData.getHammerItems();
+      case HOE:
+        return WeaponClassData.getHoeItems();
+      case KEYBLADE:
+        return WeaponClassData.getKeybladeItems();
+      case PICKAXE:
+        return WeaponClassData.getPickaxeItems();
+      case SHIELD:
+        return WeaponClassData.getShieldItems();
+      case SPEAR:
+        return WeaponClassData.getSpearItems();
+      case SWORD:
+        return WeaponClassData.getSwordItems();
+      default:
+        return new HashSet<>();
+    }
+  }
+
 }

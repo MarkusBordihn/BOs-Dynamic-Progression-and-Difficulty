@@ -28,6 +28,7 @@ import com.google.common.collect.Maps;
 
 import net.minecraft.Util;
 
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -56,6 +57,7 @@ public class Experience {
         hashMap.put(10, 180);
       });
 
+  private static boolean init = false;
   private static int minLevel = 1;
   private static int maxLevel = 100;
   private static int experienceFactor = 300;
@@ -65,6 +67,18 @@ public class Experience {
 
   @SubscribeEvent
   public static void handleServerAboutToStartEvent(ServerAboutToStartEvent event) {
+    loadConfigAndCalculateLevelExperience();
+  }
+
+  @SubscribeEvent
+  public static void handleWorldEventLoad(LevelEvent.Load event) {
+    if (event.getLevel().isClientSide() && !init) {
+      loadConfigAndCalculateLevelExperience();
+      init = true;
+    }
+  }
+
+  public static void loadConfigAndCalculateLevelExperience() {
     maxLevel = COMMON.levelMax.get();
     experienceFactor = COMMON.levelFactor.get();
     if (COMMON.levelFactorItems.get() > 0) {
@@ -159,19 +173,10 @@ public class Experience {
   }
 
   public static int getLevelFromExperience(int experience) {
-    return getLevelFromExperience(experience, 0);
-  }
-
-  public static int getLevelFromExperience(int experience, int adjustments) {
 
     // Check for min. level
     if (experience < getExperienceForMinLevel()) {
       return minLevel;
-    }
-
-    // Consider adjustments. if needed.
-    if (adjustments != 0) {
-      experience = Math.max(experience - adjustments, 0);
     }
 
     // Check for max. level
@@ -213,186 +218,6 @@ public class Experience {
       return dealtDamageReduction == 0 ? 0.0f
           : 1.0f - ((((float) level / maxLevel) * dealtDamageReduction) / 100f);
     }
-  }
-
-  public static float getItemDamageAdjustmentAxe(int level) {
-    int adjustment = COMMON.axeItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentBow(int level) {
-    int adjustment = COMMON.bowItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentCrossbow(int level) {
-    int adjustment = COMMON.crossbowItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentDagger(int level) {
-    int adjustment = COMMON.daggerItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentGreatSword(int level) {
-    int adjustment = COMMON.greatSwordItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentGun(int level) {
-    int adjustment = COMMON.gunItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentHammer(int level) {
-    int adjustment = COMMON.hammerItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentHoe(int level) {
-    int adjustment = COMMON.hoeItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentKeyblade(int level) {
-    int adjustment = COMMON.keybladeItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentPickaxe(int level) {
-    int adjustment = COMMON.pickaxeItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentShield(int level) {
-    int adjustment = COMMON.shieldItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentSpear(int level) {
-    int adjustment = COMMON.spearItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageAdjustmentSword(int level) {
-    int adjustment = COMMON.swordItemDamageIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDamageIncreaseAxe() {
-    return COMMON.axeItemDamageIncrease.get();
-  }
-
-  public static float getItemDamageIncreaseBow() {
-    return COMMON.bowItemDamageIncrease.get();
-  }
-
-  public static float getItemDamageIncreaseCrossbow() {
-    return COMMON.crossbowItemDamageIncrease.get();
-  }
-
-  public static float getItemDamageIncreasePickaxe() {
-    return COMMON.pickaxeItemDamageIncrease.get();
-  }
-
-  public static float getItemDamageIncreaseShield() {
-    return COMMON.shieldItemDamageIncrease.get();
-  }
-
-  public static float getItemDamageIncreaseSword() {
-    return COMMON.swordItemDamageIncrease.get();
-  }
-
-  public static float getItemDurabilityAdjustmentAxe(int level) {
-    int adjustment = COMMON.axeItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentBow(int level) {
-    int adjustment = COMMON.bowItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentCrossbow(int level) {
-    int adjustment = COMMON.crossbowItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentDagger(int level) {
-    int adjustment = COMMON.daggerItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentGreatSword(int level) {
-    int adjustment = COMMON.greatSwordItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentGun(int level) {
-    int adjustment = COMMON.gunItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentHammer(int level) {
-    int adjustment = COMMON.hammerItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentHoe(int level) {
-    int adjustment = COMMON.hoeItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentKeyblade(int level) {
-    int adjustment = COMMON.keybladeItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentPickaxe(int level) {
-    int adjustment = COMMON.pickaxeItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentShield(int level) {
-    int adjustment = COMMON.shieldItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentSpear(int level) {
-    int adjustment = COMMON.spearItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
-  }
-
-  public static float getItemDurabilityAdjustmentSword(int level) {
-    int adjustment = COMMON.swordItemDurabilityIncrease.get();
-    return adjustment == 0 || level == 1 ? 0.0f
-        : 1.0f + ((((float) level / maxLevel) * adjustment) / 100f);
   }
 
 }

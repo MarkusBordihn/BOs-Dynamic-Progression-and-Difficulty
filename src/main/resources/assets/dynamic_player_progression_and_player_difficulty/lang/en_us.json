@@ -1,9 +1,16 @@
 {
-  "text.dynamic_player_progression_and_player_difficulty.tooltip.level": "Level: %1$s/%2$s",
+  "text.dynamic_player_progression_and_player_difficulty.tooltip.level": "Item Lvl. %1$s/%2$s",
+  "text.dynamic_player_progression_and_player_difficulty.tooltip.level_experience": " (%1$s/%2$s XP)",
+  "text.dynamic_player_progression_and_player_difficulty.tooltip.level_experience_penalty": " -%1$s XP",
   "text.dynamic_player_progression_and_player_difficulty.tooltip.attack_damage": "%1$s Attack Damage",
   "text.dynamic_player_progression_and_player_difficulty.tooltip.durability": "%1$s Durability",
 
-  "text.dynamic_player_progression_and_player_difficulty.level.": "%1$s %2$s Lvl. %3$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats.mob_damage": "⛄ Mob killed %1$s / Mob DMG Lvl. %2$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats.penalty": "General -%1$s XP / Weapon -%2$s XP",
+  "text.dynamic_player_progression_and_player_difficulty.stats.player_damage": "♕ Player killed %1$s / Player DMG Lvl. %2$s",
+
+  "text.dynamic_player_progression_and_player_difficulty.level.": "%1$s %2$s: %3$s",
+  "text.dynamic_player_progression_and_player_difficulty.level_up": "Congratulation %1$s, your weapons %2$s class level has increased from Lvl. %3$s to Lvl. %4$s.",
 
   "text.dynamic_player_progression_and_player_difficulty.class.": "Weapon class: %1$s %2$s",
   "text.dynamic_player_progression_and_player_difficulty.class.axe": "Axe",

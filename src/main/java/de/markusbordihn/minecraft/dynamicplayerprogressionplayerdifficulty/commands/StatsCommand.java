@@ -58,10 +58,10 @@ public class StatsCommand extends CustomCommand {
 
     // Damage Levels
     sendFeedback(context,
-        String.format("⧫ Damage Level (Mob): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
+        String.format("⧫ Damage Lvl. (Mob): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
             playerData.getDamageLevelMob(), playerData.getDamageExperienceMob(),
             playerData.getDealtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentMob()));
-    sendFeedback(context, String.format("⧫ Damage Level (Player): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
+    sendFeedback(context, String.format("⧫ Damage Lvl. (Player): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
         playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
         playerData.getDealtDamageAdjustmentPlayer(), playerData.getHurtDamageAdjustmentPlayer()));
 
@@ -70,10 +70,12 @@ public class StatsCommand extends CustomCommand {
     for (WeaponClass weaponClass : WeaponClass.values()) {
       float damageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
       float durabilityAdjustment = playerData.getWeaponClassDurabilityAdjustment(weaponClass);
+      int weaponClassLevel = playerData.getWeaponClassLevel(weaponClass);
       sendFeedback(context,
-          String.format("%s %s Level. %s/%s (%s exp) ┃ ⚔ +%.4s%% ┃ ⚒ +%.4s%%", weaponClass.textIcon,
-              weaponClass.text.getString(), playerData.getWeaponClassLevel(weaponClass),
-              Experience.getMaxLevel(), playerData.getWeaponClassExperience(weaponClass),
+          String.format("%s %s Lvl. %s/%s (%s/%s XP) ┃ ⚔ +%.4s%% ┃ ⚒ +%.4s%%", weaponClass.textIcon,
+              weaponClass.name(), weaponClassLevel, Experience.getMaxLevel(),
+              playerData.getWeaponClassExperience(weaponClass),
+              Experience.getExperienceForNextLevel(weaponClassLevel),
               damageAdjustment > 0 ? (damageAdjustment - 1) * 100 : 0,
               durabilityAdjustment > 0 ? (durabilityAdjustment - 1) * 100 : 0));
     }

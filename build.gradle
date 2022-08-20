@@ -52,6 +52,10 @@ minecraft {
             source sourceSets.main
         }
       }
+
+      // Optional: Mixin Support
+      property 'mixin.env.remapRefMap', 'true'
+      property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
     }
 
     server {
@@ -72,6 +76,10 @@ minecraft {
             source sourceSets.main
         }
       }
+
+      // Optional: Mixin Support
+      property 'mixin.env.remapRefMap', 'true'
+      property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
     }
 
     data {
@@ -121,6 +129,9 @@ dependencies {
   // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
   // The userdev artifact is a special name and will get all sorts of transformations applied to it.
   minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+
+  runtimeOnly fg.deobf("curse.maven:framework-549225:3926055")
+  runtimeOnly fg.deobf("curse.maven:mrcrayfishs-gun-mod-289479:3874034")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

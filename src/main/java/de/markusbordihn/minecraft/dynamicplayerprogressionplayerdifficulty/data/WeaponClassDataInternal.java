@@ -38,8 +38,7 @@ public class WeaponClassDataInternal {
 
   // == Axe Class
   protected static final List<String> axeItems = Arrays.asList(
-  //@formatter:off h
-    "immersiveengineering:axe_steel"
+  //@formatter:off
   //@formatter:on
   );
   protected static final List<String> axeItemsSuffix = Arrays.asList("_axe", "battleaxe", "waraxe");
@@ -101,15 +100,12 @@ public class WeaponClassDataInternal {
     "additionalguns:ak105",
     "additionalguns:ak12",
     "additionalguns:ak15",
-    "additionalguns:ak74",
     "additionalguns:ak74m",
     "additionalguns:akm",
     "additionalguns:akm_custom",
     "additionalguns:aks74u",
-    "additionalguns:aug",
     "additionalguns:awm",
     "additionalguns:banshee",
-    "additionalguns:desert_eagle",
     "additionalguns:fn2000",
     "additionalguns:g11",
     "additionalguns:glock18",
@@ -138,15 +134,15 @@ public class WeaponClassDataInternal {
     "immersiveengineering:railgun",
     "moguns:m14",
     "moguns:mp5",
-    "oldguns:flintlock_musket",
     "oldguns:flintlock_nock_gun",
     "pneumaticcraft:minigun"
   //@formatter:on
   );
-  protected static final List<String> gunItemsSuffix =
-      Arrays.asList("_gun", "_rifle", "_pistol", "_gatling", "_shotgun", "_sniper");
+  protected static final List<String> gunItemsSuffix = Arrays.asList("_gun", "_rifle", "_pistol",
+      "_gatling", "_shotgun", "_sniper", "_gunblade", "_musket", "_blunderbuss", "_arquebus",
+      "_caliver", "_musketoon", ":desert_eagle", ":aug", ":ak74", ":magnum", ":uzi");
   protected static final List<String> gunItemsKeywords =
-      Arrays.asList(":pistol", ":rifle", ":shotgun");
+      Arrays.asList(":pistol", ":rifle", ":shotgun", ":gunblade");
 
   // == Hammer Class
   protected static final List<String> hammerItems = Arrays.asList(
@@ -155,7 +151,7 @@ public class WeaponClassDataInternal {
   //@formatter:on
   );
   protected static final List<String> hammerItemsSuffix = Arrays.asList("_hammer", "warhammer",
-      "_lucernhammer", "_hammer_end", "_hammer_neth", ":sledgehammer");
+      "_lucernhammer", "_hammer_end", "_hammer_neth", ":sledgehammer", ":ironhammer");
   protected static final List<String> hammerItemsKeywords =
       Arrays.asList(":hammer", ":warhammer", ":mattock");
 

@@ -48,5 +48,6 @@ public final class Constants {
   public static final String TEXT_PREFIX = "text." + MOD_ID;
   public static final String CLASS_TEXT_PREFIX = TEXT_PREFIX + ".class.";
   public static final String LEVEL_TEXT_PREFIX = TEXT_PREFIX + ".level.";
+  public static final String STATS_TEXT_PREFIX = TEXT_PREFIX + ".stats.";
   public static final String TOOLTIP_TEXT_PREFIX = TEXT_PREFIX + ".tooltip.";
 }

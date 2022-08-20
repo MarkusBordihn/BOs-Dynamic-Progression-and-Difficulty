@@ -50,10 +50,14 @@ Alternative you can use the `/player_progression stats` command to get an detail
 
 The stats will not conflict with other mods so you can still use any other RPG or MMO mod.
 
+![Example Player Stats](examples/example_level_up.png)
+
 ## Weapon Classes
 
+![Example Weapon Class](examples/weapon_class_adjustments.png)
+
 Each weapon will be categorize in on of the following classes, you can customize them over the config file in the case items are missing from other mods.
-Depending on your weapon class the your weapon class level you will get additional bonus stats for the weapon class like additional **Attack Damage**.
+Depending on your weapon class the your weapon class level you will get additional bonus stats for the weapon class like additional **Attack Damage** and/or **Durability**.
 
 - Axe Class
 - Bow Class
@@ -68,6 +72,34 @@ Depending on your weapon class the your weapon class level you will get addition
 - Shield Class
 - Spear Class
 - Sword Class
+
+![Example Weapon Class Gun](examples/weapon_class_adjustments_gun.png)
+
+## Supported Mods
+
+Most of the mods and weapon items should be supported out of the box.
+I tested the mod with the following mods:
+
+- Additional Guns
+- Age of Weapons
+- Axes Are Weapons
+- Caves and Katanas
+- Cyan Warrior Swords Mod
+- Epic Knights: Shields, Armor and Weapons
+- Four Elemental Swords
+- Immersive Engineering
+- Keyblades
+- Kingdom Keys 2
+- MC Dungeons Weaponry
+- Mo' Guns
+- MrCrayfish's Gun Mod
+- NinjaGear
+- Old Guns Mod
+- RPG style More Weapons!
+- Tetra
+- Useless Sword
+- Weapon Throw
+- YDM's Gunblades
 
 ## 🙋FAQ
 
