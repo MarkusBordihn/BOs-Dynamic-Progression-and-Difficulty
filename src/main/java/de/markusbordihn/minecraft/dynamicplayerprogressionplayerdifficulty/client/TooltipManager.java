@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
@@ -66,7 +67,10 @@ public class TooltipManager {
       tooltip.add(index++, formatWeaponClass(weaponClass));
       PlayerData playerData = PlayerDataManager.getLocalPlayer();
       if (playerData != null) {
-        tooltip.add(index++, formatLevel(playerData.getWeaponClassLevel(weaponClass)));
+        int weaponClassLevel = playerData.getWeaponClassLevel(weaponClass);
+        tooltip.add(index++,
+            formatLevel(weaponClassLevel).append(
+                formatExperience(playerData.getWeaponClassExperience(weaponClass), weaponClassLevel)));
         float itemDamageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
         if (itemDamageAdjustment > 0.0f) {
           tooltip.add(index++, formatDamageAdjustment(itemDamageAdjustment));
@@ -79,29 +83,35 @@ public class TooltipManager {
     }
   }
 
-  private static Component formatWeaponClass(WeaponClass weaponClass) {
+  private static MutableComponent formatWeaponClass(WeaponClass weaponClass) {
     return new TranslatableComponent(Constants.CLASS_TEXT_PREFIX,
         weaponClass.text.withStyle(ChatFormatting.BLUE), new TextComponent(weaponClass.textIcon))
             .withStyle(ChatFormatting.GRAY);
   }
 
-  private static Component formatLevel(int level) {
+  private static MutableComponent formatLevel(int level) {
     return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "level", level,
         Experience.getMaxLevel()).withStyle(ChatFormatting.YELLOW);
   }
 
-  private static Component formatDamageAdjustment(float attackDamage) {
+  private static MutableComponent formatExperience(int experience, int level) {
+    int experienceNextLevel = Experience.getExperienceForNextLevel(level) - 1;
+    return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "level_experience", experience,
+        experienceNextLevel).withStyle(ChatFormatting.DARK_GREEN);
+  }
+
+  private static MutableComponent formatDamageAdjustment(float attackDamage) {
     return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "attack_damage",
         new TextComponent(
             String.format("+%.2f%%", attackDamage > 1 ? (attackDamage - 1) * 100 : attackDamage))
-                .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY);
+                .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.DARK_GREEN);
   }
 
-  private static Component formatDurabilityAdjustment(float durability) {
+  private static MutableComponent formatDurabilityAdjustment(float durability) {
     return new TranslatableComponent(Constants.TOOLTIP_TEXT_PREFIX + "durability",
         new TextComponent(
             String.format("+%.2f%%", durability > 1 ? (durability - 1) * 100 : durability))
-                .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY);
+                .withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.DARK_GREEN);
   }
 
 }

@@ -5,6 +5,12 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.20
+
+- Improved weapon class detection and stats overview.
+- Implemented player message for level ups.
+- Improved overall performance.
+
 ### 2022.08.19
 
 - Added dynamic weapon class detection to covering more mods without manually defining them.

@@ -129,7 +129,24 @@ public class WeaponClassData {
       processConfigItems(COMMON.spearItems.get(), spearItems, WeaponClass.SPEAR);
       processConfigItems(COMMON.swordItems.get(), swordItems, WeaponClass.SWORD);
 
-      log.info("Using registry for mapping ...");
+      log.info("Using registry for extended mapping like dagger, great sword, gun, ...");
+      processRegistryItems(daggerItems, WeaponClass.DAGGER, WeaponClassDataInternal.daggerItems,
+          WeaponClassDataInternal.daggerItemsSuffix, WeaponClassDataInternal.daggerItemsKeywords);
+      processRegistryItems(greatSwordItems, WeaponClass.GREAT_SWORD,
+          WeaponClassDataInternal.greatSwordItems, WeaponClassDataInternal.greatSwordItemsSuffix,
+          WeaponClassDataInternal.greatSwordItemsKeywords);
+      processRegistryItems(gunItems, WeaponClass.GUN, WeaponClassDataInternal.gunItems,
+          WeaponClassDataInternal.gunItemsSuffix, WeaponClassDataInternal.gunItemsKeywords);
+      processRegistryItems(hammerItems, WeaponClass.HAMMER, WeaponClassDataInternal.hammerItems,
+          WeaponClassDataInternal.hammerItemsSuffix, WeaponClassDataInternal.hammerItemsKeywords);
+      processRegistryItems(keybladeItems, WeaponClass.KEYBLADE,
+          WeaponClassDataInternal.keybladeItems, WeaponClassDataInternal.keybladeItemsSuffix,
+          WeaponClassDataInternal.keybladeItemsKeywords);
+      processRegistryItems(spearItems, WeaponClass.SPEAR, TridentItem.class,
+          WeaponClassDataInternal.spearItems, WeaponClassDataInternal.spearItemsSuffix,
+          WeaponClassDataInternal.spearItemsKeywords);
+
+      log.info("Using registry for classic mapping like axe, bow, crossbow, ...");
       processRegistryItems(axeItems, WeaponClass.AXE, AxeItem.class,
           WeaponClassDataInternal.axeItems, WeaponClassDataInternal.axeItemsSuffix,
           WeaponClassDataInternal.axeItemsKeywords);
@@ -139,37 +156,21 @@ public class WeaponClassData {
       processRegistryItems(crossbowItems, WeaponClass.CROSSBOW, CrossbowItem.class,
           WeaponClassDataInternal.crossbowItems, WeaponClassDataInternal.crossbowItemsSuffix,
           WeaponClassDataInternal.crossbowItemsKeywords);
-      processRegistryItems(daggerItems, WeaponClass.DAGGER, null,
-          WeaponClassDataInternal.daggerItems, WeaponClassDataInternal.daggerItemsSuffix,
-          WeaponClassDataInternal.daggerItemsKeywords);
-      processRegistryItems(greatSwordItems, WeaponClass.GREAT_SWORD, null,
-          WeaponClassDataInternal.greatSwordItems, WeaponClassDataInternal.greatSwordItemsSuffix,
-          WeaponClassDataInternal.greatSwordItemsKeywords);
-      processRegistryItems(gunItems, WeaponClass.GUN, null, WeaponClassDataInternal.gunItems,
-          WeaponClassDataInternal.gunItemsSuffix, WeaponClassDataInternal.gunItemsKeywords);
-      processRegistryItems(hammerItems, WeaponClass.HAMMER, null,
-          WeaponClassDataInternal.hammerItems, WeaponClassDataInternal.hammerItemsSuffix,
-          WeaponClassDataInternal.hammerItemsKeywords);
       processRegistryItems(hoeItems, WeaponClass.HOE, HoeItem.class,
           WeaponClassDataInternal.hoeItems, WeaponClassDataInternal.hoeItemsSuffix,
           WeaponClassDataInternal.hoeItemsKeywords);
-      processRegistryItems(keybladeItems, WeaponClass.KEYBLADE, null,
-          WeaponClassDataInternal.keybladeItems, WeaponClassDataInternal.keybladeItemsSuffix,
-          WeaponClassDataInternal.keybladeItemsKeywords);
       processRegistryItems(pickaxeItems, WeaponClass.PICKAXE, PickaxeItem.class,
           WeaponClassDataInternal.pickaxeItems, WeaponClassDataInternal.pickaxeItemsSuffix,
           WeaponClassDataInternal.pickaxeItemsKeywords);
       processRegistryItems(shieldItems, WeaponClass.SHIELD, ShieldItem.class,
           WeaponClassDataInternal.shieldItems, WeaponClassDataInternal.shieldItemsSuffix,
           WeaponClassDataInternal.shieldItemsKeywords);
-      processRegistryItems(spearItems, WeaponClass.SPEAR, TridentItem.class,
-          WeaponClassDataInternal.spearItems, WeaponClassDataInternal.spearItemsSuffix,
-          WeaponClassDataInternal.spearItemsKeywords);
       processRegistryItems(swordItems, WeaponClass.SWORD, SwordItem.class,
           WeaponClassDataInternal.swordItems, WeaponClassDataInternal.swordItemsSuffix,
           WeaponClassDataInternal.swordItemsKeywords);
 
-      log.info("Weapon class mapping was done for about {} items in {}ms.", weaponClassMap.size(),
+
+      log.info("Weapon class mapping for about {} items took {}ms.", weaponClassMap.size(),
           System.currentTimeMillis() - startTime);
 
       init = true;
@@ -246,6 +247,11 @@ public class WeaponClassData {
   }
 
   private static void processRegistryItems(Set<Item> targetedItemSet, WeaponClass weaponClass,
+      List<String> matchList, List<String> suffixList, List<String> keywordList) {
+    processRegistryItems(targetedItemSet, weaponClass, null, matchList, suffixList, keywordList);
+  }
+
+  private static void processRegistryItems(Set<Item> targetedItemSet, WeaponClass weaponClass,
       Class<?> itemTypeClass, List<String> matchList, List<String> suffixList,
       List<String> keywordList) {
     Iterator<Entry<ResourceKey<Item>, Item>> itemsIterator =
@@ -258,7 +264,8 @@ public class WeaponClassData {
 
       // Ignore all items which are unknown or mapped to air.
       if (item != null && !item.equals(Items.AIR)
-          && !WeaponClassDataInternal.ignoredItems.contains(itemName)) {
+          && !WeaponClassDataInternal.ignoredItems.contains(itemName)
+          && !weaponClassMap.containsKey(itemName)) {
 
         boolean isMapped = false;
 

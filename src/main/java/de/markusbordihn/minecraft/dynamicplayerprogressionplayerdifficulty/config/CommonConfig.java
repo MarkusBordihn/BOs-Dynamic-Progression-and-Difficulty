@@ -74,6 +74,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue hurtDamageLevelCap;
 
     public final ForgeConfigSpec.ConfigValue<List<String>> weaponClassIgnoredItems;
+    public final ForgeConfigSpec.BooleanValue weaponClassLevelUpMessage;
 
     public final ForgeConfigSpec.ConfigValue<List<String>> axeItems;
     public final ForgeConfigSpec.IntValue axeItemDamageIncrease;
@@ -136,10 +137,10 @@ public class CommonConfig {
           .define("guiButtonEnabled", true);
       guiButtonPositionLeft =
           builder.comment("Defines the left position relative to the inventory screen.")
-              .defineInRange("guiButtonPositionLeft", 64, 0, 640);
+              .defineInRange("guiButtonPositionLeft", 63, 0, 640);
       guiButtonPositionTop =
           builder.comment("Defines the top position relative to the inventory screen.")
-              .defineInRange("guiButtonPositionTop", 9, 0, 480);
+              .defineInRange("guiButtonPositionTop", 10, 0, 480);
       builder.pop();
 
       builder.push("Level System");
@@ -191,9 +192,10 @@ public class CommonConfig {
 
       builder.push("Weapon Class");
       weaponClassIgnoredItems = builder.comment("List of ignored items for the mapping.")
-          .define("weaponClassIgnoredItems", new ArrayList<String>(Arrays.asList(
-
-          )));
+          .define("weaponClassIgnoredItems", new ArrayList<String>(Arrays.asList()));
+      weaponClassLevelUpMessage =
+          builder.comment("Enable/Disable level up player messages for weapon classes.")
+              .define("weaponClassLevelUpMessage", true);
       builder.pop();
 
       builder.push("Axes");

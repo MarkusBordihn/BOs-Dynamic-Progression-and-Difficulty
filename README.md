@@ -69,6 +69,32 @@ Depending on your weapon class the your weapon class level you will get addition
 - Spear Class
 - Sword Class
 
+## Supported Mods
+
+Most of the mods and weapon items should be supported out of the box.
+I tested the mod with the following mods:
+
+- Additional Guns
+- Age of Weapons
+- Axes Are Weapons
+- Caves and Katanas
+- Cyan Warrior Swords Mod
+- Epic Knights: Shields, Armor and Weapons
+- Four Elemental Swords
+- Immersive Engineering
+- Keyblades
+- Kingdom Keys 2
+- MC Dungeons Weaponry
+- Mo' Guns
+- MrCrayfish's Gun Mod
+- NinjaGear
+- Old Guns Mod
+- RPG style More Weapons!
+- Tetra
+- Useless Sword
+- Weapon Throw
+- YDM's Gunblades
+
 ## 🙋FAQ
 
 ### Is this a server side / client side mod❓
