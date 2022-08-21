@@ -1,4 +1,4 @@
-# ⚔️ Dynamic Player Progression and Difficulty
+# ⚔️ Dynamic Player Progression and Difficulty (1.18.2)
 
 [![Dynamic Player Progression and Difficulty Downloads](http://cf.way2muchnoise.eu/full_650016_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
 [![Dynamic Player Progression and Difficulty Versions](http://cf.way2muchnoise.eu/versions/Minecraft_650016_all.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
@@ -50,10 +50,14 @@ Alternative you can use the `/player_progression stats` command to get an detail
 
 The stats will not conflict with other mods so you can still use any other RPG or MMO mod.
 
+![Example Player Stats](examples/example_level_up.png)
+
 ## Weapon Classes
 
+![Example Weapon Class](examples/weapon_class_adjustments.png)
+
 Each weapon will be categorize in on of the following classes, you can customize them over the config file in the case items are missing from other mods.
-Depending on your weapon class the your weapon class level you will get additional bonus stats for the weapon class like additional **Attack Damage**.
+Depending on your weapon class the your weapon class level you will get additional bonus stats for the weapon class like additional **Attack Damage** and/or **Durability**.
 
 - Axe Class
 - Bow Class
@@ -68,6 +72,8 @@ Depending on your weapon class the your weapon class level you will get addition
 - Shield Class
 - Spear Class
 - Sword Class
+
+![Example Weapon Class Gun](examples/weapon_class_adjustments_gun.png)
 
 ## Supported Mods
 

@@ -5,6 +5,11 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.21
+
+- Added Scythe, Shovel, Staff and Wand Weapon class.
+- Improved mapping time and memory usage.
+
 ### 2022.08.20
 
 - Improved weapon class detection and stats overview.

@@ -25,47 +25,35 @@ import java.util.List;
 public class WeaponClassDataInternal {
 
   protected static final List<String> ignoredItems = Arrays.asList(
-  //@formatter:off
+  //@formatter:off,
     "immersiveengineering:bannerpattern_hammer",
     "immersiveengineering:gunpart_hammer",
-    "tconstruct:hammer_head_cast",
-    "tconstruct:hammer_head_red_sand_cast",
-    "tconstruct:hammer_head_sand_cast",
-    "tropicraft:hammerhead_spawn_egg",
+    "tombstone:fishing_rod_of_misadventure",
     "tconstruct:hammer_head"
   //@formatter:on
   );
 
+  protected static final List<String> ignoredItemsSuffix =
+      Arrays.asList("_block", "_roof", "fishing_rod", "_cast", "_spawn_egg", "seeditem", "_ingot");
+
   // == Axe Class
-  protected static final List<String> axeItems = Arrays.asList(
-  //@formatter:off
-  //@formatter:on
-  );
+  protected static final List<String> axeItems = Arrays.asList();
   protected static final List<String> axeItemsSuffix = Arrays.asList("_axe", "battleaxe", "waraxe");
   protected static final List<String> axeItemsKeywords =
       Arrays.asList(":axe", ":battle_axe", ":waraxe");
 
   // == Bow Class
-  protected static final List<String> bowItems = Arrays.asList(
-  //@formatter:off
-  //@formatter:on
-  );
+  protected static final List<String> bowItems = Arrays.asList();
   protected static final List<String> bowItemsSuffix = Arrays.asList("_bow", "longbow");
   protected static final List<String> bowItemsKeywords = Arrays.asList();
 
   // == Crossbow Class
-  protected static final List<String> crossbowItems = Arrays.asList(
-  //@formatter:off
-  //@formatter:on
-  );
+  protected static final List<String> crossbowItems = Arrays.asList();
   protected static final List<String> crossbowItemsSuffix = Arrays.asList("_crossbow");
   protected static final List<String> crossbowItemsKeywords = Arrays.asList();
 
   // == Dagger Class
-  protected static final List<String> daggerItems = Arrays.asList(
-  //@formatter:off
-  //@formatter:on
-  );
+  protected static final List<String> daggerItems = Arrays.asList();
   protected static final List<String> daggerItemsSuffix =
       Arrays.asList("_knife", "_dagger", ":diamondknife", ":netheritknife");
   protected static final List<String> daggerItemsKeywords = Arrays.asList(":dagger", ":knife");
@@ -156,10 +144,7 @@ public class WeaponClassDataInternal {
       Arrays.asList(":hammer", ":warhammer", ":mattock");
 
   // == Hoe Class
-  protected static final List<String> hoeItems = Arrays.asList(
-  //@formatter:off
-  //@formatter:on
-  );
+  protected static final List<String> hoeItems = Arrays.asList();
   protected static final List<String> hoeItemsSuffix = Arrays.asList("_hoe", ":kama");
   protected static final List<String> hoeItemsKeywords = Arrays.asList(":hoe");
 
@@ -304,13 +289,15 @@ public class WeaponClassDataInternal {
   protected static final List<String> keybladeItemsKeywords = Arrays.asList(":keyblade_");
 
   // == Pickaxe Class
-  protected static final List<String> pickaxeItems = Arrays.asList(
-  //@formatter:off
-  //@formatter:on
-  );
+  protected static final List<String> pickaxeItems = Arrays.asList();
   protected static final List<String> pickaxeItemsSuffix =
-      Arrays.asList("_pickaxe", "_pickaxe_end", "_pickaxe_nether", "_pick");
+      Arrays.asList("_pickaxe", "_pickaxe_end", "_pickaxe_nether", "_pick", ":pickadze");
   protected static final List<String> pickaxeItemsKeywords = Arrays.asList(":pickaxe");
+
+  // == Scythe Class
+  protected static final List<String> scytheItems = Arrays.asList();
+  protected static final List<String> scytheItemsSuffix = Arrays.asList("_scythe", ":scythe");
+  protected static final List<String> scytheItemsKeywords = Arrays.asList();
 
   // == Shield Class
   protected static final List<String> shieldItems = Arrays.asList(
@@ -338,6 +325,11 @@ public class WeaponClassDataInternal {
           "_pavese", "_rondache", "_roundshield", "_tartsche", ":shield");
   protected static final List<String> shieldItemsKeywords = Arrays.asList();
 
+  // == Shovel Class
+  protected static final List<String> shovelItems = Arrays.asList();
+  protected static final List<String> shovelItemsSuffix = Arrays.asList("_shovel", ":shovel");
+  protected static final List<String> shovelItemsKeywords = Arrays.asList();
+
   // == Spear Class
   protected static final List<String> spearItems = Arrays.asList(
   //@formatter:off
@@ -347,6 +339,11 @@ public class WeaponClassDataInternal {
   protected static final List<String> spearItemsSuffix =
       Arrays.asList("_spear", "_ahlspiess", "_pike", "_ranseur", ":spear");
   protected static final List<String> spearItemsKeywords = Arrays.asList();
+
+  // == Staff Class
+  protected static final List<String> staffItems = Arrays.asList();
+  protected static final List<String> staffItemsSuffix = Arrays.asList("_staff", ":staff", "_rod");
+  protected static final List<String> staffItemsKeywords = Arrays.asList();
 
   // == Sword Class
   protected static final List<String> swordItems = Arrays.asList(
@@ -368,6 +365,11 @@ public class WeaponClassDataInternal {
   protected static final List<String> swordItemsSuffix =
       Arrays.asList("_sword", "_shortsword", ":sword");
   protected static final List<String> swordItemsKeywords = Arrays.asList();
+
+  // == Wand Class
+  protected static final List<String> wandItems = Arrays.asList();
+  protected static final List<String> wandItemsSuffix = Arrays.asList("_wand", ":wand", "_scepter");
+  protected static final List<String> wandItemsKeywords = Arrays.asList();
 
   protected WeaponClassDataInternal() {}
 }

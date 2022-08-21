@@ -23,7 +23,6 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
@@ -37,14 +36,18 @@ public enum WeaponClass {
   CROSSBOW("🏹", null),
   DAGGER("🗡", null),
   GREAT_SWORD("⚔", null),
-  GUN("╗", null),
+  GUN("▝▜", null),
   HAMMER("⚒", null),
-  HOE("⚒", null),
-  KEYBLADE("⚔", null),
+  HOE("↿", null),
+  KEYBLADE("⚷", null),
   PICKAXE("⛏", null),
+  SCYTHE("⚳", null),
   SHIELD("🛡", null),
+  SHOVEL("⚒", null),
   SPEAR("🔱", null),
-  SWORD("⚔", null);
+  STAFF("╲", null),
+  SWORD("⚔", null),
+  WAND("⚚", null);
   //@formatter:on
 
   private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
@@ -83,15 +86,22 @@ public enum WeaponClass {
         return COMMON.keybladeItemDamageIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDamageIncrease.get();
+      case SCYTHE:
+        return COMMON.scytheItemDamageIncrease.get();
       case SHIELD:
         return COMMON.shieldItemDamageIncrease.get();
+      case SHOVEL:
+        return COMMON.shovelItemDamageIncrease.get();
       case SPEAR:
         return COMMON.spearItemDamageIncrease.get();
+      case STAFF:
+        return COMMON.staffItemDamageIncrease.get();
       case SWORD:
         return COMMON.swordItemDamageIncrease.get();
-      default:
-        return 0.0f;
+      case WAND:
+        return COMMON.wandItemDamageIncrease.get();
     }
+    return 0.0f;
   }
 
   public float getDamageAdjustment(int level, int maxLevel) {
@@ -122,15 +132,22 @@ public enum WeaponClass {
         return COMMON.keybladeItemDurabilityIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDurabilityIncrease.get();
+      case SCYTHE:
+        return COMMON.scytheItemDamageIncrease.get();
       case SHIELD:
         return COMMON.shieldItemDurabilityIncrease.get();
+      case SHOVEL:
+        return COMMON.shovelItemDamageIncrease.get();
       case SPEAR:
         return COMMON.spearItemDurabilityIncrease.get();
+      case STAFF:
+        return COMMON.staffItemDurabilityIncrease.get();
       case SWORD:
         return COMMON.swordItemDurabilityIncrease.get();
-      default:
-        return 0;
+      case WAND:
+        return COMMON.wandItemDurabilityIncrease.get();
     }
+    return 0;
   }
 
   public float getDurabilityAdjustment(int level, int maxLevel) {
@@ -140,35 +157,6 @@ public enum WeaponClass {
   }
 
   public Set<Item> getItems() {
-    switch (this) {
-      case AXE:
-        return WeaponClassData.getAxeItems();
-      case BOW:
-        return WeaponClassData.getBowItems();
-      case CROSSBOW:
-        return WeaponClassData.getCrossbowItems();
-      case DAGGER:
-        return WeaponClassData.getDaggerItems();
-      case GREAT_SWORD:
-        return WeaponClassData.getGreatSwordItems();
-      case GUN:
-        return WeaponClassData.getGunItems();
-      case HAMMER:
-        return WeaponClassData.getHammerItems();
-      case HOE:
-        return WeaponClassData.getHoeItems();
-      case KEYBLADE:
-        return WeaponClassData.getKeybladeItems();
-      case PICKAXE:
-        return WeaponClassData.getPickaxeItems();
-      case SHIELD:
-        return WeaponClassData.getShieldItems();
-      case SPEAR:
-        return WeaponClassData.getSpearItems();
-      case SWORD:
-        return WeaponClassData.getSwordItems();
-      default:
-        return new HashSet<>();
-    }
+    return WeaponClassData.getItems(this);
   }
 }
