@@ -116,17 +116,33 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue pickaxeItemDamageIncrease;
     public final ForgeConfigSpec.IntValue pickaxeItemDurabilityIncrease;
 
+    public final ForgeConfigSpec.ConfigValue<List<String>> scytheItems;
+    public final ForgeConfigSpec.IntValue scytheItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue scytheItemDurabilityIncrease;
+
     public final ForgeConfigSpec.ConfigValue<List<String>> shieldItems;
     public final ForgeConfigSpec.IntValue shieldItemDamageIncrease;
     public final ForgeConfigSpec.IntValue shieldItemDurabilityIncrease;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> shovelItems;
+    public final ForgeConfigSpec.IntValue shovelItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue shovelItemDurabilityIncrease;
 
     public final ForgeConfigSpec.ConfigValue<List<String>> spearItems;
     public final ForgeConfigSpec.IntValue spearItemDamageIncrease;
     public final ForgeConfigSpec.IntValue spearItemDurabilityIncrease;
 
+    public final ForgeConfigSpec.ConfigValue<List<String>> staffItems;
+    public final ForgeConfigSpec.IntValue staffItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue staffItemDurabilityIncrease;
+
     public final ForgeConfigSpec.ConfigValue<List<String>> swordItems;
     public final ForgeConfigSpec.IntValue swordItemDamageIncrease;
     public final ForgeConfigSpec.IntValue swordItemDurabilityIncrease;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> wandItems;
+    public final ForgeConfigSpec.IntValue wandItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue wandItemDurabilityIncrease;
 
     Config(ForgeConfigSpec.Builder builder) {
       builder.comment(
@@ -191,7 +207,8 @@ public class CommonConfig {
       builder.pop();
 
       builder.push("Weapon Class");
-      weaponClassIgnoredItems = builder.comment("List of ignored items for the mapping.")
+      weaponClassIgnoredItems = builder.comment(
+          "List of ignored items for the weapon class mapping e.g. [\"immersiveengineering:gunpart_hammer\", \"tconstruct:hammer_head\", ...]")
           .define("weaponClassIgnoredItems", new ArrayList<String>(Arrays.asList()));
       weaponClassLevelUpMessage =
           builder.comment("Enable/Disable level up player messages for weapon classes.")
@@ -311,6 +328,17 @@ public class CommonConfig {
           .defineInRange("pickaxeItemDurabilityIncrease", 50, 0, 1000);
       builder.pop();
 
+      builder.push("Scythes");
+      scytheItems = builder.comment(listOfItemsDescription("scythe")).define("scytheItems",
+          new ArrayList<String>(Arrays.asList()));
+      scytheItemDamageIncrease = builder
+          .comment("Increases the dealt damage with the scythe by the amount of % (0 = disabled).")
+          .defineInRange("scytheItemDamageIncrease", 100, 0, 1000);
+      scytheItemDurabilityIncrease = builder
+          .comment("Increases the durability of the scythe by the amount of % (0 = disabled).")
+          .defineInRange("scytheItemDurabilityIncrease", 50, 0, 1000);
+      builder.pop();
+
       builder.push("Shields");
       shieldItems = builder.comment(listOfItemsDescription("shield")).define("shieldItems",
           new ArrayList<String>(Arrays.asList()));
@@ -320,6 +348,17 @@ public class CommonConfig {
       shieldItemDurabilityIncrease = builder
           .comment("Increases the durability of the shield by the amount of % (0 = disabled).")
           .defineInRange("shieldItemDurabilityIncrease", 0, 0, 1000);
+      builder.pop();
+
+      builder.push("Shovels");
+      shovelItems = builder.comment(listOfItemsDescription("shovel")).define("shovelItems",
+          new ArrayList<String>(Arrays.asList()));
+      shovelItemDamageIncrease = builder
+          .comment("Increases the dealt damage with the shovel by the amount of % (0 = disabled).")
+          .defineInRange("shovelItemDamageIncrease", 75, 0, 1000);
+      shovelItemDurabilityIncrease = builder
+          .comment("Increases the durability of the shovel by the amount of % (0 = disabled).")
+          .defineInRange("shovelItemDurabilityIncrease", 50, 0, 1000);
       builder.pop();
 
       builder.push("Spears");
@@ -333,6 +372,17 @@ public class CommonConfig {
           .defineInRange("spearItemDurabilityIncrease", 0, 0, 1000);
       builder.pop();
 
+      builder.push("Staff");
+      staffItems = builder.comment(listOfItemsDescription("staff")).define("staffItems",
+          new ArrayList<String>(Arrays.asList()));
+      staffItemDamageIncrease = builder
+          .comment("Increases the dealt damage with the staff by the amount of % (0 = disabled).")
+          .defineInRange("staffItemDamageIncrease", 50, 0, 1000);
+      staffItemDurabilityIncrease = builder
+          .comment("Increases the durability of the staff by the amount of % (0 = disabled).")
+          .defineInRange("staffItemDurabilityIncrease", 50, 0, 1000);
+      builder.pop();
+
       builder.push("Swords");
       swordItems = builder.comment(listOfItemsDescription("sword")).define("swordItems",
           new ArrayList<String>(Arrays.asList()));
@@ -342,6 +392,17 @@ public class CommonConfig {
       swordItemDurabilityIncrease = builder
           .comment("Increases the durability of the sword by the amount of % (0 = disabled).")
           .defineInRange("swordItemDurabilityIncrease", 0, 0, 1000);
+      builder.pop();
+
+      builder.push("Wand");
+      wandItems = builder.comment(listOfItemsDescription("wand")).define("wandItems",
+          new ArrayList<String>(Arrays.asList()));
+      wandItemDamageIncrease = builder
+          .comment("Increases the dealt damage with the wand by the amount of % (0 = disabled).")
+          .defineInRange("wandItemDamageIncrease", 50, 0, 1000);
+      wandItemDurabilityIncrease =
+          builder.comment("Increases the durability of the wand by the amount of % (0 = disabled).")
+              .defineInRange("wandItemDurabilityIncrease", 50, 0, 1000);
       builder.pop();
     }
 

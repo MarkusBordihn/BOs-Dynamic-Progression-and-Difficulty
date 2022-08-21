@@ -23,7 +23,11 @@
   "text.dynamic_player_progression_and_player_difficulty.class.hoe": "Hoe",
   "text.dynamic_player_progression_and_player_difficulty.class.keyblade": "Keyblade",
   "text.dynamic_player_progression_and_player_difficulty.class.pickaxe": "Pickaxe",
+  "text.dynamic_player_progression_and_player_difficulty.class.scythe": "Scythe",
   "text.dynamic_player_progression_and_player_difficulty.class.shield": "Shield",
+  "text.dynamic_player_progression_and_player_difficulty.class.shovel": "Shovel",
   "text.dynamic_player_progression_and_player_difficulty.class.spear": "Spear",
-  "text.dynamic_player_progression_and_player_difficulty.class.sword": "Sword"
+  "text.dynamic_player_progression_and_player_difficulty.class.staff": "Staff",
+  "text.dynamic_player_progression_and_player_difficulty.class.sword": "Sword",
+  "text.dynamic_player_progression_and_player_difficulty.class.wand": "Wand"
 }

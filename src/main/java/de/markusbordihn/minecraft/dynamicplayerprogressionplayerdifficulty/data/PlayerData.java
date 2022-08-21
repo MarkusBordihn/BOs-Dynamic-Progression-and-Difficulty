@@ -23,6 +23,9 @@ import java.util.EnumMap;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -38,6 +41,8 @@ import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Const
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.config.CommonConfig;
 
 public class PlayerData {
+
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
   private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
 
