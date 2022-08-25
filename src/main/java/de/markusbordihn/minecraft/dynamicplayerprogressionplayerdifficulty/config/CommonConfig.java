@@ -337,7 +337,7 @@ public class CommonConfig {
       katanaItems = builder.comment(listOfItemsDescription(KATANA_TEXT)).define("katanaItems",
           new ArrayList<String>(Arrays.asList()));
       katanaItemDamageIncrease = builder.comment(increaseDealtDamageDescription(KATANA_TEXT))
-          .defineInRange("katanaItemDamageIncrease", 200, 0, 1000);
+          .defineInRange("katanaItemDamageIncrease", 75, 0, 1000);
       katanaItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(KATANA_TEXT))
           .defineInRange("katanaItemDurabilityIncrease", 25, 0, 1000);
       builder.pop();
@@ -418,9 +418,9 @@ public class CommonConfig {
       tachiItems = builder.comment(listOfItemsDescription(TACHI_TEXT)).define("tachiItems",
           new ArrayList<String>(Arrays.asList()));
       tachiItemDamageIncrease = builder.comment(increaseDealtDamageDescription(TACHI_TEXT))
-          .defineInRange("tachiItemDamageIncrease", 50, 0, 1000);
+          .defineInRange("tachiItemDamageIncrease", 100, 0, 1000);
       tachiItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(TACHI_TEXT))
-          .defineInRange("tachiItemDurabilityIncrease", 0, 0, 1000);
+          .defineInRange("tachiItemDurabilityIncrease", 25, 0, 1000);
       builder.pop();
 
       builder.push("Wand");
