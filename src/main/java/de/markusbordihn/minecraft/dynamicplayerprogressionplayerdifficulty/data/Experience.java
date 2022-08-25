@@ -131,11 +131,11 @@ public class Experience {
   }
 
   public static int getExperienceForMinLevel() {
-    return levelExperienceMap.getOrDefault(minLevel + 1, null);
+    return levelExperienceMap.getOrDefault(minLevel + 1, 83);
   }
 
   public static int getExperienceForMaxLevel() {
-    return levelExperienceMap.getOrDefault(maxLevel, null);
+    return levelExperienceMap.getOrDefault(maxLevel, 14391123);
   }
 
   public static int getExperienceForLevel(int level) {

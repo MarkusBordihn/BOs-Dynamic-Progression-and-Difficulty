@@ -66,12 +66,19 @@ Depending on your weapon class the your weapon class level you will get addition
 - Great Sword Class
 - Gun Class
 - Hammer Class
-- Hoe class
+- Hand to Hand Class
+- Hoe Class
+- Katana Class
 - Keyblade Class
 - Pickaxe Class
+- Polearm Class
+- Scythe Class
 - Shield Class
-- Spear Class
+- Shovel Class
+- Staff Class
 - Sword Class
+- Tachi Class
+- Wand Class
 
 ![Example Weapon Class Gun](examples/weapon_class_adjustments_gun.png)
 
@@ -85,6 +92,7 @@ I tested the mod with the following mods:
 - Axes Are Weapons
 - Caves and Katanas
 - Cyan Warrior Swords Mod
+- Epic Fight
 - Epic Knights: Shields, Armor and Weapons
 - Four Elemental Swords
 - Immersive Engineering

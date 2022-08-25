@@ -63,14 +63,13 @@ public class TooltipManager {
     List<Component> tooltip = event.getToolTip();
     WeaponClass weaponClass = WeaponClassData.getWeaponClass(item);
     int index = 1;
-    if (weaponClass != null) {
+    if (weaponClass != null && WeaponClassData.isWeaponClassEnabled(weaponClass)) {
       tooltip.add(index++, formatWeaponClass(weaponClass));
       PlayerData playerData = PlayerDataManager.getLocalPlayer();
       if (playerData != null) {
         int weaponClassLevel = playerData.getWeaponClassLevel(weaponClass);
-        tooltip.add(index++,
-            formatLevel(weaponClassLevel).append(
-                formatExperience(playerData.getWeaponClassExperience(weaponClass), weaponClassLevel)));
+        tooltip.add(index++, formatLevel(weaponClassLevel).append(
+            formatExperience(playerData.getWeaponClassExperience(weaponClass), weaponClassLevel)));
         float itemDamageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
         if (itemDamageAdjustment > 0.0f) {
           tooltip.add(index++, formatDamageAdjustment(itemDamageAdjustment));

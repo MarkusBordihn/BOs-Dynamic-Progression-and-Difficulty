@@ -31,37 +31,42 @@ import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.confi
 public enum WeaponClass {
 
   //@formatter:off
-  AXE("🪓", null),
-  BOW("🏹", null),
-  CROSSBOW("🏹", null),
-  DAGGER("🗡", null),
-  GREAT_SWORD("⚔", null),
-  GUN("▝▜", null),
-  HAMMER("⚒", null),
-  HOE("↿", null),
-  KEYBLADE("⚷", null),
-  PICKAXE("⛏", null),
-  SCYTHE("⚳", null),
-  SHIELD("🛡", null),
-  SHOVEL("⚒", null),
-  SPEAR("🔱", null),
-  STAFF("╲", null),
-  SWORD("⚔", null),
-  WAND("⚚", null);
+  AXE("🪓", "axe", null),
+  BOW("🏹", "bow", null),
+  CROSSBOW("🏹", "crossbow", null),
+  DAGGER("🗡", "dagger", null),
+  GREAT_SWORD("⚔", "great sword", null),
+  GUN("▝▜", "gun", null),
+  HAMMER("⚒", "hammer", null),
+  HAND_TO_HAND("╽", "hand to hand", null),
+  HOE("↿", "hoe", null),
+  KATANA("⚔", "katana", null),
+  KEYBLADE("⚷", "keyblade", null),
+  PICKAXE("⛏", "pickaxe", null),
+  POLEARM("🔱", "polearm", null),
+  SCYTHE("⚳", "scythe", null),
+  SHIELD("🛡", "shield", null),
+  SHOVEL("⚒", "shovel", null),
+  STAFF("╲", "staff", null),
+  SWORD("⚔", "sword", null),
+  TACHI("⚔", "tachi", null),
+  WAND("⚚", "wand", null);
   //@formatter:on
 
   private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
 
   public final ResourceLocation icon;
   public final String textIcon;
+  public final String textName;
   public final String translationId;
   public final TranslatableComponent text;
 
-  private WeaponClass(String textIcon, ResourceLocation icon) {
+  private WeaponClass(String textIcon, String textName, ResourceLocation icon) {
     this.icon = icon;
     this.textIcon = textIcon;
     this.translationId = Constants.CLASS_TEXT_PREFIX + this.name().toLowerCase();
     this.text = new TranslatableComponent(this.translationId);
+    this.textName = textName;
   }
 
   public float getDamageAdjustment() {
@@ -80,24 +85,30 @@ public enum WeaponClass {
         return COMMON.gunItemDamageIncrease.get();
       case HAMMER:
         return COMMON.hammerItemDamageIncrease.get();
+      case KATANA:
+        return COMMON.katanaItemDamageIncrease.get();
+      case HAND_TO_HAND:
+        return COMMON.handToHandItemDamageIncrease.get();
       case HOE:
         return COMMON.hoeItemDamageIncrease.get();
       case KEYBLADE:
         return COMMON.keybladeItemDamageIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDamageIncrease.get();
+      case POLEARM:
+        return COMMON.polearmItemDamageIncrease.get();
       case SCYTHE:
         return COMMON.scytheItemDamageIncrease.get();
       case SHIELD:
         return COMMON.shieldItemDamageIncrease.get();
       case SHOVEL:
         return COMMON.shovelItemDamageIncrease.get();
-      case SPEAR:
-        return COMMON.spearItemDamageIncrease.get();
       case STAFF:
         return COMMON.staffItemDamageIncrease.get();
       case SWORD:
         return COMMON.swordItemDamageIncrease.get();
+      case TACHI:
+        return COMMON.tachiItemDamageIncrease.get();
       case WAND:
         return COMMON.wandItemDamageIncrease.get();
     }
@@ -128,22 +139,28 @@ public enum WeaponClass {
         return COMMON.hammerItemDurabilityIncrease.get();
       case HOE:
         return COMMON.hoeItemDurabilityIncrease.get();
+      case KATANA:
+        return COMMON.katanaItemDurabilityIncrease.get();
+      case HAND_TO_HAND:
+        return COMMON.handToHandItemDurabilityIncrease.get();
       case KEYBLADE:
         return COMMON.keybladeItemDurabilityIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDurabilityIncrease.get();
+      case POLEARM:
+        return COMMON.polearmItemDurabilityIncrease.get();
       case SCYTHE:
-        return COMMON.scytheItemDamageIncrease.get();
+        return COMMON.scytheItemDurabilityIncrease.get();
       case SHIELD:
         return COMMON.shieldItemDurabilityIncrease.get();
       case SHOVEL:
-        return COMMON.shovelItemDamageIncrease.get();
-      case SPEAR:
-        return COMMON.spearItemDurabilityIncrease.get();
+        return COMMON.shovelItemDurabilityIncrease.get();
       case STAFF:
         return COMMON.staffItemDurabilityIncrease.get();
       case SWORD:
         return COMMON.swordItemDurabilityIncrease.get();
+      case TACHI:
+        return COMMON.tachiItemDurabilityIncrease.get();
       case WAND:
         return COMMON.wandItemDurabilityIncrease.get();
     }
@@ -158,5 +175,9 @@ public enum WeaponClass {
 
   public Set<Item> getItems() {
     return WeaponClassData.getItems(this);
+  }
+
+  public String getTextName() {
+    return this.textName;
   }
 }
