@@ -19,6 +19,11 @@
 
 package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty;
 
+import java.util.Optional;
+
+import cpw.mods.modlauncher.Launcher;
+import cpw.mods.modlauncher.api.IEnvironment;
+
 import net.minecraft.ChatFormatting;
 
 public final class Constants {
@@ -50,4 +55,11 @@ public final class Constants {
   public static final String LEVEL_TEXT_PREFIX = TEXT_PREFIX + ".level.";
   public static final String STATS_TEXT_PREFIX = TEXT_PREFIX + ".stats.";
   public static final String TOOLTIP_TEXT_PREFIX = TEXT_PREFIX + ".tooltip.";
+
+  // Forge Specific
+  public static final Optional<String> FORGE_VERSION =
+      Launcher.INSTANCE.environment().getProperty(IEnvironment.Keys.VERSION.get());
+
+  public static final boolean IS_MOD_DEV = FORGE_VERSION.isPresent() && FORGE_VERSION.get() != null
+      && "MOD_DEV".equals(FORGE_VERSION.get());
 }

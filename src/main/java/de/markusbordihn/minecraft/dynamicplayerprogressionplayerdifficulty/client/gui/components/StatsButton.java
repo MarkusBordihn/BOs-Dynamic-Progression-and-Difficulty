@@ -41,6 +41,7 @@ import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Const
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClass;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClassData;
 
 public class StatsButton extends Button {
 
@@ -129,18 +130,20 @@ public class StatsButton extends Button {
     y = drawStats(poseStack, x, y, Component.literal("Weapon Stats Level"));
     boolean evenTextPlacement = true;
     for (WeaponClass weaponClass : WeaponClass.values()) {
-      if (evenTextPlacement) {
-        drawStats(poseStack, x, y,
-            Component.translatable(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
-                weaponClass.text.withStyle(ChatFormatting.RESET),
-                playerData.getWeaponClassLevel(weaponClass)));
-      } else {
-        y = drawStats(poseStack, x + spacingSecondColum, y,
-            Component.translatable(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
-                weaponClass.text.withStyle(ChatFormatting.RESET),
-                playerData.getWeaponClassLevel(weaponClass)));
+      if (WeaponClassData.isWeaponClassEnabled(weaponClass) || Constants.IS_MOD_DEV) {
+        if (evenTextPlacement) {
+          drawStats(poseStack, x, y,
+              Component.translatable(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
+                  weaponClass.text.withStyle(ChatFormatting.RESET),
+                  playerData.getWeaponClassLevel(weaponClass)));
+        } else {
+          y = drawStats(poseStack, x + spacingSecondColum, y,
+              Component.translatable(Constants.LEVEL_TEXT_PREFIX, weaponClass.textIcon,
+                  weaponClass.text.withStyle(ChatFormatting.RESET),
+                  playerData.getWeaponClassLevel(weaponClass)));
+        }
+        evenTextPlacement = !evenTextPlacement;
       }
-      evenTextPlacement = !evenTextPlacement;
     }
     poseStack.popPose();
   }

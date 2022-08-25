@@ -61,7 +61,7 @@ public class TooltipManager {
     List<Component> tooltip = event.getToolTip();
     WeaponClass weaponClass = WeaponClassData.getWeaponClass(item);
     int index = 1;
-    if (weaponClass != null) {
+    if (weaponClass != null && WeaponClassData.isWeaponClassEnabled(weaponClass)) {
       tooltip.add(index++, formatWeaponClass(weaponClass));
       PlayerData playerData = PlayerDataManager.getLocalPlayer();
       if (playerData != null) {

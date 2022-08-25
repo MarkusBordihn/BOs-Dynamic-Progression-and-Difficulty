@@ -20,68 +20,94 @@
 package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WeaponClassDataInternal {
 
-  protected static final List<String> ignoredItems = Arrays.asList(
+  protected static final Set<String> ignoredItems = new HashSet<>(Arrays.asList(
   //@formatter:off,
     "immersiveengineering:bannerpattern_hammer",
     "immersiveengineering:gunpart_hammer",
     "tombstone:fishing_rod_of_misadventure",
     "tconstruct:hammer_head"
   //@formatter:on
-  );
+  ));
 
-  protected static final List<String> ignoredItemsSuffix =
-      Arrays.asList("_block", "_roof", "fishing_rod", "_cast", "_spawn_egg", "seeditem", "_ingot");
+  protected static final Set<String> ignoredItemsSuffix = new HashSet<>(
+      Arrays.asList("_block", "_roof", "fishing_rod", "_cast", "_spawn_egg", "seeditem", "_ingot"));
 
-  // == Axe Class
-  protected static final List<String> axeItems = Arrays.asList();
-  protected static final List<String> axeItemsSuffix = Arrays.asList("_axe", "battleaxe", "waraxe");
-  protected static final List<String> axeItemsKeywords =
-      Arrays.asList(":axe", ":battle_axe", ":waraxe");
+  protected static final EnumMap<WeaponClass, Set<String>> weaponClassItemsNames =
+      new EnumMap<>(WeaponClass.class);
+  protected static final EnumMap<WeaponClass, Set<String>> weaponClassItemsSuffixes =
+      new EnumMap<>(WeaponClass.class);
+  protected static final EnumMap<WeaponClass, Set<String>> weaponClassItemsKeywords =
+      new EnumMap<>(WeaponClass.class);
 
-  // == Bow Class
-  protected static final List<String> bowItems = Arrays.asList();
-  protected static final List<String> bowItemsSuffix = Arrays.asList("_bow", "longbow");
-  protected static final List<String> bowItemsKeywords = Arrays.asList();
+  protected WeaponClassDataInternal() {}
 
-  // == Crossbow Class
-  protected static final List<String> crossbowItems = Arrays.asList();
-  protected static final List<String> crossbowItemsSuffix = Arrays.asList("_crossbow");
-  protected static final List<String> crossbowItemsKeywords = Arrays.asList();
+  static {
+    // Pre-fill weapon class data with default hash sets.
+    for (WeaponClass weaponClass : WeaponClass.values()) {
+      weaponClassItemsNames.putIfAbsent(weaponClass, new HashSet<>());
+      weaponClassItemsSuffixes.putIfAbsent(weaponClass, new HashSet<>());
+      weaponClassItemsKeywords.putIfAbsent(weaponClass, new HashSet<>());
+    }
+  }
 
-  // == Dagger Class
-  protected static final List<String> daggerItems = Arrays.asList();
-  protected static final List<String> daggerItemsSuffix =
-      Arrays.asList("_knife", "_dagger", ":diamondknife", ":netheritknife");
-  protected static final List<String> daggerItemsKeywords = Arrays.asList(":dagger", ":knife");
+  // Axe Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.AXE,
+        new HashSet<>(Arrays.asList("_axe", "battleaxe", "waraxe")));
+    weaponClassItemsKeywords.put(WeaponClass.AXE,
+        new HashSet<>(Arrays.asList(":axe", ":battle_axe", ":waraxe")));
+  }
 
-  // == Great Sword Class
-  protected static final List<String> greatSwordItems = Arrays.asList(
-  //@formatter:off
-    "rpg_style_more_weapins:newgenplzmasword",
-    "rpg_style_more_weapins:plazmaswordhollow",
-    "useless_sword:ancient_guardian_sword",
-    "useless_sword:bugged_diamond_sword",
-    "useless_sword:elder_guardian_sword",
-    "useless_sword:guardian_sword",
-    "useless_sword:nether_striker",
-    "useless_sword:nether_striker",
-    "useless_sword:soul_glaive",
-    "useless_sword:sword_of_fate",
-    "useless_sword:sword_of_immortality",
-    "useless_sword:wither_sword"
-  //@formatter:on
-  );
-  protected static final List<String> greatSwordItemsSuffix = Arrays.asList("_bastardsword",
-      "_broadsword", "_claymore", "_flamebladedsword", "_zweihander", ":cleaver");
-  protected static final List<String> greatSwordItemsKeywords = Arrays.asList();
+  // Bow Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.BOW, new HashSet<>(Arrays.asList("_bow", "longbow")));
+  }
 
-  // == Gun Class
-  protected static final List<String> gunItems = Arrays.asList(
-  //@formatter:off
+  // Crossbow Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.CROSSBOW, new HashSet<>(Arrays.asList("_crossbow")));
+  }
+
+  // Dagger Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.DAGGER,
+        new HashSet<>(Arrays.asList("_knife", "_dagger", ":diamondknife", ":netheritknife")));
+    weaponClassItemsKeywords.put(WeaponClass.DAGGER,
+        new HashSet<>(Arrays.asList(":dagger", ":knife")));
+  }
+
+  // Great Sword Class
+  static {
+    weaponClassItemsNames.put(WeaponClass.GREAT_SWORD, new HashSet<>(Arrays.asList(
+    //@formatter:off
+      "rpg_style_more_weapins:newgenplzmasword",
+      "rpg_style_more_weapins:plazmaswordhollow",
+      "useless_sword:ancient_guardian_sword",
+      "useless_sword:bugged_diamond_sword",
+      "useless_sword:elder_guardian_sword",
+      "useless_sword:guardian_sword",
+      "useless_sword:nether_striker",
+      "useless_sword:soul_glaive",
+      "useless_sword:sword_of_fate",
+      "useless_sword:sword_of_immortality",
+      "useless_sword:wither_sword"
+    //@formatter:on
+    )));
+    weaponClassItemsSuffixes.put(WeaponClass.GREAT_SWORD,
+        new HashSet<>(Arrays.asList("_bastardsword", "_broadsword", "_claymore",
+            "_flamebladedsword", "_zweihander", ":cleaver", "_greatsword", "_longsword")));
+  }
+
+  // Gun Class
+  static {
+    weaponClassItemsNames.put(WeaponClass.GUN, new HashSet<>(Arrays.asList(
+    //@formatter:off
   "additionalguns:9a91",
     "additionalguns:ace_of_spades",
     "additionalguns:ak104",
@@ -124,252 +150,286 @@ public class WeaponClassDataInternal {
     "moguns:mp5",
     "oldguns:flintlock_nock_gun",
     "pneumaticcraft:minigun"
-  //@formatter:on
-  );
-  protected static final List<String> gunItemsSuffix = Arrays.asList("_gun", "_rifle", "_pistol",
-      "_gatling", "_shotgun", "_sniper", "_gunblade", "_musket", "_blunderbuss", "_arquebus",
-      "_caliver", "_musketoon", ":desert_eagle", ":aug", ":ak74", ":magnum", ":uzi");
-  protected static final List<String> gunItemsKeywords =
-      Arrays.asList(":pistol", ":rifle", ":shotgun", ":gunblade");
+    //@formatter:on
+    )));
+    weaponClassItemsSuffixes.put(WeaponClass.GUN,
+        new HashSet<>(Arrays.asList("_gun", "_rifle", "_pistol", "_gatling", "_shotgun", "_sniper",
+            "_gunblade", "_musket", "_blunderbuss", "_arquebus", "_caliver", "_musketoon",
+            ":desert_eagle", ":aug", ":ak74", ":magnum", ":uzi")));
+    weaponClassItemsKeywords.put(WeaponClass.GUN,
+        new HashSet<>(Arrays.asList(":pistol", ":rifle", ":shotgun", ":gunblade")));
+  }
 
-  // == Hammer Class
-  protected static final List<String> hammerItems = Arrays.asList(
-  //@formatter:off
-    "rpg_style_more_weapins:newgenhammer"
-  //@formatter:on
-  );
-  protected static final List<String> hammerItemsSuffix = Arrays.asList("_hammer", "warhammer",
-      "_lucernhammer", "_hammer_end", "_hammer_neth", ":sledgehammer", ":ironhammer");
-  protected static final List<String> hammerItemsKeywords =
-      Arrays.asList(":hammer", ":warhammer", ":mattock");
+  // Hammer Class
+  static {
+    weaponClassItemsNames.put(WeaponClass.HAMMER, new HashSet<>(Arrays.asList(
+    //@formatter:off
+      "rpg_style_more_weapins:newgenhammer"
+    //@formatter:on
+    )));
+    weaponClassItemsSuffixes.put(WeaponClass.HAMMER,
+        new HashSet<>(Arrays.asList("_hammer", "warhammer", "_lucernhammer", "_hammer_end",
+            "_hammer_neth", ":sledgehammer", ":ironhammer")));
+    weaponClassItemsKeywords.put(WeaponClass.HAMMER,
+        new HashSet<>(Arrays.asList(":hammer", ":warhammer", ":mattock")));
+  }
 
-  // == Hoe Class
-  protected static final List<String> hoeItems = Arrays.asList();
-  protected static final List<String> hoeItemsSuffix = Arrays.asList("_hoe", ":kama");
-  protected static final List<String> hoeItemsKeywords = Arrays.asList(":hoe");
+  // Hammer Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.HAND_TO_HAND,
+        new HashSet<>(Arrays.asList("_knuckle", ":knuckle")));
+  }
 
-  // == Keyblade Class
-  protected static final List<String> keybladeItems = Arrays.asList(
-  //@formatter:off
-    "botania:king_key",
-    "kingdomkeys:abaddon_plasma",
-    "kingdomkeys:abyssal_tide",
-    "kingdomkeys:advent_red",
-    "kingdomkeys:all_for_one",
-    "kingdomkeys:astral_blast",
-    "kingdomkeys:aubade",
-    "kingdomkeys:bond_of_flame",
-    "kingdomkeys:bond_of_the_blaze",
-    "kingdomkeys:braveheart",
-    "kingdomkeys:brightcrest",
-    "kingdomkeys:chaos_ripper",
-    "kingdomkeys:circle_of_life",
-    "kingdomkeys:classic_tone",
-    "kingdomkeys:counterpoint",
-    "kingdomkeys:crabclaw",
-    "kingdomkeys:crown_of_guilt",
-    "kingdomkeys:crystal_snow",
-    "kingdomkeys:darker_than_dark",
-    "kingdomkeys:darkgnaw",
-    "kingdomkeys:dawn_till_dusk",
-    "kingdomkeys:decisive_pumpkin",
-    "kingdomkeys:destinys_embrace",
-    "kingdomkeys:diamond_dust",
-    "kingdomkeys:divewing",
-    "kingdomkeys:divine_rose",
-    "kingdomkeys:dual_disc",
-    "kingdomkeys:earthshaker",
-    "kingdomkeys:elemental_encoder",
-    "kingdomkeys:end_of_pain",
-    "kingdomkeys:ends_of_the_earth",
-    "kingdomkeys:ever_after",
-    "kingdomkeys:fairy_harp",
-    "kingdomkeys:fairy_stars",
-    "kingdomkeys:fatal_crest",
-    "kingdomkeys:favorite_deputy",
-    "kingdomkeys:fenrir",
-    "kingdomkeys:ferris_gear",
-    "kingdomkeys:follow_the_wind",
-    "kingdomkeys:frolic_flame",
-    "kingdomkeys:glimpse_of_darkness",
-    "kingdomkeys:grand_chef",
-    "kingdomkeys:guardian_bell",
-    "kingdomkeys:guardian_soul",
-    "kingdomkeys:gull_wing",
-    "kingdomkeys:happy_gear",
-    "kingdomkeys:heros_crest",
-    "kingdomkeys:heros_origin",
-    "kingdomkeys:hidden_dragon",
-    "kingdomkeys:hunny_spout",
-    "kingdomkeys:hyperdrive",
-    "kingdomkeys:incomplete_kiblade",
-    "kingdomkeys:jungle_king",
-    "kingdomkeys:kiblade",
-    "kingdomkeys:kingdom_key",
-    "kingdomkeys:kingdom_key_d",
-    "kingdomkeys:knockout_punch",
-    "kingdomkeys:lady_luck",
-    "kingdomkeys:leviathan",
-    "kingdomkeys:lionheart",
-    "kingdomkeys:lost_memory",
-    "kingdomkeys:lunar_eclipse",
-    "kingdomkeys:mark_of_a_hero",
-    "kingdomkeys:masters_defender",
-    "kingdomkeys:maverick_flare",
-    "kingdomkeys:metal_chocobo",
-    "kingdomkeys:midnight_blue",
-    "kingdomkeys:midnight_roar",
-    "kingdomkeys:mirage_split",
-    "kingdomkeys:missing_ache",
-    "kingdomkeys:monochrome",
-    "kingdomkeys:moogle_o_glory",
-    "kingdomkeys:mysterious_abyss",
-    "kingdomkeys:nightmares_end",
-    "kingdomkeys:nightmares_end_and_mirage_split",
-    "kingdomkeys:no_name",
-    "kingdomkeys:no_name_bbs",
-    "kingdomkeys:oathkeeper",
-    "kingdomkeys:oblivion",
-    "kingdomkeys:oceans_rage",
-    "kingdomkeys:olympia",
-    "kingdomkeys:omega_weapon",
-    "kingdomkeys:ominous_blight",
-    "kingdomkeys:one_winged_angel",
-    "kingdomkeys:pain_of_solitude",
-    "kingdomkeys:phantom_green",
-    "kingdomkeys:photon_debugger",
-    "kingdomkeys:pixie_petal",
-    "kingdomkeys:pumpkinhead",
-    "kingdomkeys:rainfell",
-    "kingdomkeys:rejection_of_fate",
-    "kingdomkeys:royal_radiance",
-    "kingdomkeys:rumbling_rose",
-    "kingdomkeys:shooting_star",
-    "kingdomkeys:sign_of_innocence",
-    "kingdomkeys:silent_dirge",
-    "kingdomkeys:skull_noise",
-    "kingdomkeys:sleeping_lion",
-    "kingdomkeys:soul_eater",
-    "kingdomkeys:spellbinder",
-    "kingdomkeys:star_cluster",
-    "kingdomkeys:star_seeker",
-    "kingdomkeys:starlight",
-    "kingdomkeys:stormfall",
-    "kingdomkeys:stroke_of_midnight",
-    "kingdomkeys:sweet_dreams",
-    "kingdomkeys:sweet_memories",
-    "kingdomkeys:sweetstack",
-    "kingdomkeys:three_wishes",
-    "kingdomkeys:total_eclipse",
-    "kingdomkeys:treasure_trove",
-    "kingdomkeys:true_lights_flight",
-    "kingdomkeys:twilight_blaze",
-    "kingdomkeys:two_become_one",
-    "kingdomkeys:ultima_weapon_bbs",
-    "kingdomkeys:ultima_weapon_ddd",
-    "kingdomkeys:ultima_weapon_kh1",
-    "kingdomkeys:ultima_weapon_kh2",
-    "kingdomkeys:ultima_weapon_kh3",
-    "kingdomkeys:umbrella",
-    "kingdomkeys:unbound",
-    "kingdomkeys:victory_line",
-    "kingdomkeys:void_gear",
-    "kingdomkeys:void_gear_remnant",
-    "kingdomkeys:way_to_the_dawn",
-    "kingdomkeys:wayward_wind",
-    "kingdomkeys:wheel_of_fate",
-    "kingdomkeys:winners_proof",
-    "kingdomkeys:wishing_lamp",
-    "kingdomkeys:wishing_star",
-    "kingdomkeys:wooden_stick",
-    "kingdomkeys:zero_one"
-  //@formatter:on
-  );
-  protected static final List<String> keybladeItemsSuffix = Arrays.asList("_keyblade");
-  protected static final List<String> keybladeItemsKeywords = Arrays.asList(":keyblade_");
+  // Hoe Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.HOE, new HashSet<>(Arrays.asList("_hoe", ":kama")));
+    weaponClassItemsKeywords.put(WeaponClass.HOE, new HashSet<>(Arrays.asList(":hoe")));
+  }
 
-  // == Pickaxe Class
-  protected static final List<String> pickaxeItems = Arrays.asList();
-  protected static final List<String> pickaxeItemsSuffix =
-      Arrays.asList("_pickaxe", "_pickaxe_end", "_pickaxe_nether", "_pick", ":pickadze");
-  protected static final List<String> pickaxeItemsKeywords = Arrays.asList(":pickaxe");
+  // Katana Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.KATANA,
+        new HashSet<>(Arrays.asList("_katana", ":katana")));
+  }
 
-  // == Scythe Class
-  protected static final List<String> scytheItems = Arrays.asList();
-  protected static final List<String> scytheItemsSuffix = Arrays.asList("_scythe", ":scythe");
-  protected static final List<String> scytheItemsKeywords = Arrays.asList();
+  // Keyblade Class
+  static {
+    weaponClassItemsNames.put(WeaponClass.KEYBLADE, new HashSet<>(Arrays.asList(
+    //@formatter:off
+      "botania:king_key",
+      "kingdomkeys:abaddon_plasma",
+      "kingdomkeys:abyssal_tide",
+      "kingdomkeys:advent_red",
+      "kingdomkeys:all_for_one",
+      "kingdomkeys:astral_blast",
+      "kingdomkeys:aubade",
+      "kingdomkeys:bond_of_flame",
+      "kingdomkeys:bond_of_the_blaze",
+      "kingdomkeys:braveheart",
+      "kingdomkeys:brightcrest",
+      "kingdomkeys:chaos_ripper",
+      "kingdomkeys:circle_of_life",
+      "kingdomkeys:classic_tone",
+      "kingdomkeys:counterpoint",
+      "kingdomkeys:crabclaw",
+      "kingdomkeys:crown_of_guilt",
+      "kingdomkeys:crystal_snow",
+      "kingdomkeys:darker_than_dark",
+      "kingdomkeys:darkgnaw",
+      "kingdomkeys:dawn_till_dusk",
+      "kingdomkeys:decisive_pumpkin",
+      "kingdomkeys:destinys_embrace",
+      "kingdomkeys:diamond_dust",
+      "kingdomkeys:divewing",
+      "kingdomkeys:divine_rose",
+      "kingdomkeys:dual_disc",
+      "kingdomkeys:earthshaker",
+      "kingdomkeys:elemental_encoder",
+      "kingdomkeys:end_of_pain",
+      "kingdomkeys:ends_of_the_earth",
+      "kingdomkeys:ever_after",
+      "kingdomkeys:fairy_harp",
+      "kingdomkeys:fairy_stars",
+      "kingdomkeys:fatal_crest",
+      "kingdomkeys:favorite_deputy",
+      "kingdomkeys:fenrir",
+      "kingdomkeys:ferris_gear",
+      "kingdomkeys:follow_the_wind",
+      "kingdomkeys:frolic_flame",
+      "kingdomkeys:glimpse_of_darkness",
+      "kingdomkeys:grand_chef",
+      "kingdomkeys:guardian_bell",
+      "kingdomkeys:guardian_soul",
+      "kingdomkeys:gull_wing",
+      "kingdomkeys:happy_gear",
+      "kingdomkeys:heros_crest",
+      "kingdomkeys:heros_origin",
+      "kingdomkeys:hidden_dragon",
+      "kingdomkeys:hunny_spout",
+      "kingdomkeys:hyperdrive",
+      "kingdomkeys:incomplete_kiblade",
+      "kingdomkeys:jungle_king",
+      "kingdomkeys:kiblade",
+      "kingdomkeys:kingdom_key",
+      "kingdomkeys:kingdom_key_d",
+      "kingdomkeys:knockout_punch",
+      "kingdomkeys:lady_luck",
+      "kingdomkeys:leviathan",
+      "kingdomkeys:lionheart",
+      "kingdomkeys:lost_memory",
+      "kingdomkeys:lunar_eclipse",
+      "kingdomkeys:mark_of_a_hero",
+      "kingdomkeys:masters_defender",
+      "kingdomkeys:maverick_flare",
+      "kingdomkeys:metal_chocobo",
+      "kingdomkeys:midnight_blue",
+      "kingdomkeys:midnight_roar",
+      "kingdomkeys:mirage_split",
+      "kingdomkeys:missing_ache",
+      "kingdomkeys:monochrome",
+      "kingdomkeys:moogle_o_glory",
+      "kingdomkeys:mysterious_abyss",
+      "kingdomkeys:nightmares_end",
+      "kingdomkeys:nightmares_end_and_mirage_split",
+      "kingdomkeys:no_name",
+      "kingdomkeys:no_name_bbs",
+      "kingdomkeys:oathkeeper",
+      "kingdomkeys:oblivion",
+      "kingdomkeys:oceans_rage",
+      "kingdomkeys:olympia",
+      "kingdomkeys:omega_weapon",
+      "kingdomkeys:ominous_blight",
+      "kingdomkeys:one_winged_angel",
+      "kingdomkeys:pain_of_solitude",
+      "kingdomkeys:phantom_green",
+      "kingdomkeys:photon_debugger",
+      "kingdomkeys:pixie_petal",
+      "kingdomkeys:pumpkinhead",
+      "kingdomkeys:rainfell",
+      "kingdomkeys:rejection_of_fate",
+      "kingdomkeys:royal_radiance",
+      "kingdomkeys:rumbling_rose",
+      "kingdomkeys:shooting_star",
+      "kingdomkeys:sign_of_innocence",
+      "kingdomkeys:silent_dirge",
+      "kingdomkeys:skull_noise",
+      "kingdomkeys:sleeping_lion",
+      "kingdomkeys:soul_eater",
+      "kingdomkeys:spellbinder",
+      "kingdomkeys:star_cluster",
+      "kingdomkeys:star_seeker",
+      "kingdomkeys:starlight",
+      "kingdomkeys:stormfall",
+      "kingdomkeys:stroke_of_midnight",
+      "kingdomkeys:sweet_dreams",
+      "kingdomkeys:sweet_memories",
+      "kingdomkeys:sweetstack",
+      "kingdomkeys:three_wishes",
+      "kingdomkeys:total_eclipse",
+      "kingdomkeys:treasure_trove",
+      "kingdomkeys:true_lights_flight",
+      "kingdomkeys:twilight_blaze",
+      "kingdomkeys:two_become_one",
+      "kingdomkeys:ultima_weapon_bbs",
+      "kingdomkeys:ultima_weapon_ddd",
+      "kingdomkeys:ultima_weapon_kh1",
+      "kingdomkeys:ultima_weapon_kh2",
+      "kingdomkeys:ultima_weapon_kh3",
+      "kingdomkeys:umbrella",
+      "kingdomkeys:unbound",
+      "kingdomkeys:victory_line",
+      "kingdomkeys:void_gear",
+      "kingdomkeys:void_gear_remnant",
+      "kingdomkeys:way_to_the_dawn",
+      "kingdomkeys:wayward_wind",
+      "kingdomkeys:wheel_of_fate",
+      "kingdomkeys:winners_proof",
+      "kingdomkeys:wishing_lamp",
+      "kingdomkeys:wishing_star",
+      "kingdomkeys:wooden_stick",
+      "kingdomkeys:zero_one"
+    //@formatter:on
+    )));
+    weaponClassItemsSuffixes.put(WeaponClass.KEYBLADE, new HashSet<>(Arrays.asList("_keyblade")));
+    weaponClassItemsKeywords.put(WeaponClass.KEYBLADE, new HashSet<>(Arrays.asList(":keyblade_")));
+  }
 
-  // == Shield Class
-  protected static final List<String> shieldItems = Arrays.asList(
-  //@formatter:off
-    "ageofweapons:shield_diamond",
-    "ageofweapons:shield_gold",
-    "ageofweapons:shield_iron",
-    "ageofweapons:shield_stone",
-    "ageofweapons:shield_wood",
-    "magistuarmory:bronze_target",
-    "magistuarmory:copper_target",
-    "magistuarmory:diamond_target",
-    "magistuarmory:gold_target",
-    "magistuarmory:iron_target",
-    "magistuarmory:netherite_target",
-    "magistuarmory:silver_target",
-    "magistuarmory:steel_target",
-    "magistuarmory:stone_target",
-    "magistuarmory:tin_target",
-    "magistuarmory:wood_target"
-  //@formatter:on
-  );
-  protected static final List<String> shieldItemsSuffix =
-      Arrays.asList("_shield", "_buckler", "_ellipticalshield", "_heatershield", "_kiteshield",
-          "_pavese", "_rondache", "_roundshield", "_tartsche", ":shield");
-  protected static final List<String> shieldItemsKeywords = Arrays.asList();
+  // Pickaxe
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.PICKAXE, new HashSet<>(
+        Arrays.asList("_pickaxe", "_pickaxe_end", "_pickaxe_nether", "_pick", ":pickadze")));
+    weaponClassItemsKeywords.put(WeaponClass.PICKAXE, new HashSet<>(Arrays.asList(":pickaxe")));
+  }
 
-  // == Shovel Class
-  protected static final List<String> shovelItems = Arrays.asList();
-  protected static final List<String> shovelItemsSuffix = Arrays.asList("_shovel", ":shovel");
-  protected static final List<String> shovelItemsKeywords = Arrays.asList();
 
-  // == Spear Class
-  protected static final List<String> spearItems = Arrays.asList(
-  //@formatter:off
-    "blue_skies:soulbound"
-  //@formatter:on
-  );
-  protected static final List<String> spearItemsSuffix =
-      Arrays.asList("_spear", "_ahlspiess", "_pike", "_ranseur", ":spear");
-  protected static final List<String> spearItemsKeywords = Arrays.asList();
+  // Polearm Class
+  static {
+    weaponClassItemsNames.put(WeaponClass.POLEARM, new HashSet<>(Arrays.asList(
+    //@formatter:off
+      "blue_skies:soulbound"
+    //@formatter:on
+    )));
+    weaponClassItemsSuffixes.put(WeaponClass.POLEARM,
+        new HashSet<>(Arrays.asList("_spear", "_ahlspiess", "_pike", "_ranseur", ":spear")));
+  }
 
-  // == Staff Class
-  protected static final List<String> staffItems = Arrays.asList();
-  protected static final List<String> staffItemsSuffix = Arrays.asList("_staff", ":staff", "_rod");
-  protected static final List<String> staffItemsKeywords = Arrays.asList();
+  // Scythe Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.SCYTHE,
+        new HashSet<>(Arrays.asList("_scythe", ":scythe")));
+  }
 
-  // == Sword Class
-  protected static final List<String> swordItems = Arrays.asList(
-  //@formatter:off
-    "immersiveengineering:sword_steel",
-    "magistuarmory:bronze_stylet",
-    "magistuarmory:copper_stylet",
-    "magistuarmory:diamond_stylet",
-    "magistuarmory:gold_stylet",
-    "magistuarmory:iron_stylet",
-    "magistuarmory:netherite_stylet",
-    "magistuarmory:silver_stylet",
-    "magistuarmory:steel_stylet",
-    "magistuarmory:stone_stylet",
-    "magistuarmory:tin_stylet",
-    "magistuarmory:wood_stylet"
-  //@formatter:on
-  );
-  protected static final List<String> swordItemsSuffix =
-      Arrays.asList("_sword", "_shortsword", ":sword");
-  protected static final List<String> swordItemsKeywords = Arrays.asList();
+  // Shield Class
+  static {
+    weaponClassItemsNames.put(WeaponClass.SHIELD, new HashSet<>(Arrays.asList(
+    //@formatter:off
+      "ageofweapons:shield_diamond",
+      "ageofweapons:shield_gold",
+      "ageofweapons:shield_iron",
+      "ageofweapons:shield_stone",
+      "ageofweapons:shield_wood",
+      "magistuarmory:bronze_target",
+      "magistuarmory:copper_target",
+      "magistuarmory:diamond_target",
+      "magistuarmory:gold_target",
+      "magistuarmory:iron_target",
+      "magistuarmory:netherite_target",
+      "magistuarmory:silver_target",
+      "magistuarmory:steel_target",
+      "magistuarmory:stone_target",
+      "magistuarmory:tin_target",
+      "magistuarmory:wood_target"
+    //@formatter:on
+    )));
+    weaponClassItemsSuffixes.put(WeaponClass.SHIELD,
+        new HashSet<>(Arrays.asList("_shield", "_buckler", "_ellipticalshield", "_heatershield",
+            "_kiteshield", "_pavese", "_rondache", "_roundshield", "_tartsche", ":shield")));
+  }
 
-  // == Wand Class
-  protected static final List<String> wandItems = Arrays.asList();
-  protected static final List<String> wandItemsSuffix = Arrays.asList("_wand", ":wand", "_scepter");
-  protected static final List<String> wandItemsKeywords = Arrays.asList();
+  // Shovel Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.SHOVEL,
+        new HashSet<>(Arrays.asList("_shovel", ":shovel")));
+  }
 
-  protected WeaponClassDataInternal() {}
+  // Staff Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.STAFF,
+        new HashSet<>(Arrays.asList("_staff", ":staff", "_rod")));
+  }
+
+  // Sword Class
+  static {
+    weaponClassItemsNames.put(WeaponClass.SWORD, new HashSet<>(Arrays.asList(
+    //@formatter:off
+      "immersiveengineering:sword_steel",
+      "magistuarmory:bronze_stylet",
+      "magistuarmory:copper_stylet",
+      "magistuarmory:diamond_stylet",
+      "magistuarmory:gold_stylet",
+      "magistuarmory:iron_stylet",
+      "magistuarmory:netherite_stylet",
+      "magistuarmory:silver_stylet",
+      "magistuarmory:steel_stylet",
+      "magistuarmory:stone_stylet",
+      "magistuarmory:tin_stylet",
+      "magistuarmory:wood_stylet"
+    //@formatter:on
+    )));
+    weaponClassItemsSuffixes.put(WeaponClass.SWORD,
+        new HashSet<>(Arrays.asList("_sword", "_shortsword", ":sword")));
+  }
+
+  // Tachi Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.TACHI,
+        new HashSet<>(Arrays.asList("_tachi", ":tachi")));
+  }
+
+  // Wand Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.WAND,
+        new HashSet<>(Arrays.asList("_wand", ":wand", "_scepter")));
+  }
+
 }

@@ -5,6 +5,11 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.08.25
+
+- Added Hand to Hand, Katana and Tachi Weapon class.
+- Improved compatibility with epic fight mod.
+
 ### 2022.08.21
 
 - Added Scythe, Shovel, Staff and Wand Weapon class.
