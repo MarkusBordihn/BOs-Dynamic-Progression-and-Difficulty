@@ -43,8 +43,11 @@ public class CommonConfig {
 
   private static final String AXE_TEXT = "axe";
   private static final String BOW_TEXT = "bow";
+  private static final String CLAW_TEXT = "claw";
+  private static final String CLAYMORE_TEXT = "claymore";
   private static final String CROSSBOW_TEXT = "crossbow";
   private static final String DAGGER_TEXT = "dagger";
+  private static final String FIST_TEXT = "fist";
   private static final String GREAT_SWORD_TEXT = "great sword";
   private static final String GUN_TEXT = "gun";
   private static final String HAMMER_TEXT = "hammer";
@@ -52,11 +55,13 @@ public class CommonConfig {
   private static final String HOE_TEXT = "hoe";
   private static final String KATANA_TEXT = "katana";
   private static final String KEYBLADE_TEXT = "keyblade";
+  private static final String MACE_TEXT = "mace";
   private static final String PICKAXE_TEXT = "pickaxe";
   private static final String POLEARM_TEXT = "polearm";
   private static final String SCYTHE_TEXT = "scythe";
   private static final String SHIELD_TEXT = "shield";
   private static final String SHOVEL_TEXT = "shovel";
+  private static final String SPEAR_TEXT = "spear";
   private static final String STAFF_TEXT = "staff";
   private static final String SWORD_TEXT = "sword";
   private static final String TACHI_TEXT = "tachi";
@@ -105,6 +110,14 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue bowItemDamageIncrease;
     public final ForgeConfigSpec.IntValue bowItemDurabilityIncrease;
 
+    public final ForgeConfigSpec.ConfigValue<List<String>> clawItems;
+    public final ForgeConfigSpec.IntValue clawItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue clawItemDurabilityIncrease;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> claymoreItems;
+    public final ForgeConfigSpec.IntValue claymoreItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue claymoreItemDurabilityIncrease;
+
     public final ForgeConfigSpec.ConfigValue<List<String>> crossbowItems;
     public final ForgeConfigSpec.IntValue crossbowItemDamageIncrease;
     public final ForgeConfigSpec.IntValue crossbowItemDurabilityIncrease;
@@ -112,6 +125,10 @@ public class CommonConfig {
     public final ForgeConfigSpec.ConfigValue<List<String>> daggerItems;
     public final ForgeConfigSpec.IntValue daggerItemDamageIncrease;
     public final ForgeConfigSpec.IntValue daggerItemDurabilityIncrease;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> fistItems;
+    public final ForgeConfigSpec.IntValue fistItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue fistItemDurabilityIncrease;
 
     public final ForgeConfigSpec.ConfigValue<List<String>> greatSwordItems;
     public final ForgeConfigSpec.IntValue greatSwordItemDamageIncrease;
@@ -141,6 +158,10 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue keybladeItemDamageIncrease;
     public final ForgeConfigSpec.IntValue keybladeItemDurabilityIncrease;
 
+    public final ForgeConfigSpec.ConfigValue<List<String>> maceItems;
+    public final ForgeConfigSpec.IntValue maceItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue maceItemDurabilityIncrease;
+
     public final ForgeConfigSpec.ConfigValue<List<String>> pickaxeItems;
     public final ForgeConfigSpec.IntValue pickaxeItemDamageIncrease;
     public final ForgeConfigSpec.IntValue pickaxeItemDurabilityIncrease;
@@ -160,6 +181,10 @@ public class CommonConfig {
     public final ForgeConfigSpec.ConfigValue<List<String>> shovelItems;
     public final ForgeConfigSpec.IntValue shovelItemDamageIncrease;
     public final ForgeConfigSpec.IntValue shovelItemDurabilityIncrease;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> spearItems;
+    public final ForgeConfigSpec.IntValue spearItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue spearItemDurabilityIncrease;
 
     public final ForgeConfigSpec.ConfigValue<List<String>> staffItems;
     public final ForgeConfigSpec.IntValue staffItemDamageIncrease;
@@ -263,7 +288,25 @@ public class CommonConfig {
       bowItemDamageIncrease = builder.comment(increaseDealtDamageDescription(BOW_TEXT))
           .defineInRange("bowItemDamageIncrease", 50, 0, 1000);
       bowItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(BOW_TEXT))
-          .defineInRange("bowItemDurabilityIncrease", 0, 0, 1000);
+          .defineInRange("bowItemDurabilityIncrease", 25, 0, 1000);
+      builder.pop();
+
+      builder.push("Claws");
+      clawItems = builder.comment(listOfItemsDescription(CLAW_TEXT)).define("clawItems",
+          new ArrayList<String>(Arrays.asList()));
+      clawItemDamageIncrease = builder.comment(increaseDealtDamageDescription(CLAW_TEXT))
+          .defineInRange("clawItemDamageIncrease", 50, 0, 1000);
+      clawItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(CLAW_TEXT))
+          .defineInRange("clawItemDurabilityIncrease", 25, 0, 1000);
+      builder.pop();
+
+      builder.push("Claymores");
+      claymoreItems = builder.comment(listOfItemsDescription(CLAYMORE_TEXT)).define("claymoreItems",
+          new ArrayList<String>(Arrays.asList()));
+      claymoreItemDamageIncrease = builder.comment(increaseDealtDamageDescription(CLAYMORE_TEXT))
+          .defineInRange("claymoreItemDamageIncrease", 50, 0, 1000);
+      claymoreItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(CLAYMORE_TEXT))
+          .defineInRange("claymoreItemDurabilityIncrease", 0, 0, 1000);
       builder.pop();
 
       builder.push("Crossbows");
@@ -272,7 +315,7 @@ public class CommonConfig {
       crossbowItemDamageIncrease = builder.comment(increaseDealtDamageDescription(CROSSBOW_TEXT))
           .defineInRange("crossbowItemDamageIncrease", 50, 0, 1000);
       crossbowItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(CROSSBOW_TEXT))
-          .defineInRange("crossbowItemDurabilityIncrease", 0, 0, 1000);
+          .defineInRange("crossbowItemDurabilityIncrease", 25, 0, 1000);
       builder.pop();
 
       builder.push("Dagger");
@@ -282,6 +325,15 @@ public class CommonConfig {
           .defineInRange("daggerItemDamageIncrease", 50, 0, 1000);
       daggerItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(DAGGER_TEXT))
           .defineInRange("daggerItemDurabilityIncrease", 25, 0, 1000);
+      builder.pop();
+
+      builder.push("Fists");
+      fistItems = builder.comment(listOfItemsDescription(FIST_TEXT)).define("fistItems",
+          new ArrayList<String>(Arrays.asList()));
+      fistItemDamageIncrease = builder.comment(increaseDealtDamageDescription(FIST_TEXT))
+          .defineInRange("fistItemDamageIncrease", 100, 0, 1000);
+      fistItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(FIST_TEXT))
+          .defineInRange("fistItemDurabilityIncrease", 0, 0, 1000);
       builder.pop();
 
       builder.push("Great Sword");
@@ -351,6 +403,15 @@ public class CommonConfig {
           .defineInRange("keybladeItemDurabilityIncrease", 0, 0, 1000);
       builder.pop();
 
+      builder.push("Maces");
+      maceItems = builder.comment(listOfItemsDescription(MACE_TEXT)).define("maceItems",
+          new ArrayList<String>(Arrays.asList()));
+      maceItemDamageIncrease = builder.comment(increaseDealtDamageDescription(MACE_TEXT))
+          .defineInRange("maceItemDamageIncrease", 50, 0, 1000);
+      maceItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(MACE_TEXT))
+          .defineInRange("maceItemDurabilityIncrease", 0, 0, 1000);
+      builder.pop();
+
       builder.push("Pickaxes");
       pickaxeItems = builder.comment(listOfItemsDescription(PICKAXE_TEXT)).define("pickaxeItems",
           new ArrayList<String>(Arrays.asList()));
@@ -384,7 +445,7 @@ public class CommonConfig {
       shieldItemDamageIncrease = builder.comment(increaseDealtDamageDescription(SHIELD_TEXT))
           .defineInRange("shieldItemDamageIncrease", 50, 0, 1000);
       shieldItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(SHIELD_TEXT))
-          .defineInRange("shieldItemDurabilityIncrease", 0, 0, 1000);
+          .defineInRange("shieldItemDurabilityIncrease", 25, 0, 1000);
       builder.pop();
 
       builder.push("Shovels");
@@ -394,6 +455,15 @@ public class CommonConfig {
           .defineInRange("shovelItemDamageIncrease", 75, 0, 1000);
       shovelItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(SHOVEL_TEXT))
           .defineInRange("shovelItemDurabilityIncrease", 50, 0, 1000);
+      builder.pop();
+
+      builder.push("Spears");
+      spearItems = builder.comment(listOfItemsDescription(SPEAR_TEXT)).define("spearItems",
+          new ArrayList<String>(Arrays.asList()));
+      spearItemDamageIncrease = builder.comment(increaseDealtDamageDescription(SPEAR_TEXT))
+          .defineInRange("spearItemDamageIncrease", 50, 0, 1000);
+      spearItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(SPEAR_TEXT))
+          .defineInRange("spearItemDurabilityIncrease", 0, 0, 1000);
       builder.pop();
 
       builder.push("Staff");
@@ -411,7 +481,7 @@ public class CommonConfig {
       swordItemDamageIncrease = builder.comment(increaseDealtDamageDescription(SWORD_TEXT))
           .defineInRange("swordItemDamageIncrease", 50, 0, 1000);
       swordItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(SWORD_TEXT))
-          .defineInRange("swordItemDurabilityIncrease", 0, 0, 1000);
+          .defineInRange("swordItemDurabilityIncrease", 10, 0, 1000);
       builder.pop();
 
       builder.push("Tachi");

@@ -125,11 +125,14 @@ public class WeaponClassData {
       weaponClassItems.putIfAbsent(weaponClass, new HashSet<>());
     }
 
-    log.info("Using config entries for mapping ...");
+    log.info("Using config entries for item mapping ...");
     processConfigItems(COMMON.axeItems.get(), WeaponClass.AXE);
     processConfigItems(COMMON.bowItems.get(), WeaponClass.BOW);
+    processConfigItems(COMMON.clawItems.get(), WeaponClass.CLAW);
+    processConfigItems(COMMON.claymoreItems.get(), WeaponClass.CLAYMORE);
     processConfigItems(COMMON.crossbowItems.get(), WeaponClass.CROSSBOW);
     processConfigItems(COMMON.daggerItems.get(), WeaponClass.DAGGER);
+    processConfigItems(COMMON.fistItems.get(), WeaponClass.FIST);
     processConfigItems(COMMON.greatSwordItems.get(), WeaponClass.GREAT_SWORD);
     processConfigItems(COMMON.gunItems.get(), WeaponClass.GUN);
     processConfigItems(COMMON.hammerItems.get(), WeaponClass.HAMMER);
@@ -137,31 +140,38 @@ public class WeaponClassData {
     processConfigItems(COMMON.hoeItems.get(), WeaponClass.HOE);
     processConfigItems(COMMON.katanaItems.get(), WeaponClass.KATANA);
     processConfigItems(COMMON.keybladeItems.get(), WeaponClass.KEYBLADE);
+    processConfigItems(COMMON.maceItems.get(), WeaponClass.MACE);
     processConfigItems(COMMON.pickaxeItems.get(), WeaponClass.PICKAXE);
     processConfigItems(COMMON.polearmItems.get(), WeaponClass.POLEARM);
     processConfigItems(COMMON.scytheItems.get(), WeaponClass.SCYTHE);
     processConfigItems(COMMON.shieldItems.get(), WeaponClass.SHIELD);
     processConfigItems(COMMON.shovelItems.get(), WeaponClass.SHOVEL);
+    processConfigItems(COMMON.spearItems.get(), WeaponClass.SPEAR);
     processConfigItems(COMMON.staffItems.get(), WeaponClass.STAFF);
     processConfigItems(COMMON.swordItems.get(), WeaponClass.SWORD);
     processConfigItems(COMMON.tachiItems.get(), WeaponClass.TACHI);
     processConfigItems(COMMON.wandItems.get(), WeaponClass.WAND);
 
     log.info("Using registry for extended mapping like dagger, great sword, gun, ...");
+    processRegistryItems(WeaponClass.CLAW);
+    processRegistryItems(WeaponClass.CLAYMORE);
     processRegistryItems(WeaponClass.DAGGER);
+    processRegistryItems(WeaponClass.FIST);
     processRegistryItems(WeaponClass.GREAT_SWORD);
     processRegistryItems(WeaponClass.GUN);
     processRegistryItems(WeaponClass.HAMMER);
     processRegistryItems(WeaponClass.HAND_TO_HAND);
     processRegistryItems(WeaponClass.KATANA);
     processRegistryItems(WeaponClass.KEYBLADE);
+    processRegistryItems(WeaponClass.MACE);
     processRegistryItems(WeaponClass.POLEARM, TridentItem.class);
     processRegistryItems(WeaponClass.SCYTHE);
+    processRegistryItems(WeaponClass.SPEAR);
     processRegistryItems(WeaponClass.STAFF);
     processRegistryItems(WeaponClass.TACHI);
     processRegistryItems(WeaponClass.WAND);
 
-    log.info("Using registry for classic mapping like axe, bow, crossbow, ...");
+    log.info("Using registry for classic mapping like axe, bow, crossbow, sword, ...");
     processRegistryItems(WeaponClass.AXE, AxeItem.class);
     processRegistryItems(WeaponClass.BOW, BowItem.class);
     processRegistryItems(WeaponClass.CROSSBOW, CrossbowItem.class);

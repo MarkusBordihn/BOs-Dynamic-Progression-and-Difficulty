@@ -61,8 +61,10 @@ Depending on your weapon class the your weapon class level you will get addition
 
 - Axe Class
 - Bow Class
+- Claw Class
 - Crossbow Class
 - Dagger Class
+- Fist Class
 - Great Sword Class
 - Gun Class
 - Hammer Class
@@ -70,11 +72,13 @@ Depending on your weapon class the your weapon class level you will get addition
 - Hoe Class
 - Katana Class
 - Keyblade Class
+- Mace Class
 - Pickaxe Class
 - Polearm Class
 - Scythe Class
 - Shield Class
 - Shovel Class
+- Spear Class
 - Staff Class
 - Sword Class
 - Tachi Class
@@ -102,6 +106,7 @@ I tested the mod with the following mods:
 - Mo' Guns
 - MrCrayfish's Gun Mod
 - NinjaGear
+- OP Scythes
 - Old Guns Mod
 - RPG style More Weapons!
 - Tetra
