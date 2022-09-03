@@ -78,10 +78,10 @@ public class StatsButton extends Button {
   @Override
   public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
     int x = mouseX + 5;
-    int y = mouseY - 50;
+    int y = mouseY - 65;
     int spacingSecondColum = 100;
     int width = 11;
-    int height = 12;
+    int height = 14;
 
     // Player Data
     PlayerData playerData = PlayerDataManager.getLocalPlayer();

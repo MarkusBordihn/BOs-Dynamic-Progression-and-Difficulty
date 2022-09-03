@@ -31,26 +31,31 @@ import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.confi
 public enum WeaponClass {
 
   //@formatter:off
-  AXE("🪓", "axe", null),
-  BOW("🏹", "bow", null),
-  CROSSBOW("🏹", "crossbow", null),
-  DAGGER("🗡", "dagger", null),
-  GREAT_SWORD("⚔", "great sword", null),
-  GUN("▝▜", "gun", null),
-  HAMMER("⚒", "hammer", null),
-  HAND_TO_HAND("╽", "hand to hand", null),
-  HOE("↿", "hoe", null),
-  KATANA("⚔", "katana", null),
-  KEYBLADE("⚷", "keyblade", null),
-  PICKAXE("⛏", "pickaxe", null),
-  POLEARM("🔱", "polearm", null),
-  SCYTHE("⚳", "scythe", null),
-  SHIELD("🛡", "shield", null),
-  SHOVEL("⚒", "shovel", null),
-  STAFF("╲", "staff", null),
-  SWORD("⚔", "sword", null),
-  TACHI("⚔", "tachi", null),
-  WAND("⚚", "wand", null);
+  AXE("🪓", "axe"),
+  BOW("🏹", "bow"),
+  CLAW("╽╽╽", "claw"),
+  CLAYMORE("⚔", "claymore"),
+  CROSSBOW("🏹", "crossbow"),
+  DAGGER("🗡", "dagger"),
+  FIST("╽", "fist"),
+  GREAT_SWORD("⚔", "great sword"),
+  GUN("▝▜", "gun"),
+  HAMMER("⚒", "hammer"),
+  HAND_TO_HAND("╽", "hand to hand"),
+  HOE("↿", "hoe"),
+  KATANA("⚔", "katana"),
+  KEYBLADE("⚷", "keyblade"),
+  MACE("╿", "mace"),
+  PICKAXE("⛏", "pickaxe"),
+  POLEARM("🔱", "polearm"),
+  SCYTHE("⚳", "scythe"),
+  SHIELD("🛡", "shield"),
+  SHOVEL("⚒", "shovel"),
+  SPEAR("╲", "spear"),
+  STAFF("╲", "staff"),
+  SWORD("⚔", "sword"),
+  TACHI("⚔", "tachi"),
+  WAND("⚚", "wand");
   //@formatter:on
 
   private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
@@ -60,6 +65,10 @@ public enum WeaponClass {
   public final String textName;
   public final String translationId;
   public final TranslatableComponent text;
+
+  private WeaponClass(String textIcon, String textName) {
+    this(textIcon, textName, null);
+  }
 
   private WeaponClass(String textIcon, String textName, ResourceLocation icon) {
     this.icon = icon;
@@ -75,24 +84,32 @@ public enum WeaponClass {
         return COMMON.axeItemDamageIncrease.get();
       case BOW:
         return COMMON.bowItemDamageIncrease.get();
+      case CLAW:
+        return COMMON.clawItemDamageIncrease.get();
+      case CLAYMORE:
+        return COMMON.claymoreItemDamageIncrease.get();
       case CROSSBOW:
         return COMMON.crossbowItemDamageIncrease.get();
       case DAGGER:
         return COMMON.daggerItemDamageIncrease.get();
+      case FIST:
+        return COMMON.fistItemDamageIncrease.get();
       case GREAT_SWORD:
         return COMMON.greatSwordItemDamageIncrease.get();
       case GUN:
         return COMMON.gunItemDamageIncrease.get();
       case HAMMER:
         return COMMON.hammerItemDamageIncrease.get();
-      case KATANA:
-        return COMMON.katanaItemDamageIncrease.get();
       case HAND_TO_HAND:
         return COMMON.handToHandItemDamageIncrease.get();
       case HOE:
         return COMMON.hoeItemDamageIncrease.get();
+      case KATANA:
+        return COMMON.katanaItemDamageIncrease.get();
       case KEYBLADE:
         return COMMON.keybladeItemDamageIncrease.get();
+      case MACE:
+        return COMMON.maceItemDamageIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDamageIncrease.get();
       case POLEARM:
@@ -103,6 +120,8 @@ public enum WeaponClass {
         return COMMON.shieldItemDamageIncrease.get();
       case SHOVEL:
         return COMMON.shovelItemDamageIncrease.get();
+      case SPEAR:
+        return COMMON.spearItemDamageIncrease.get();
       case STAFF:
         return COMMON.staffItemDamageIncrease.get();
       case SWORD:
@@ -127,24 +146,32 @@ public enum WeaponClass {
         return COMMON.axeItemDurabilityIncrease.get();
       case BOW:
         return COMMON.bowItemDurabilityIncrease.get();
+      case CLAW:
+        return COMMON.clawItemDurabilityIncrease.get();
+      case CLAYMORE:
+        return COMMON.claymoreItemDurabilityIncrease.get();
       case CROSSBOW:
         return COMMON.crossbowItemDurabilityIncrease.get();
       case DAGGER:
         return COMMON.daggerItemDurabilityIncrease.get();
+      case FIST:
+        return COMMON.fistItemDurabilityIncrease.get();
       case GREAT_SWORD:
         return COMMON.greatSwordItemDurabilityIncrease.get();
       case GUN:
         return COMMON.gunItemDurabilityIncrease.get();
       case HAMMER:
         return COMMON.hammerItemDurabilityIncrease.get();
+      case HAND_TO_HAND:
+        return COMMON.handToHandItemDurabilityIncrease.get();
       case HOE:
         return COMMON.hoeItemDurabilityIncrease.get();
       case KATANA:
         return COMMON.katanaItemDurabilityIncrease.get();
-      case HAND_TO_HAND:
-        return COMMON.handToHandItemDurabilityIncrease.get();
       case KEYBLADE:
         return COMMON.keybladeItemDurabilityIncrease.get();
+      case MACE:
+        return COMMON.maceItemDurabilityIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDurabilityIncrease.get();
       case POLEARM:
@@ -155,6 +182,8 @@ public enum WeaponClass {
         return COMMON.shieldItemDurabilityIncrease.get();
       case SHOVEL:
         return COMMON.shovelItemDurabilityIncrease.get();
+      case SPEAR:
+        return COMMON.spearItemDurabilityIncrease.get();
       case STAFF:
         return COMMON.staffItemDurabilityIncrease.get();
       case SWORD:

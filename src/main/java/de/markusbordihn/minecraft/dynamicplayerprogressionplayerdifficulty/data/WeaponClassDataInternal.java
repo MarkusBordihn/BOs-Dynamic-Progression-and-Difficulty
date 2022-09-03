@@ -69,6 +69,18 @@ public class WeaponClassDataInternal {
     weaponClassItemsSuffixes.put(WeaponClass.BOW, new HashSet<>(Arrays.asList("_bow", "longbow")));
   }
 
+  // Claw Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.CLAW,
+        new HashSet<>(Arrays.asList("_claws", ":claws")));
+  }
+
+  // Claymore Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.CLAYMORE,
+        new HashSet<>(Arrays.asList("_claymore", ":claymore")));
+  }
+
   // Crossbow Class
   static {
     weaponClassItemsSuffixes.put(WeaponClass.CROSSBOW, new HashSet<>(Arrays.asList("_crossbow")));
@@ -80,6 +92,12 @@ public class WeaponClassDataInternal {
         new HashSet<>(Arrays.asList("_knife", "_dagger", ":diamondknife", ":netheritknife")));
     weaponClassItemsKeywords.put(WeaponClass.DAGGER,
         new HashSet<>(Arrays.asList(":dagger", ":knife")));
+  }
+
+  // Fist Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.FIST,
+        new HashSet<>(Arrays.asList("_knuckle", ":knuckle")));
   }
 
   // Great Sword Class
@@ -100,8 +118,9 @@ public class WeaponClassDataInternal {
     //@formatter:on
     )));
     weaponClassItemsSuffixes.put(WeaponClass.GREAT_SWORD,
-        new HashSet<>(Arrays.asList("_bastardsword", "_broadsword", "_claymore",
-            "_flamebladedsword", "_zweihander", ":cleaver", "_greatsword", "_longsword")));
+        new HashSet<>(
+            Arrays.asList("_bastardsword", "_broadsword", "_claymore", "_flamebladedsword",
+                "_zweihander", ":cleaver", "_greatsword", ":greatsword", "_longsword")));
   }
 
   // Gun Class
@@ -122,7 +141,6 @@ public class WeaponClassDataInternal {
     "additionalguns:banshee",
     "additionalguns:fn2000",
     "additionalguns:g11",
-    "additionalguns:glock18",
     "additionalguns:m1014",
     "additionalguns:m16a2",
     "additionalguns:m1911",
@@ -154,8 +172,9 @@ public class WeaponClassDataInternal {
     )));
     weaponClassItemsSuffixes.put(WeaponClass.GUN,
         new HashSet<>(Arrays.asList("_gun", "_rifle", "_pistol", "_gatling", "_shotgun", "_sniper",
-            "_gunblade", "_musket", "_blunderbuss", "_arquebus", "_caliver", "_musketoon",
-            ":desert_eagle", ":aug", ":ak74", ":magnum", ":uzi")));
+            "_gunblade", ":glock17", ":glock18", "_musket", "_blunderbuss", "_arquebus", "_caliver",
+            "_musketoon", ":revolver", ":desert_eagle", ":aug", ":ak74", ":magnum", ":uzi",
+            "_uzi")));
     weaponClassItemsKeywords.put(WeaponClass.GUN,
         new HashSet<>(Arrays.asList(":pistol", ":rifle", ":shotgun", ":gunblade")));
   }
@@ -174,10 +193,10 @@ public class WeaponClassDataInternal {
         new HashSet<>(Arrays.asList(":hammer", ":warhammer", ":mattock")));
   }
 
-  // Hammer Class
+  // Hand to Hand Class
   static {
-    weaponClassItemsSuffixes.put(WeaponClass.HAND_TO_HAND,
-        new HashSet<>(Arrays.asList("_knuckle", ":knuckle")));
+    weaponClassItemsSuffixes.put(WeaponClass.HAND_TO_HAND, new HashSet<>(
+        Arrays.asList("_sai", ":sai", "_shuriken", ":shuriken", "_hand_to_hand", ":hand_to_hand")));
   }
 
   // Hoe Class
@@ -334,13 +353,18 @@ public class WeaponClassDataInternal {
     weaponClassItemsKeywords.put(WeaponClass.KEYBLADE, new HashSet<>(Arrays.asList(":keyblade_")));
   }
 
-  // Pickaxe
+  // Mace
   static {
-    weaponClassItemsSuffixes.put(WeaponClass.PICKAXE, new HashSet<>(
-        Arrays.asList("_pickaxe", "_pickaxe_end", "_pickaxe_nether", "_pick", ":pickadze")));
-    weaponClassItemsKeywords.put(WeaponClass.PICKAXE, new HashSet<>(Arrays.asList(":pickaxe")));
+    weaponClassItemsSuffixes.put(WeaponClass.MACE,
+        new HashSet<>(Arrays.asList("_mace", ":mace", "_heavymace", ":heavymace")));
   }
 
+  // Pickaxe
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.PICKAXE, new HashSet<>(Arrays.asList("_pickaxe",
+        ":pickaxe", "_pickaxe_end", "_pickaxe_nether", "_pick", ":pickadze")));
+    weaponClassItemsKeywords.put(WeaponClass.PICKAXE, new HashSet<>(Arrays.asList(":pickaxe")));
+  }
 
   // Polearm Class
   static {
@@ -350,13 +374,14 @@ public class WeaponClassDataInternal {
     //@formatter:on
     )));
     weaponClassItemsSuffixes.put(WeaponClass.POLEARM,
-        new HashSet<>(Arrays.asList("_spear", "_ahlspiess", "_pike", "_ranseur", ":spear")));
+        new HashSet<>(Arrays.asList("_ahlspiess", "_pike", "_ranseur")));
   }
 
   // Scythe Class
   static {
     weaponClassItemsSuffixes.put(WeaponClass.SCYTHE,
         new HashSet<>(Arrays.asList("_scythe", ":scythe")));
+    weaponClassItemsKeywords.put(WeaponClass.SCYTHE, new HashSet<>(Arrays.asList(":scythe")));
   }
 
   // Shield Class
@@ -392,10 +417,19 @@ public class WeaponClassDataInternal {
         new HashSet<>(Arrays.asList("_shovel", ":shovel")));
   }
 
+  // Spear Class
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.SPEAR,
+        new HashSet<>(Arrays.asList("_spear", ":spear")));
+    weaponClassItemsKeywords.put(WeaponClass.SPEAR, new HashSet<>(Arrays.asList(":spear")));
+  }
+
+
   // Staff Class
   static {
     weaponClassItemsSuffixes.put(WeaponClass.STAFF,
         new HashSet<>(Arrays.asList("_staff", ":staff", "_rod")));
+    weaponClassItemsKeywords.put(WeaponClass.SPEAR, new HashSet<>(Arrays.asList(":heavy_staff")));
   }
 
   // Sword Class

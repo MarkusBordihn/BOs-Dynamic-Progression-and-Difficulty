@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.09.03
+
+- Added claw, claymore, fist, mace and spear weapon class.
+
 ### 2022.08.25
 
 - Added Hand to Hand, Katana and Tachi Weapon class.
