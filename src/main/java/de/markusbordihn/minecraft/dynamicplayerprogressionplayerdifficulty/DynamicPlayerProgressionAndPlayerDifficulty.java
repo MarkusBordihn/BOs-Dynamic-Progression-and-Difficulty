@@ -31,6 +31,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.client.GuiManager;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.network.NetworkHandler;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.utils.StopModReposts;
 
 @Mod(Constants.MOD_ID)
 public class DynamicPlayerProgressionAndPlayerDifficulty {
@@ -40,6 +41,8 @@ public class DynamicPlayerProgressionAndPlayerDifficulty {
   public DynamicPlayerProgressionAndPlayerDifficulty() {
     final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+
+    StopModReposts.checkStopModReposts();
 
     modEventBus.addListener(NetworkHandler::registerNetworkHandler);
 
