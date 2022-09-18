@@ -39,4 +39,9 @@ public abstract class CustomCommand implements Command<CommandSourceStack> {
     CommandSourceStack commandSource = context.getSource();
     commandSource.sendSuccess(Component.literal(feedback), false);
   }
+
+  public static void sendFeedback(CommandContext<CommandSourceStack> context, Component component) {
+    CommandSourceStack commandSource = context.getSource();
+    commandSource.sendSuccess(component, false);
+  }
 }

@@ -23,10 +23,13 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.Experience;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerData;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
@@ -46,38 +49,40 @@ public class StatsCommand extends CustomCommand {
 
     // Update stats to make sure we should current values
     playerData.updateStats();
-    sendFeedback(context, String.format("▶ Player Stats for %s\n═════════════════════════════",
-        player.getName().getString()));
+    sendFeedback(context,
+        Component.translatable(Constants.STATS_CMD_TEXT_PREFIX, player.getName().getString()));
 
     // General
     sendFeedback(context,
-        String.format("☠ Deaths: %s ┃ Deaths Penalty: %s xp ┃ Item Penalty: %s xp",
+        Component.translatable(Constants.STATS_CMD_TEXT_PREFIX + "penalty",
             playerData.getNumberOfDeaths(),
             playerData.getNumberOfDeaths() * Experience.getExperienceDeathPenalty(),
             playerData.getNumberOfDeaths() * Experience.getExperienceDeathPenaltyItems()));
 
     // Damage Levels
     sendFeedback(context,
-        String.format("⧫ Damage Lvl. (Mob): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
+        Component.translatable(Constants.STATS_CMD_TEXT_PREFIX + "damage_level_mob",
             playerData.getDamageLevelMob(), playerData.getDamageExperienceMob(),
             playerData.getDealtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentMob()));
-    sendFeedback(context, String.format("⧫ Damage Lvl. (Player): %s (%s exp) ┃ ⚔ %s ┃ 🛡 %s",
-        playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
-        playerData.getDealtDamageAdjustmentPlayer(), playerData.getHurtDamageAdjustmentPlayer()));
+    sendFeedback(context,
+        Component.translatable(Constants.STATS_CMD_TEXT_PREFIX + "damage_level_player",
+            playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
+            playerData.getDealtDamageAdjustmentPlayer(),
+            playerData.getHurtDamageAdjustmentPlayer()));
 
     // Weapon Classes Stats
-    sendFeedback(context, "\nWeapon Classes\n═════════════");
+    sendFeedback(context,
+        Component.translatable(Constants.STATS_CMD_TEXT_PREFIX + "weapon_classes"));
     for (WeaponClass weaponClass : WeaponClass.values()) {
       float damageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
       float durabilityAdjustment = playerData.getWeaponClassDurabilityAdjustment(weaponClass);
       int weaponClassLevel = playerData.getWeaponClassLevel(weaponClass);
-      sendFeedback(context,
-          String.format("%s %s Lvl. %s/%s (%s/%s XP) ┃ ⚔ +%.4s%% ┃ ⚒ +%.4s%%", weaponClass.textIcon,
-              weaponClass.name(), weaponClassLevel, Experience.getMaxLevel(),
-              playerData.getWeaponClassExperience(weaponClass),
-              Experience.getExperienceForNextLevel(weaponClassLevel),
-              damageAdjustment > 0 ? (damageAdjustment - 1) * 100 : 0,
-              durabilityAdjustment > 0 ? (durabilityAdjustment - 1) * 100 : 0));
+      sendFeedback(context, Component.translatable(Constants.STATS_CMD_TEXT_PREFIX + "weapon_class",
+          weaponClass.textIcon, weaponClass.text.withStyle(ChatFormatting.RESET), weaponClassLevel,
+          Experience.getMaxLevel(), playerData.getWeaponClassExperience(weaponClass),
+          Experience.getExperienceForNextLevel(weaponClassLevel),
+          String.format("%.4s%%", damageAdjustment > 0 ? (damageAdjustment - 1) * 100 : 0), String
+              .format("%.4s%%", durabilityAdjustment > 0 ? (durabilityAdjustment - 1) * 100 : 0)));
     }
 
     return 0;

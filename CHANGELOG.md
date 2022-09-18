@@ -5,6 +5,11 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.09.18
+
+- Improved translation and visual appearance.
+- Added de_de translation.
+
 ### 2022.09.11
 
 - Added rus_RU translation, thanks to XionioXMaster.
