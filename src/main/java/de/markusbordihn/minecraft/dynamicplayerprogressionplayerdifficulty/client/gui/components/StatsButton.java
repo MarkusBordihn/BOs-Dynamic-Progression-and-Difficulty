@@ -49,6 +49,7 @@ public class StatsButton extends Button {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
+  private static final TextComponent EMPTY_TEXT = new TextComponent("");
   private final Minecraft minecraft;
   private final Font font;
 
@@ -58,7 +59,7 @@ public class StatsButton extends Button {
       new ResourceLocation("textures/gui/container/bundle.png");
 
   public StatsButton(int x, int y, int width, int height, OnPress onPress) {
-    super(x, y, width, height, new TextComponent(""), onPress);
+    super(x, y, width, height, EMPTY_TEXT, onPress);
     this.minecraft = Minecraft.getInstance();
     this.font = this.minecraft.font;
   }
@@ -78,10 +79,10 @@ public class StatsButton extends Button {
   @Override
   public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
     int x = mouseX + 5;
-    int y = mouseY - 65;
-    int spacingSecondColum = 100;
-    int width = 11;
-    int height = 14;
+    int y = mouseY - 50;
+    int spacingSecondColum = 104;
+    int width = 12;
+    int height = 12;
 
     // Player Data
     PlayerData playerData = PlayerDataManager.getLocalPlayer();
@@ -109,30 +110,35 @@ public class StatsButton extends Button {
     x += 4;
 
     // General Stats
-    y = drawStats(poseStack, x, y, new TextComponent("Player Stats"));
-    y = drawStats(poseStack, x, y, new TextComponent("☠ Deaths " + playerData.getNumberOfDeaths()));
-    y = drawStats(poseStack, x, y, new TextComponent(""));
+    y = drawStats(poseStack, x, y,
+        new TranslatableComponent(Constants.STATS_TEXT_PREFIX, playerData.getUsername()));
+    y = drawStats(poseStack, x, y, new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "deaths",
+        playerData.getNumberOfDeaths()));
+    y = drawSeparator(poseStack, x, y, width);
 
     // Penalty Stats
-    y = drawStats(poseStack, x, y, new TextComponent("▼ Experience Penalty (e.g. deaths, ...)"));
+    y = drawStats(poseStack, x, y,
+        new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "experience_penalty"));
     y = drawStats(poseStack, x, y,
         new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "penalty",
             playerData.getExperiencePenaltyGeneral(),
             playerData.getExperiencePenaltyWeaponClass()));
-    y = drawStats(poseStack, x, y, new TextComponent(""));
+    y = drawSeparator(poseStack, x, y, width);
 
     // Damage Stats
-    y = drawStats(poseStack, x, y, new TextComponent("Damage Stats"));
+    y = drawStats(poseStack, x, y,
+        new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "damage_stats"));
     y = drawStats(poseStack, x, y,
         new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "mob_damage",
             playerData.getMobKills(), playerData.getDamageLevelMob()));
     y = drawStats(poseStack, x, y,
         new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "player_damage",
             playerData.getPlayerKills(), playerData.getDamageLevelPlayer()));
-    y = drawStats(poseStack, x, y, new TextComponent(""));
+    y = drawSeparator(poseStack, x, y, width);
 
     // Weapon Stats
-    y = drawStats(poseStack, x, y, new TextComponent("Weapon Stats Level"));
+    y = drawStats(poseStack, x, y,
+        new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "weapon_stats"));
     boolean evenTextPlacement = true;
     for (WeaponClass weaponClass : WeaponClass.values()) {
       if (WeaponClassData.isWeaponClassEnabled(weaponClass) || Constants.IS_MOD_DEV) {
@@ -153,9 +159,16 @@ public class StatsButton extends Button {
     poseStack.popPose();
   }
 
+  private int drawSeparator(PoseStack poseStack, int x, int y, int width) {
+    for (int i = 0; i < width; ++i) {
+      this.blit(poseStack, x - 3 + i * 18, y, Texture.BORDER_HORIZONTAL_TOP);
+    }
+    return y + 4;
+  }
+
   private int drawStats(PoseStack poseStack, int x, int y, Component component) {
     this.font.draw(poseStack, component, x, y, 0xff0000);
-    return y + this.font.lineHeight + 2;
+    return y + this.font.lineHeight + 1;
   }
 
   private void drawBorder(int x, int y, int width, int height, PoseStack poseStack) {

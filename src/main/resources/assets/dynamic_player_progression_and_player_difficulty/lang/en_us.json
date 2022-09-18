@@ -5,9 +5,21 @@
   "text.dynamic_player_progression_and_player_difficulty.tooltip.attack_damage": "%1$s Attack Damage",
   "text.dynamic_player_progression_and_player_difficulty.tooltip.durability": "%1$s Durability",
 
+  "text.dynamic_player_progression_and_player_difficulty.stats.": "Player Stats for %1$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats.deaths": "☠ Deaths %1$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats.experience_penalty": "▼ Experience Penalty (e.g. deaths, ...)",
+  "text.dynamic_player_progression_and_player_difficulty.stats.damage_stats": "Damage Stats",
+  "text.dynamic_player_progression_and_player_difficulty.stats.weapon_stats": "Weapon Stats Level",
   "text.dynamic_player_progression_and_player_difficulty.stats.mob_damage": "⛄ Mob killed %1$s / Mob DMG Lvl. %2$s",
   "text.dynamic_player_progression_and_player_difficulty.stats.penalty": "General -%1$s XP / Weapon -%2$s XP",
   "text.dynamic_player_progression_and_player_difficulty.stats.player_damage": "♕ Player killed %1$s / Player DMG Lvl. %2$s",
+
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.": "▶ Player Stats for %1$s\n═════════════════════════════",
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.penalty": "☠ Deaths: %1$s ┃ Deaths Penalty: %2$s XP ┃ Weapon Penalty: %3$s XP",
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.damage_level_mob": "⧫ Damage Lvl. (Mob): %1$s (%2$s XP) ┃ ⚔ %3$s ┃ 🛡 %4$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.damage_level_player": "⧫ Damage Lvl. (Player): %1$s (%2$s XP) ┃ ⚔ %3$s ┃ 🛡 %4$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_classes": "\nWeapon Classes\n═════════════",
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_class": "%1$s %2$s Lvl. %3$s/%4$s (%5$s/%6$s XP) ┃ ⚔ +%7$s ┃ ⚒ +%8$s",
 
   "text.dynamic_player_progression_and_player_difficulty.level.": "%1$s %2$s: %3$s",
   "text.dynamic_player_progression_and_player_difficulty.level_up": "Congratulation %1$s, your weapons %2$s class level has increased from Lvl. %3$s to Lvl. %4$s.",

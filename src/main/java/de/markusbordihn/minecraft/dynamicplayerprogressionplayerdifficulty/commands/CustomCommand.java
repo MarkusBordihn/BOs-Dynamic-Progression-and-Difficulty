@@ -26,6 +26,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
@@ -38,5 +39,11 @@ public abstract class CustomCommand implements Command<CommandSourceStack> {
   public static void sendFeedback(CommandContext<CommandSourceStack> context, String feedback) {
     CommandSourceStack commandSource = context.getSource();
     commandSource.sendSuccess(new TextComponent(feedback), false);
+  }
+
+  public static void sendFeedback(CommandContext<CommandSourceStack> context,
+      MutableComponent component) {
+    CommandSourceStack commandSource = context.getSource();
+    commandSource.sendSuccess(component, false);
   }
 }
