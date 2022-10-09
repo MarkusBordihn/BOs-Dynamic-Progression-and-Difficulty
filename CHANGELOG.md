@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.10.09
+
+- Fixed NullPointerException with specific arrows entities.
+
 ### 2022.09.18
 
 - Improved translation and visual appearance.

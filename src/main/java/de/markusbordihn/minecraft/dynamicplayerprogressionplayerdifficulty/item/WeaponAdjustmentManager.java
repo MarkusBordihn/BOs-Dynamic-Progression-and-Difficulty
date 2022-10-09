@@ -100,7 +100,7 @@ public class WeaponAdjustmentManager {
                 }
 
                 // Check for damage stack values and use them if we have more than 1.0f.
-                float itemDamageReductionStack = damageStackCache.get(handItemStack);
+                float itemDamageReductionStack = damageStackCache.getOrDefault(handItemStack, 0.0f);
                 if (itemDamageReductionStack >= 1.0f) {
                   adjustedItemDamage = itemDamage - Math.round(itemDamageReductionStack);
                   log.debug(
