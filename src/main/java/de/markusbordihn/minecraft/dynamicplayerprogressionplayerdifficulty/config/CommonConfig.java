@@ -56,6 +56,7 @@ public class CommonConfig {
   private static final String KATANA_TEXT = "katana";
   private static final String KEYBLADE_TEXT = "keyblade";
   private static final String MACE_TEXT = "mace";
+  private static final String PAXEL_TEXT = "paxel";
   private static final String PICKAXE_TEXT = "pickaxe";
   private static final String POLEARM_TEXT = "polearm";
   private static final String SCYTHE_TEXT = "scythe";
@@ -161,6 +162,10 @@ public class CommonConfig {
     public final ForgeConfigSpec.ConfigValue<List<String>> maceItems;
     public final ForgeConfigSpec.IntValue maceItemDamageIncrease;
     public final ForgeConfigSpec.IntValue maceItemDurabilityIncrease;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> paxelItems;
+    public final ForgeConfigSpec.IntValue paxelItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue paxelItemDurabilityIncrease;
 
     public final ForgeConfigSpec.ConfigValue<List<String>> pickaxeItems;
     public final ForgeConfigSpec.IntValue pickaxeItemDamageIncrease;
@@ -410,6 +415,15 @@ public class CommonConfig {
           .defineInRange("maceItemDamageIncrease", 50, 0, 1000);
       maceItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(MACE_TEXT))
           .defineInRange("maceItemDurabilityIncrease", 0, 0, 1000);
+      builder.pop();
+
+      builder.push("Paxel");
+      paxelItems = builder.comment(listOfItemsDescription(PAXEL_TEXT)).define("paxelItems",
+          new ArrayList<String>(Arrays.asList()));
+      paxelItemDamageIncrease = builder.comment(increaseDealtDamageDescription(PAXEL_TEXT))
+          .defineInRange("paxelItemDamageIncrease", 75, 0, 1000);
+      paxelItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(PAXEL_TEXT))
+          .defineInRange("paxelItemDurabilityIncrease", 50, 0, 1000);
       builder.pop();
 
       builder.push("Pickaxes");

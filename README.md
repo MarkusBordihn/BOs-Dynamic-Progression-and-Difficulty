@@ -73,6 +73,7 @@ Depending on your weapon class the your weapon class level you will get addition
 - Katana Class
 - Keyblade Class
 - Mace Class
+- Paxel Class
 - Pickaxe Class
 - Polearm Class
 - Scythe Class

@@ -17,44 +17,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.player;
+package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.block;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.PlayerDataManager;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClass;
+import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.data.WeaponClassData;
 
 @EventBusSubscriber
-public class PlayerDeathManager {
+public class BlockBreakManager {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  protected PlayerDeathManager() {}
+  protected BlockBreakManager() {}
 
   @SubscribeEvent
-  public static void handleLivingDeathEvent(LivingDeathEvent event) {
-    LivingEntity livingEntity = event.getEntityLiving();
-    DamageSource damageSource = event.getSource();
-
-    // Update stats if target was player, regardless of weapon.
-    if (livingEntity instanceof ServerPlayer serverPlayer) {
-      log.debug("Player {} was killed by {}", livingEntity, serverPlayer);
-      PlayerDataManager.updatePlayer(serverPlayer);
+  public static void handleLivingDeathEvent(BlockEvent.BreakEvent event) {
+    if (event.getResult() == Result.DENY) {
+      return;
     }
 
-    // Update stats if player was reason of death, regardless of weapon.
-    if (damageSource.getEntity() instanceof ServerPlayer serverPlayer) {
-      log.debug("LivingEntity {} was killed by {}", livingEntity, serverPlayer);
-      PlayerDataManager.updatePlayer(serverPlayer);
+    // Update stats if source was player with weapon in hand.
+    if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
+      ItemStack handItemStack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+      if (!handItemStack.isEmpty() && handItemStack.getItem() != null) {
+        Item handItem = handItemStack.getItem();
+        WeaponClass weaponClass = WeaponClassData.getWeaponClass(handItem);
+        if (weaponClass != null) {
+          BlockState blockState = event.getState();
+          log.debug("[Block Damage {}] {} destroyed {} with {}", weaponClass, serverPlayer,
+              blockState, handItem);
+          PlayerDataManager.updatePlayer(serverPlayer);
+        }
+      }
     }
   }
 

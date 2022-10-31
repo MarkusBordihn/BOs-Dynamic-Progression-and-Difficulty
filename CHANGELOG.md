@@ -5,6 +5,12 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.10.31
+
+- Added Paxel weapon class for paxel and aiot weapons.
+- Added additional weapons for newer mods.
+- Fixed smaller visual issues with delayed updates.
+
 ### 2022.10.09
 
 - Fixed NullPointerException with specific arrows entities.

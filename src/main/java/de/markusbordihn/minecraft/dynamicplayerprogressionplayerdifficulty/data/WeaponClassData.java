@@ -141,6 +141,7 @@ public class WeaponClassData {
     processConfigItems(COMMON.katanaItems.get(), WeaponClass.KATANA);
     processConfigItems(COMMON.keybladeItems.get(), WeaponClass.KEYBLADE);
     processConfigItems(COMMON.maceItems.get(), WeaponClass.MACE);
+    processConfigItems(COMMON.paxelItems.get(), WeaponClass.PAXEL);
     processConfigItems(COMMON.pickaxeItems.get(), WeaponClass.PICKAXE);
     processConfigItems(COMMON.polearmItems.get(), WeaponClass.POLEARM);
     processConfigItems(COMMON.scytheItems.get(), WeaponClass.SCYTHE);
@@ -164,6 +165,7 @@ public class WeaponClassData {
     processRegistryItems(WeaponClass.KATANA);
     processRegistryItems(WeaponClass.KEYBLADE);
     processRegistryItems(WeaponClass.MACE);
+    processRegistryItems(WeaponClass.PAXEL);
     processRegistryItems(WeaponClass.POLEARM, TridentItem.class);
     processRegistryItems(WeaponClass.SCYTHE);
     processRegistryItems(WeaponClass.SPEAR);
