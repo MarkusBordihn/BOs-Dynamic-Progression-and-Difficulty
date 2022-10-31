@@ -40,12 +40,13 @@ public enum WeaponClass {
   FIST("╽", "fist"),
   GREAT_SWORD("⚔", "great sword"),
   GUN("▝▜", "gun"),
-  HAMMER("⚒", "hammer"),
+  HAMMER("╤", "hammer"),
   HAND_TO_HAND("╽", "hand to hand"),
   HOE("↿", "hoe"),
   KATANA("⚔", "katana"),
   KEYBLADE("⚷", "keyblade"),
   MACE("╿", "mace"),
+  PAXEL("⚒", "paxel"),
   PICKAXE("⛏", "pickaxe"),
   POLEARM("🔱", "polearm"),
   SCYTHE("⚳", "scythe"),
@@ -110,6 +111,8 @@ public enum WeaponClass {
         return COMMON.keybladeItemDamageIncrease.get();
       case MACE:
         return COMMON.maceItemDamageIncrease.get();
+      case PAXEL:
+        return COMMON.paxelItemDamageIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDamageIncrease.get();
       case POLEARM:
@@ -172,6 +175,8 @@ public enum WeaponClass {
         return COMMON.keybladeItemDurabilityIncrease.get();
       case MACE:
         return COMMON.maceItemDurabilityIncrease.get();
+      case PAXEL:
+        return COMMON.paxelItemDurabilityIncrease.get();
       case PICKAXE:
         return COMMON.pickaxeItemDurabilityIncrease.get();
       case POLEARM:
