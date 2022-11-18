@@ -190,7 +190,10 @@ public class WeaponClassData {
 
   public static WeaponClass getWeaponClass(Item item) {
     if (item != null) {
-      return weaponClassMap.getOrDefault(item.getRegistryName().toString(), null);
+      ResourceLocation registryName = item.getRegistryName();
+      if (registryName != null) {
+        return weaponClassMap.getOrDefault(registryName.toString(), null);
+      }
     }
     return null;
   }

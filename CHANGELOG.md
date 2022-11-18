@@ -5,6 +5,11 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.11.18
+
+- Fixed miss-categorization for specific "hammer" items.
+- Disable Player vs. Player states and calculations, if PvP is disabled.
+
 ### 2022.10.31
 
 - Added Paxel weapon class for paxel and aiot weapons.

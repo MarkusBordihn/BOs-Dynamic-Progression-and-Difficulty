@@ -19,7 +19,7 @@
   "text.dynamic_player_progression_and_player_difficulty.stats_cmd.damage_level_mob": "⧫ Schaden Lvl. (Mob): %1$s (%2$s EP) ┃ ⚔ %3$s ┃ 🛡 %4$s",
   "text.dynamic_player_progression_and_player_difficulty.stats_cmd.damage_level_player": "⧫ Schaden Lvl. (Spieler): %1$s (%2$s EP) ┃ ⚔ %3$s ┃ 🛡 %4$s",
   "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_classes": "\nWaffen Klassen\n═════════════",
-  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_class": "%1$s %2$s Lvl. %3$s/%4$s (%5$s/%6$s EP) ┃ ⚔ +%7$s ┃ ⚒ +%8$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_class": "%1$s %2$s Lvl. %3$s/%4$s (%5$s/%6$s EP) ┃ ⚔ %7$s ┃ ⚒ %8$s",
 
   "text.dynamic_player_progression_and_player_difficulty.level.": "%1$s %2$s: %3$s",
   "text.dynamic_player_progression_and_player_difficulty.level_up": "Herzlichen Glückwunsch %1$s, deine Waffenklassenstufe für %2$s ist von Lvl. %3$s auf Lvl. %4$s gestiegen.",

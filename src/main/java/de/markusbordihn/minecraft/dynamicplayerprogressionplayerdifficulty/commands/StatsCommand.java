@@ -26,6 +26,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -64,11 +66,13 @@ public class StatsCommand extends CustomCommand {
         new TranslatableComponent(Constants.STATS_CMD_TEXT_PREFIX + "damage_level_mob",
             playerData.getDamageLevelMob(), playerData.getDamageExperienceMob(),
             playerData.getDealtDamageAdjustmentMob(), playerData.getHurtDamageAdjustmentMob()));
-    sendFeedback(context,
-        new TranslatableComponent(Constants.STATS_CMD_TEXT_PREFIX + "damage_level_player",
-            playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
-            playerData.getDealtDamageAdjustmentPlayer(),
-            playerData.getHurtDamageAdjustmentPlayer()));
+    if (playerData.getPvPEnabled()) {
+      sendFeedback(context,
+          new TranslatableComponent(Constants.STATS_CMD_TEXT_PREFIX + "damage_level_player",
+              playerData.getDamageLevelPlayer(), playerData.getDamageExperiencePlayer(),
+              playerData.getDealtDamageAdjustmentPlayer(),
+              playerData.getHurtDamageAdjustmentPlayer()));
+    }
 
     // Weapon Classes Stats
     sendFeedback(context,
@@ -77,13 +81,20 @@ public class StatsCommand extends CustomCommand {
       float damageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
       float durabilityAdjustment = playerData.getWeaponClassDurabilityAdjustment(weaponClass);
       int weaponClassLevel = playerData.getWeaponClassLevel(weaponClass);
-      sendFeedback(context, new TranslatableComponent(
-          Constants.STATS_CMD_TEXT_PREFIX + "weapon_class", weaponClass.textIcon,
-          weaponClass.text.withStyle(ChatFormatting.RESET), weaponClassLevel,
-          Experience.getMaxLevel(), playerData.getWeaponClassExperience(weaponClass),
-          Experience.getExperienceForNextLevel(weaponClassLevel),
-          String.format("%.4s%%", damageAdjustment > 0 ? (damageAdjustment - 1) * 100 : 0),
-          String.format("%.4s%%", durabilityAdjustment > 0 ? (durabilityAdjustment - 1) * 100 : 0)));
+      sendFeedback(context,
+          new TranslatableComponent(Constants.STATS_CMD_TEXT_PREFIX + "weapon_class",
+              new TextComponent(weaponClass.textIcon).withStyle(ChatFormatting.BLUE),
+              weaponClass.text.withStyle(ChatFormatting.RESET), weaponClassLevel,
+              Experience.getMaxLevel(), playerData.getWeaponClassExperience(weaponClass),
+              Experience.getExperienceForNextLevel(weaponClassLevel),
+              new TextComponent(
+                  String.format("+%.4s%%", damageAdjustment > 0 ? (damageAdjustment - 1) * 100 : 0))
+                      .setStyle(Style.EMPTY.withColor(
+                          damageAdjustment > 0 ? ChatFormatting.GREEN : ChatFormatting.GRAY)),
+              new TextComponent(String.format("+%.4s%%",
+                  durabilityAdjustment > 0 ? (durabilityAdjustment - 1) * 100 : 0))
+                      .setStyle(Style.EMPTY.withColor(
+                          durabilityAdjustment > 0 ? ChatFormatting.GREEN : ChatFormatting.GRAY))));
     }
 
     return 0;

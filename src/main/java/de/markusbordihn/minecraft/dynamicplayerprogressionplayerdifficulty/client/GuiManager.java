@@ -22,6 +22,8 @@ package de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.clie
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -44,25 +46,36 @@ public class GuiManager {
 
   public static void registerScreens(final FMLClientSetupEvent event) {
     log.info("{} Client Screens ...", Constants.LOG_REGISTER_PREFIX);
-
     event.enqueueWork(() -> {
     });
   }
 
   public static void handleScreenEventInitPost(ScreenEvent.InitScreenEvent.Post event) {
-    if (event.getScreen() instanceof InventoryScreen inventoryScreen) {
+    Screen screen = event.getScreen();
+    if (screen instanceof CreativeModeInventoryScreen creativeModeInventoryScreen
+        && creativeModeInventoryScreen.getGuiLeft() > 0
+        && creativeModeInventoryScreen.getGuiTop() > 0) {
       if (Boolean.FALSE.equals(COMMON.guiButtonEnabled.get())) {
         return;
       }
-      log.debug("Found inventory screen with left:{} top:{} ...", inventoryScreen.getGuiLeft(),
-          inventoryScreen.getGuiTop());
+      log.debug("Found creative mode inventory screen {} with left:{} top:{} ...",
+          creativeModeInventoryScreen, creativeModeInventoryScreen.getGuiLeft(),
+          creativeModeInventoryScreen.getGuiTop());
+    } else if (screen instanceof InventoryScreen inventoryScreen
+        && (inventoryScreen.getGuiLeft() > 0 || inventoryScreen.getGuiTop() > 0)) {
+      if (Boolean.FALSE.equals(COMMON.guiButtonEnabled.get())) {
+        return;
+      }
+      log.debug("Found inventory screen {} with left:{} top:{} ...", inventoryScreen,
+          inventoryScreen.getGuiLeft(), inventoryScreen.getGuiTop());
       event.addListener(
           new StatsButton(inventoryScreen.getGuiLeft() + COMMON.guiButtonPositionLeft.get(),
               inventoryScreen.getGuiTop() + COMMON.guiButtonPositionTop.get(), 10, 10, button -> {
                 log.debug("Click clack ...");
               }));
+    } else if (screen != null) {
+      log.debug("Skip unsupported screen {}", screen);
     }
-
   }
 
 }

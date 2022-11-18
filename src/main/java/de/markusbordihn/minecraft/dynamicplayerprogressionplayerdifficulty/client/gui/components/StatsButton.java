@@ -131,9 +131,11 @@ public class StatsButton extends Button {
     y = drawStats(poseStack, x, y,
         new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "mob_damage",
             playerData.getMobKills(), playerData.getDamageLevelMob()));
-    y = drawStats(poseStack, x, y,
-        new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "player_damage",
-            playerData.getPlayerKills(), playerData.getDamageLevelPlayer()));
+    if (playerData.getPvPEnabled()) {
+      y = drawStats(poseStack, x, y,
+          new TranslatableComponent(Constants.STATS_TEXT_PREFIX + "player_damage",
+              playerData.getPlayerKills(), playerData.getDamageLevelPlayer()));
+    }
     y = drawSeparator(poseStack, x, y, width);
 
     // Weapon Stats

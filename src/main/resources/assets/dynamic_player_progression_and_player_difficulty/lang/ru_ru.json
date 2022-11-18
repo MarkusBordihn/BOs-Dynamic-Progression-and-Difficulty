@@ -19,7 +19,7 @@
   "text.dynamic_player_progression_and_player_difficulty.stats_cmd.damage_level_mob": "⧫ Уровень урона (моб): %1$s (%2$s XP) ┃ ⚔ %3$s ┃ 🛡 %4$s",
   "text.dynamic_player_progression_and_player_difficulty.stats_cmd.damage_level_player": "⧫ Уровень урона. (Игрок): %1$s (%2$s XP) ┃ ⚔ %3$s ┃ 🛡 %4$s",
   "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_classes": "\nКлассы оружия\n═════════════",
-  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_class": "%1$s %2$s Ур. %3$s/%4$s (%5$s/%6$s XP) ┃ ⚔ +%7$s ┃ ⚒ +%8$s",
+  "text.dynamic_player_progression_and_player_difficulty.stats_cmd.weapon_class": "%1$s %2$s Ур. %3$s/%4$s (%5$s/%6$s XP) ┃ ⚔ %7$s ┃ ⚒ %8$s",
 
   "text.dynamic_player_progression_and_player_difficulty.level.": "%1$s %2$s: %3$s",
   "text.dynamic_player_progression_and_player_difficulty.level_up": "Поздравляем %1$s, уровень класса вашего оружия %2$s увеличился с Lvl. %3$s до Lvl. %4$s.",

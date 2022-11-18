@@ -36,7 +36,7 @@ The mods has the following commands to get more insights in your stats.
 - `/player_progression stats` will provide a overview for the player with their current stats.
 - `/player_progression level overview` shows the calculated level and needed experience based on the settings from the configuration. (Op only)
 
-## Player Stats
+## 🧮 Player Stats
 
 There are different internal stats for the player which are used for the calculations.
 
@@ -52,42 +52,43 @@ The stats will not conflict with other mods so you can still use any other RPG o
 
 ![Example Player Stats](examples/example_level_up.png)
 
-## Weapon Classes
+## ⚔️ Weapon Classes
 
 ![Example Weapon Class](examples/weapon_class_adjustments.png)
 
 Each weapon will be categorize in on of the following classes, you can customize them over the config file in the case items are missing from other mods.
 Depending on your weapon class the your weapon class level you will get additional bonus stats for the weapon class like additional **Attack Damage** and/or **Durability**.
 
-- Axe Class
-- Bow Class
-- Claw Class
-- Crossbow Class
-- Dagger Class
-- Fist Class
-- Great Sword Class
-- Gun Class
-- Hammer Class
-- Hand to Hand Class
-- Hoe Class
-- Katana Class
-- Keyblade Class
-- Mace Class
-- Paxel Class
-- Pickaxe Class
-- Polearm Class
-- Scythe Class
-- Shield Class
-- Shovel Class
-- Spear Class
-- Staff Class
-- Sword Class
-- Tachi Class
-- Wand Class
+- 🪓 Axe Class
+- 🏹 Bow Class
+- ╽╽╽ Claw Class
+- ⚔ Claymore Class
+- 🏹 Crossbow Class
+- 🗡 Dagger Class
+- ╽ Fist Class
+- ⚔ Great Sword Class
+- ▝▜ Gun Class
+- ╤ Hammer Class
+- ╽ Hand to Hand Class
+- ↿ Hoe Class
+- ⚔ Katana Class
+- ⚷ Keyblade Class
+- ╿ Mace Class
+- ⚒ Paxel Class
+- ⛏ Pickaxe Class
+- 🔱 Polearm Class
+- ⚳ Scythe Class
+- 🛡 Shield Class
+- ⚒ Shovel Class
+- ╲ Spear Class
+- ╲ Staff Class
+- ⚔ Sword Class
+- ⚔ Tachi Class
+- ⚚ Wand Class
 
 ![Example Weapon Class Gun](examples/weapon_class_adjustments_gun.png)
 
-## Supported Mods
+## ✔️ Supported Mods
 
 Most of the mods and weapon items should be supported out of the box.
 I tested the mod with the following mods:
@@ -114,6 +115,15 @@ I tested the mod with the following mods:
 - Useless Sword
 - Weapon Throw
 - YDM's Gunblades
+
+If the weapon usage shows up in the stats screen, the mod should be work without any issues.
+If the weapon usage is not showing up in the stats screen, you should contact the mod author to get this fixed.
+
+## ❌ Partially supported / Unsupported Mods
+
+The following mods are only partially supported, because their custom items are not implemented the standard stats system correctly.
+
+- Tinkers Construct [[#5007](https://github.com/SlimeKnights/TinkersConstruct/issues/5007)]
 
 ## 🙋FAQ
 
