@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 
@@ -74,8 +75,14 @@ public class PlayerServerData extends SavedData {
     PlayerServerData.server = server;
 
     // Using a global approach and storing relevant data in the overworld only!
-    PlayerServerData.data = server.getLevel(Level.OVERWORLD).getDataStorage().computeIfAbsent(
-        PlayerServerData::load, PlayerServerData::new, PlayerServerData.getFileId());
+    ServerLevel serverLevel = server.getLevel(Level.OVERWORLD);
+    if (serverLevel != null) {
+      PlayerServerData.data = serverLevel.getDataStorage().computeIfAbsent(
+          PlayerServerData::load, PlayerServerData::new, PlayerServerData.getFileId());
+    } else {
+      log.error("{} unable to get server level {} for storing data!", Constants.LOG_NAME,
+          serverLevel);
+    }
   }
 
   public static String getFileId() {

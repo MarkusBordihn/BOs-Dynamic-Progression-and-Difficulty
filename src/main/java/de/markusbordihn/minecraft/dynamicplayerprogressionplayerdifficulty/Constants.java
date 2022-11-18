@@ -24,8 +24,6 @@ import java.util.Optional;
 import cpw.mods.modlauncher.Launcher;
 import cpw.mods.modlauncher.api.IEnvironment;
 
-import net.minecraft.ChatFormatting;
-
 public final class Constants {
 
   protected Constants() {}
@@ -42,12 +40,13 @@ public final class Constants {
       "https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty";
 
   // Colors
-  public static final int FONT_COLOR_BLACK = ChatFormatting.BLACK.getColor();
-  public static final int FONT_COLOR_DARK_GREEN = ChatFormatting.DARK_GREEN.getColor();
-  public static final int FONT_COLOR_GRAY = ChatFormatting.GRAY.getColor();
-  public static final int FONT_COLOR_GREEN = ChatFormatting.GREEN.getColor();
-  public static final int FONT_COLOR_WARNING = ChatFormatting.RED.getColor();
-  public static final int FONT_COLOR_YELLOW = ChatFormatting.YELLOW.getColor();
+  public static final int FONT_COLOR_BLACK = 0;
+  public static final int FONT_COLOR_DARK_GREEN = 43520;
+  public static final int FONT_COLOR_GRAY = 11184810;
+  public static final int FONT_COLOR_GREEN = 5635925;
+  public static final int FONT_COLOR_RED = 16733525;
+  public static final int FONT_COLOR_WARNING = FONT_COLOR_RED;
+  public static final int FONT_COLOR_YELLOW = 16777045;
 
   // Prefixes
   public static final String TEXT_PREFIX = "text." + MOD_ID;

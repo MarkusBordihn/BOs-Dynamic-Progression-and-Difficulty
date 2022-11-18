@@ -190,10 +190,10 @@ public class WeaponClassDataInternal {
     //@formatter:on
     )));
     weaponClassItemsSuffixes.put(WeaponClass.HAMMER,
-        new HashSet<>(Arrays.asList("_hammer", "warhammer", "_lucernhammer", "_hammer_end",
+        new HashSet<>(Arrays.asList(":hammer", "_hammer", "warhammer", "_lucernhammer", "_hammer_end",
             "_hammer_neth", ":sledgehammer", ":ironhammer")));
     weaponClassItemsKeywords.put(WeaponClass.HAMMER,
-        new HashSet<>(Arrays.asList(":hammer", ":warhammer", ":mattock")));
+        new HashSet<>(Arrays.asList(":warhammer", ":mattock")));
   }
 
   // Hand to Hand Class

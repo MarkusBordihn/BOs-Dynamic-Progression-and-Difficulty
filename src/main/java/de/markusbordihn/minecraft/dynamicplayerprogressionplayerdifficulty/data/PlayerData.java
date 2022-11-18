@@ -31,15 +31,21 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.ServerStatsCounter;
 import net.minecraft.stats.StatType;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.item.Item;
 
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.Constants;
 import de.markusbordihn.minecraft.dynamicplayerprogressionplayerdifficulty.config.CommonConfig;
 
+@EventBusSubscriber
 public class PlayerData {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
@@ -71,12 +77,17 @@ public class PlayerData {
   public static final String PLAYER_DEATHS_TAG = "PlayerDeaths";
   public static final String NAME_TAG = "Name";
   public static final String UUID_TAG = "UUID";
+  public static final String PVP_ENABLED_TAG = "PvPEnabled";
 
   private ServerPlayer player;
   private ServerStatsCounter stats;
 
   private String username;
   private UUID userUUID;
+
+  // Server mode
+  private boolean pvpEnabled = false;
+  private static boolean pvpEnabledServer = false;
 
   // General stats
   private float damageAbsorbed = 0;
@@ -148,6 +159,15 @@ public class PlayerData {
     updateStats();
   }
 
+  @SubscribeEvent
+  public static void handleServerAboutToStartEvent(ServerAboutToStartEvent event) {
+    MinecraftServer minecraftServer = event.getServer();
+    if (minecraftServer != null) {
+      pvpEnabledServer = minecraftServer.isPvpAllowed();
+      log.info("Server Setting: PVP allowed {}", pvpEnabledServer);
+    }
+  }
+
   public void updateStats() {
     if (this.stats == null && this.player != null) {
       this.stats = player.getStats();
@@ -199,13 +219,20 @@ public class PlayerData {
 
     // Calculate levels with death penalty
     this.damageLevelMob = Experience.getLevelFromExperience(this.damageExperienceMob);
-    this.damageLevelPlayer = Experience.getLevelFromExperience(this.damageExperiencePlayer);
+    if (pvpEnabled) {
+      this.damageLevelPlayer = Experience.getLevelFromExperience(this.damageExperiencePlayer);
+    }
 
     // Calculate player adjustments
     this.dealtDamageAdjustmentMob = Experience.getDealtDamageAdjustment(this.damageLevelMob);
-    this.dealtDamageAdjustmentPlayer = Experience.getDealtDamageAdjustment(this.damageLevelPlayer);
+    if (pvpEnabled) {
+      this.dealtDamageAdjustmentPlayer =
+          Experience.getDealtDamageAdjustment(this.damageLevelPlayer);
+    }
     this.hurtDamageAdjustmentMob = Experience.getHurtDamageAdjustment(this.damageLevelMob);
-    this.hurtDamageAdjustmentPlayer = Experience.getHurtDamageAdjustment(this.damageLevelPlayer);
+    if (pvpEnabled) {
+      this.hurtDamageAdjustmentPlayer = Experience.getHurtDamageAdjustment(this.damageLevelPlayer);
+    }
 
     // Weapon Class Calculations
     int maxLevel = Experience.getMaxLevel();
@@ -277,6 +304,14 @@ public class PlayerData {
     }
   }
 
+  public boolean getPvPEnabled() {
+    return pvpEnabled;
+  }
+
+  public static boolean getPvPEnabledServer() {
+    return pvpEnabledServer;
+  }
+
   public String getUsername() {
     return username;
   }
@@ -286,11 +321,11 @@ public class PlayerData {
   }
 
   public int getExperiencePenaltyGeneral() {
-    return this.experiencePenaltyGeneral;
+    return experiencePenaltyGeneral;
   }
 
   public int getExperiencePenaltyWeaponClass() {
-    return this.experiencePenaltyWeaponClass;
+    return experiencePenaltyWeaponClass;
   }
 
   public float getDamageAbsorbed() {
@@ -410,6 +445,8 @@ public class PlayerData {
   }
 
   public void load(CompoundTag compoundTag) {
+    // Server Settings
+    this.pvpEnabled = compoundTag.getBoolean(PVP_ENABLED_TAG);
 
     // Experience Penalty
     this.experiencePenaltyGeneral = compoundTag.getInt(EXPERIENCE_PENALTY_GENERAL_TAG);
@@ -451,6 +488,9 @@ public class PlayerData {
   }
 
   public CompoundTag save(CompoundTag compoundTag) {
+    // Server Settings
+    compoundTag.putBoolean(PVP_ENABLED_TAG, getPvPEnabledServer());
+
     // Experience Penalty
     compoundTag.putInt(EXPERIENCE_PENALTY_GENERAL_TAG, this.experiencePenaltyGeneral);
     compoundTag.putInt(EXPERIENCE_PENALTY_WEAPON_CLASS_TAG, this.experiencePenaltyWeaponClass);
