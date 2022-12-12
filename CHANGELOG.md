@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2022.12.12
+
+- Added Tinkers Construct to supported mods after fixed [[#5007](https://github.com/SlimeKnights/TinkersConstruct/issues/5007)].
+
 ### 2022.11.18
 
 - Fixed miss-categorization for specific "hammer" items.

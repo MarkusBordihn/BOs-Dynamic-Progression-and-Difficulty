@@ -105,6 +105,7 @@ I tested the mod with the following mods:
 - Keyblades
 - Kingdom Keys 2
 - MC Dungeons Weaponry
+- Tinkers Construct
 - Mo' Guns
 - MrCrayfish's Gun Mod
 - NinjaGear
@@ -121,9 +122,7 @@ If the weapon usage is not showing up in the stats screen, you should contact th
 
 ## ❌ Partially supported / Unsupported Mods
 
-The following mods are only partially supported, because their custom items are not implemented the standard stats system correctly.
-
-- Tinkers Construct [[#5007](https://github.com/SlimeKnights/TinkersConstruct/issues/5007)]
+Some mods are only partially supported, because their custom items are not implemented the standard stats system correctly.
 
 ## 🙋FAQ
 
