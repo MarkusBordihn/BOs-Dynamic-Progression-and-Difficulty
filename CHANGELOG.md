@@ -1,9 +1,13 @@
-# Changelog for Player Companions (1.19.2)
+# Changelog for Player Companions (1.19.3)
 
 ## Note
 
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
+
+### 2022.12.13
+
+- Refactored code for version 1.19.3-44.0.18
 
 ### 2022.12.12
 

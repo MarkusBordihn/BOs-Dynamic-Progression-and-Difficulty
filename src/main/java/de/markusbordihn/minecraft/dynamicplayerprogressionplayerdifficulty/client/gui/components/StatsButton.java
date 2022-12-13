@@ -57,25 +57,17 @@ public class StatsButton extends Button {
       new ResourceLocation("textures/gui/container/bundle.png");
 
   public StatsButton(int x, int y, int width, int height, OnPress onPress) {
-    super(x, y, width, height, EMPTY_TEXT, onPress);
+    this(x, y, width, height, onPress, Button.DEFAULT_NARRATION);
+  }
+
+  public StatsButton(int x, int y, int width, int height, OnPress onPress,
+      CreateNarration createNarration) {
+    super(x, y, width, height, EMPTY_TEXT, onPress, createNarration);
     this.minecraft = Minecraft.getInstance();
     this.font = this.minecraft.font;
   }
 
-  @Override
-  public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-    RenderSystem.setShaderTexture(0, TEXTURE);
-    if (isHoveredOrFocused()) {
-      blit(poseStack, x, y, 34, 1, 10, 10);
-      this.renderToolTip(poseStack, mouseX, mouseY);
-    } else {
-      blit(poseStack, x, y, 24, 1, 10, 10);
-    }
-  }
-
-  @Override
-  public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
+  public void renderStatsOverview(PoseStack poseStack, int mouseX, int mouseY) {
     int x = mouseX + 5;
     int y = mouseY - 50;
     int spacingSecondColum = 104;
@@ -188,6 +180,18 @@ public class StatsButton extends Button {
     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     RenderSystem.setShaderTexture(0, TOOLTIP_TEXTURE);
     GuiComponent.blit(poseStack, x, y, 0, texture.x, texture.y, texture.w, texture.h, 128, 128);
+  }
+
+  @Override
+  public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    RenderSystem.setShaderTexture(0, TEXTURE);
+    if (isHoveredOrFocused()) {
+      blit(poseStack, this.getX(), this.getY(), 34, 1, 10, 10);
+      this.renderStatsOverview(poseStack, mouseX, mouseY);
+    } else {
+      blit(poseStack, this.getX(), this.getY(), 24, 1, 10, 10);
+    }
   }
 
   @OnlyIn(Dist.CLIENT)
