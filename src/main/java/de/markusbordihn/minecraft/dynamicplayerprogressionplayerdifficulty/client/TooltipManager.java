@@ -65,13 +65,28 @@ public class TooltipManager {
       tooltip.add(index++, formatWeaponClass(weaponClass));
       PlayerData playerData = PlayerDataManager.getLocalPlayer();
       if (playerData != null) {
+        int experiencePenaltyWeaponClass = playerData.getExperiencePenaltyWeaponClass();
+        int weaponClassExperience = playerData.getWeaponClassExperience(weaponClass);
+        int weaponClassExperienceBase = playerData.getWeaponClassExperienceBase(weaponClass);
         int weaponClassLevel = playerData.getWeaponClassLevel(weaponClass);
-        tooltip.add(index++, formatLevel(weaponClassLevel).append(
-            formatExperience(playerData.getWeaponClassExperience(weaponClass), weaponClassLevel)));
+
+        // Display 0 experience with death penalty, to make it more visible for the user.
+        if (weaponClassExperience == 0 && experiencePenaltyWeaponClass > 0
+            && weaponClassExperienceBase - experiencePenaltyWeaponClass < 0) {
+          tooltip.add(index++, formatLevel(weaponClassLevel).append(formatExperienceWithPenalty(
+              weaponClassExperienceBase - experiencePenaltyWeaponClass, weaponClassLevel)));
+        } else {
+          tooltip.add(index++, formatLevel(weaponClassLevel)
+              .append(formatExperience(weaponClassExperience, weaponClassLevel)));
+        }
+
+        // Display item damage adjustments
         float itemDamageAdjustment = playerData.getWeaponClassDamageAdjustment(weaponClass);
         if (itemDamageAdjustment > 0.0f) {
           tooltip.add(index++, formatDamageAdjustment(itemDamageAdjustment));
         }
+
+        // Display item durability adjustments
         float itemDurabilityAdjustment = playerData.getWeaponClassDurabilityAdjustment(weaponClass);
         if (itemDurabilityAdjustment > 0.0f) {
           tooltip.add(index++, formatDurabilityAdjustment(itemDurabilityAdjustment));
@@ -103,6 +118,13 @@ public class TooltipManager {
     int experienceNextLevel = Experience.getExperienceForNextLevel(level) - 1;
     return Component.translatable(Constants.TOOLTIP_TEXT_PREFIX + "level_experience", experience,
         experienceNextLevel).withStyle(ChatFormatting.DARK_GREEN);
+  }
+
+  private static MutableComponent formatExperienceWithPenalty(int experience, int level) {
+    int experienceNextLevel = Experience.getExperienceForNextLevel(level) - 1;
+    return Component.translatable(Constants.TOOLTIP_TEXT_PREFIX + "level_experience",
+        Component.literal(experience + "☠").withStyle(ChatFormatting.DARK_RED), experienceNextLevel)
+        .withStyle(ChatFormatting.DARK_GREEN);
   }
 
   private static MutableComponent formatDurabilityAdjustment(float durability) {
