@@ -66,19 +66,20 @@ public class PlayerData {
   public static final String HURT_DAMAGE_ADJUSTMENT_MOB_TAG = "HurtDamageAdjustmentMob";
   public static final String HURT_DAMAGE_ADJUSTMENT_PLAYER_TAG = "HurtDamageAdjustmentPlayer";
 
-  public static final String WEAPON_CLASSES_TAG = "WeaponClasses";
-  public static final String WEAPON_CLASS_TAG = "WeaponClass";
-  public static final String EXPERIENCE_TAG = "Experience";
-  public static final String LEVEL_TAG = "Level";
   public static final String DAMAGE_ADJUSTMENT = "DamageAdjustment";
   public static final String DURABILITY_ADJUSTMENT = "DurabilityAdjustment";
+  public static final String EXPERIENCE_BASE_TAG = "ExperienceBase";
+  public static final String EXPERIENCE_TAG = "Experience";
+  public static final String LEVEL_TAG = "Level";
+  public static final String WEAPON_CLASSES_TAG = "WeaponClasses";
+  public static final String WEAPON_CLASS_TAG = "WeaponClass";
 
   public static final String KILLS_MOB_TAG = "KillsMob";
   public static final String KILLS_PLAYER_TAG = "KillsPlayer";
-  public static final String PLAYER_DEATHS_TAG = "PlayerDeaths";
   public static final String NAME_TAG = "Name";
-  public static final String UUID_TAG = "UUID";
+  public static final String PLAYER_DEATHS_TAG = "PlayerDeaths";
   public static final String PVP_ENABLED_TAG = "PvPEnabled";
+  public static final String UUID_TAG = "UUID";
 
   private ServerPlayer player;
   private ServerStatsCounter stats;
@@ -237,18 +238,23 @@ public class PlayerData {
 
     // Weapon Class Calculations
     int maxLevel = Experience.getMaxLevel();
+    float experienceFactorItems = Experience.getExperienceFactorItems();
     boolean weaponClassLevelUpMessage = COMMON.weaponClassLevelUpMessage.get();
     this.experiencePenaltyWeaponClass =
         this.numberOfDeaths * Experience.getExperienceDeathPenaltyItems();
 
     for (WeaponClass weaponClass : WeaponClass.values()) {
+      // Get relevant items for weapon class and calculations for weapon classes without any items.
+      Set<Item> weaponClassItems = weaponClass.getItems();
+      if (weaponClassItems == null || weaponClassItems.isEmpty()) {
+        continue;
+      }
 
       // Calculate weapon class experience based on item usage.
-      float experienceFactorItems = Experience.getExperienceFactorItems();
       int weaponClassExperienceBase = 0;
       if (experienceFactorItems > 0.0f) {
         weaponClassExperienceBase =
-            Math.round(getItemsUsage(weaponClass.getItems()) * experienceFactorItems);
+            Math.round(getItemsUsage(weaponClassItems) * experienceFactorItems);
       }
       weaponClassExperienceBaseMap.put(weaponClass, weaponClassExperienceBase);
 
@@ -470,6 +476,7 @@ public class PlayerData {
         WeaponClass weaponClass = WeaponClass.valueOf(weaponClassTag.getString(WEAPON_CLASS_TAG));
         if (weaponClass != null && !weaponClassTag.isEmpty()) {
           weaponClassExperienceMap.put(weaponClass, weaponClassTag.getInt(EXPERIENCE_TAG));
+          weaponClassExperienceBaseMap.put(weaponClass, weaponClassTag.getInt(EXPERIENCE_BASE_TAG));
           weaponClassLevelMap.put(weaponClass, weaponClassTag.getInt(LEVEL_TAG));
           weaponClassDamageAdjustmentMap.put(weaponClass,
               weaponClassTag.getFloat(DAMAGE_ADJUSTMENT));
@@ -511,6 +518,7 @@ public class PlayerData {
       CompoundTag weaponClassTag = new CompoundTag();
       weaponClassTag.putString(WEAPON_CLASS_TAG, weaponClass.name());
       weaponClassTag.putInt(EXPERIENCE_TAG, getWeaponClassExperience(weaponClass));
+      weaponClassTag.putInt(EXPERIENCE_BASE_TAG, getWeaponClassExperienceBase(weaponClass));
       weaponClassTag.putInt(LEVEL_TAG, getWeaponClassLevel(weaponClass));
       weaponClassTag.putFloat(DAMAGE_ADJUSTMENT, getWeaponClassDamageAdjustment(weaponClass));
       weaponClassTag.putFloat(DURABILITY_ADJUSTMENT,

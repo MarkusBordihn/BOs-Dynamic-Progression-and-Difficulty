@@ -206,6 +206,11 @@ public class WeaponClassData {
     return weaponClassItems.get(weaponClass);
   }
 
+  public static boolean hasItems(WeaponClass weaponClass) {
+    return isWeaponClassEnabled(weaponClass)
+        && !weaponClassItems.getOrDefault(weaponClass, new HashSet<>()).isEmpty();
+  }
+
   private static void processRegistryItems(WeaponClass weaponClass) {
     processRegistryItems(weaponClass, null);
   }

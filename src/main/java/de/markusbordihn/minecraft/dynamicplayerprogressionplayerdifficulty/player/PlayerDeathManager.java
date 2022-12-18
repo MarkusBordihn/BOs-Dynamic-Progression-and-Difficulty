@@ -47,13 +47,15 @@ public class PlayerDeathManager {
 
     // Update stats if target was player, regardless of weapon.
     if (livingEntity instanceof ServerPlayer serverPlayer) {
-      log.debug("Player {} was killed by {}", livingEntity, serverPlayer);
+      log.debug("Player {} was killed by {} with {}", livingEntity, serverPlayer,
+          damageSource.getDirectEntity());
       PlayerDataManager.updatePlayer(serverPlayer);
     }
 
     // Update stats if player was reason of death, regardless of weapon.
     if (damageSource.getEntity() instanceof ServerPlayer serverPlayer) {
-      log.debug("LivingEntity {} was killed by {}", livingEntity, serverPlayer);
+      log.debug("LivingEntity {} was killed by {} with {}", livingEntity, serverPlayer,
+          damageSource.getDirectEntity());
       PlayerDataManager.updatePlayer(serverPlayer);
     }
   }

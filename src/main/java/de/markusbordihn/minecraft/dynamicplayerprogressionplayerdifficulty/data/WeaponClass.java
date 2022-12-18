@@ -211,6 +211,10 @@ public enum WeaponClass {
     return WeaponClassData.getItems(this);
   }
 
+  public boolean hasItems() {
+    return WeaponClassData.hasItems(this);
+  }
+
   public String getTextName() {
     return this.textName;
   }
