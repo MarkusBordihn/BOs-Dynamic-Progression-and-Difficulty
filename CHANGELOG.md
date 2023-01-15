@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2023.01.15
+
+- Added Magic Spell Book weapon class.
+
 ### 2022.12.18
 
 - Optimized stats calculation by skipping empty weapon classes.

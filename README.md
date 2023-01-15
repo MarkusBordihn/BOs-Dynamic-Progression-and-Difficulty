@@ -70,6 +70,7 @@ Depending on your weapon class the your weapon class level you will get addition
 - ▝▜ Gun Class
 - ╤ Hammer Class
 - ╽ Hand to Hand Class
+- ⁂ Magic Spell Book Class
 - ↿ Hoe Class
 - ⚔ Katana Class
 - ⚷ Keyblade Class
@@ -95,17 +96,19 @@ I tested the mod with the following mods:
 
 - Additional Guns
 - Age of Weapons
+- Ars Nouveau
 - Axes Are Weapons
 - Caves and Katanas
+- Creatures and Beasts
 - Cyan Warrior Swords Mod
 - Epic Fight
 - Epic Knights: Shields, Armor and Weapons
 - Four Elemental Swords
+- Grimoire of Gaia
 - Immersive Engineering
 - Keyblades
 - Kingdom Keys 2
 - MC Dungeons Weaponry
-- Tinkers Construct
 - Mo' Guns
 - MrCrayfish's Gun Mod
 - NinjaGear
@@ -113,6 +116,7 @@ I tested the mod with the following mods:
 - Old Guns Mod
 - RPG style More Weapons!
 - Tetra
+- Tinkers Construct
 - Useless Sword
 - Weapon Throw
 - YDM's Gunblades

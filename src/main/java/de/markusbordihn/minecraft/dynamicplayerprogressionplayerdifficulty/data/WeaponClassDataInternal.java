@@ -190,8 +190,8 @@ public class WeaponClassDataInternal {
     //@formatter:on
     )));
     weaponClassItemsSuffixes.put(WeaponClass.HAMMER,
-        new HashSet<>(Arrays.asList(":hammer", "_hammer", "warhammer", "_lucernhammer", "_hammer_end",
-            "_hammer_neth", ":sledgehammer", ":ironhammer")));
+        new HashSet<>(Arrays.asList(":hammer", "_hammer", "warhammer", "_lucernhammer",
+            "_hammer_end", "_hammer_neth", ":sledgehammer", ":ironhammer")));
     weaponClassItemsKeywords.put(WeaponClass.HAMMER,
         new HashSet<>(Arrays.asList(":warhammer", ":mattock")));
   }
@@ -360,8 +360,16 @@ public class WeaponClassDataInternal {
 
   // Mace
   static {
-    weaponClassItemsSuffixes.put(WeaponClass.MACE,
-        new HashSet<>(Arrays.asList("_mace", ":mace", "_heavymace", ":heavymace", "_bat")));
+    weaponClassItemsSuffixes.put(WeaponClass.MACE, new HashSet<>(
+        Arrays.asList("_mace", ":mace", "_heavymace", ":heavymace", "_bat", "metal_club")));
+  }
+
+  // Magic Spell Book
+  static {
+    weaponClassItemsSuffixes.put(WeaponClass.MAGIC_SPELL_BOOK, new HashSet<>(
+        Arrays.asList(":weapon_book", ":spell_book", "_spell_book", ":grimoire", "_grimoire")));
+    weaponClassItemsKeywords.put(WeaponClass.MAGIC_SPELL_BOOK,
+        new HashSet<>(Arrays.asList(":weapon_book_", ":grimoire_", "_spell_book_")));
   }
 
   // Paxel

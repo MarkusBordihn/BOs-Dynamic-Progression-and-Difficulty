@@ -141,6 +141,7 @@ public class WeaponClassData {
     processConfigItems(COMMON.katanaItems.get(), WeaponClass.KATANA);
     processConfigItems(COMMON.keybladeItems.get(), WeaponClass.KEYBLADE);
     processConfigItems(COMMON.maceItems.get(), WeaponClass.MACE);
+    processConfigItems(COMMON.magicSpellBookItems.get(), WeaponClass.MAGIC_SPELL_BOOK);
     processConfigItems(COMMON.paxelItems.get(), WeaponClass.PAXEL);
     processConfigItems(COMMON.pickaxeItems.get(), WeaponClass.PICKAXE);
     processConfigItems(COMMON.polearmItems.get(), WeaponClass.POLEARM);
@@ -165,6 +166,7 @@ public class WeaponClassData {
     processRegistryItems(WeaponClass.KATANA);
     processRegistryItems(WeaponClass.KEYBLADE);
     processRegistryItems(WeaponClass.MACE);
+    processRegistryItems(WeaponClass.MAGIC_SPELL_BOOK);
     processRegistryItems(WeaponClass.PAXEL);
     processRegistryItems(WeaponClass.POLEARM, TridentItem.class);
     processRegistryItems(WeaponClass.SCYTHE);
@@ -208,8 +210,26 @@ public class WeaponClassData {
         && !weaponClassItems.getOrDefault(weaponClass, new HashSet<>()).isEmpty();
   }
 
-  private static void processRegistryItems(WeaponClass weaponClass) {
-    processRegistryItems(weaponClass, null);
+  private static void processConfigItems(List<String> itemNames, WeaponClass weaponClass) {
+    if (itemNames == null || itemNames.isEmpty()) {
+      return;
+    }
+    Set<Item> itemSet = weaponClassItems.get(weaponClass);
+    log.info("Try to mapping about {} items for the weapon class {} ...", itemNames.size(),
+        weaponClass);
+    for (String itemName : itemNames) {
+      if (!itemName.isBlank()) {
+        ResourceLocation resourceLocation = new ResourceLocation(itemName);
+        Item item = ForgeRegistries.ITEMS.getValue(resourceLocation);
+
+        // Ignore all items which are unknown or mapped to air.
+        if (item != null && !item.equals(Items.AIR) && !weaponClassMap.containsKey(itemName)) {
+          addItemToWeaponClass(item, itemName, itemSet, weaponClass);
+        } else {
+          log.debug("Skipping item {}, not found.", itemName);
+        }
+      }
+    }
   }
 
   private static void processRegistryItems(WeaponClass weaponClass, Class<?> itemTypeClass) {
@@ -284,26 +304,8 @@ public class WeaponClassData {
     }
   }
 
-  private static void processConfigItems(List<String> itemNames, WeaponClass weaponClass) {
-    if (itemNames.isEmpty()) {
-      return;
-    }
-    Set<Item> itemSet = weaponClassItems.get(weaponClass);
-    log.info("Try to mapping about {} items for the weapon class {} ...", itemNames.size(),
-        weaponClass);
-    for (String itemName : itemNames) {
-      if (!itemName.isBlank()) {
-        ResourceLocation resourceLocation = new ResourceLocation(itemName);
-        Item item = ForgeRegistries.ITEMS.getValue(resourceLocation);
-
-        // Ignore all items which are unknown or mapped to air.
-        if (item != null && !item.equals(Items.AIR) && !weaponClassMap.containsKey(itemName)) {
-          addItemToWeaponClass(item, itemName, itemSet, weaponClass);
-        } else {
-          log.debug("Skipping item {}, not found.", itemName);
-        }
-      }
-    }
+  private static void processRegistryItems(WeaponClass weaponClass) {
+    processRegistryItems(weaponClass, null);
   }
 
   private static boolean addItemToWeaponClass(Item item, String itemName, Set<Item> targetedItemSet,
