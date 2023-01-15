@@ -56,6 +56,7 @@ public class CommonConfig {
   private static final String KATANA_TEXT = "katana";
   private static final String KEYBLADE_TEXT = "keyblade";
   private static final String MACE_TEXT = "mace";
+  private static final String MAGIC_SPELL_BOOK_TEXT = "magic spell book";
   private static final String PAXEL_TEXT = "paxel";
   private static final String PICKAXE_TEXT = "pickaxe";
   private static final String POLEARM_TEXT = "polearm";
@@ -162,6 +163,10 @@ public class CommonConfig {
     public final ForgeConfigSpec.ConfigValue<List<String>> maceItems;
     public final ForgeConfigSpec.IntValue maceItemDamageIncrease;
     public final ForgeConfigSpec.IntValue maceItemDurabilityIncrease;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> magicSpellBookItems;
+    public final ForgeConfigSpec.IntValue magicSpellBookItemDamageIncrease;
+    public final ForgeConfigSpec.IntValue magicSpellBookItemDurabilityIncrease;
 
     public final ForgeConfigSpec.ConfigValue<List<String>> paxelItems;
     public final ForgeConfigSpec.IntValue paxelItemDamageIncrease;
@@ -415,6 +420,17 @@ public class CommonConfig {
           .defineInRange("maceItemDamageIncrease", 50, 0, 1000);
       maceItemDurabilityIncrease = builder.comment(increaseDurabilityDescription(MACE_TEXT))
           .defineInRange("maceItemDurabilityIncrease", 0, 0, 1000);
+      builder.pop();
+
+      builder.push("Magic Spell Book");
+      magicSpellBookItems = builder.comment(listOfItemsDescription(MAGIC_SPELL_BOOK_TEXT))
+          .define("magicSpellBookItems", new ArrayList<String>(Arrays.asList()));
+      magicSpellBookItemDamageIncrease =
+          builder.comment(increaseDealtDamageDescription(MAGIC_SPELL_BOOK_TEXT))
+              .defineInRange("magicSpellBookItemDamageIncrease", 50, 0, 1000);
+      magicSpellBookItemDurabilityIncrease =
+          builder.comment(increaseDurabilityDescription(MAGIC_SPELL_BOOK_TEXT))
+              .defineInRange("magicSpellBookItemDurabilityIncrease", 25, 0, 1000);
       builder.pop();
 
       builder.push("Paxel");
