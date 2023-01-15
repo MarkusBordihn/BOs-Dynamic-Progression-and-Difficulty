@@ -46,6 +46,7 @@ public enum WeaponClass {
   KATANA("⚔", "katana"),
   KEYBLADE("⚷", "keyblade"),
   MACE("╿", "mace"),
+  MAGIC_SPELL_BOOK("⁂", "magic spell book"),
   PAXEL("⚒", "paxel"),
   PICKAXE("⛏", "pickaxe"),
   POLEARM("🔱", "polearm"),
@@ -111,6 +112,8 @@ public enum WeaponClass {
         return COMMON.keybladeItemDamageIncrease.get();
       case MACE:
         return COMMON.maceItemDamageIncrease.get();
+      case MAGIC_SPELL_BOOK:
+        return COMMON.magicSpellBookItemDamageIncrease.get();
       case PAXEL:
         return COMMON.paxelItemDamageIncrease.get();
       case PICKAXE:
@@ -175,6 +178,8 @@ public enum WeaponClass {
         return COMMON.keybladeItemDurabilityIncrease.get();
       case MACE:
         return COMMON.maceItemDurabilityIncrease.get();
+      case MAGIC_SPELL_BOOK:
+        return COMMON.magicSpellBookItemDurabilityIncrease.get();
       case PAXEL:
         return COMMON.paxelItemDurabilityIncrease.get();
       case PICKAXE:
