@@ -7,6 +7,7 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 
 ### 2023.06.28
 
+- Refactored code for version 1.20.1-47.0.34
 - Refactored code for version 1.20-46.0.14
 
 ### 2023.06.26
