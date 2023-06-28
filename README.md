@@ -1,4 +1,4 @@
-# ⚔️ Dynamic Player Progression and Difficulty (1.19.3)
+# ⚔️ Dynamic Player Progression and Difficulty (1.19.4)
 
 [![Dynamic Player Progression and Difficulty Downloads](http://cf.way2muchnoise.eu/full_650016_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
 [![Dynamic Player Progression and Difficulty Versions](http://cf.way2muchnoise.eu/versions/Minecraft_650016_all.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
@@ -183,7 +183,10 @@ The weapon adjustment happing with the `EventPriority.LOWEST` priority, which me
 | Forge 1.19     | ⚠️ Deprecated         |
 | Forge 1.19.1   | ⚠️ Deprecated         |
 | Forge 1.19.2   | ⚠️ Maintenance only   |
-| Forge 1.19.3   | ✔️ Active development |
+| Forge 1.19.3   | ⚠️ Maintenance only   |
+| Forge 1.19.4   | ⚠️ Maintenance only   |
+| Forge 1.20     | ⚠️ Maintenance only   |
+| Forge 1.20.1   | ✔️ Active development |
 
 ## License
 

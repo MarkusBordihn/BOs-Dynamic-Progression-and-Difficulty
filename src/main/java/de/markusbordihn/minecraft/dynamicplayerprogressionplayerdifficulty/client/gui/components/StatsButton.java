@@ -83,8 +83,8 @@ public class StatsButton extends Button {
     // Background
     poseStack.pushPose();
     poseStack.translate(0, 0, 1000);
-    this.fillGradient(poseStack, x + 1, y + 1, (x + width * 18) + 1, (y + height * 20), -1072689136,
-        -804253680);
+    GuiComponent.fillGradient(poseStack, x + 1, y + 1, (x + width * 18) + 1, (y + height * 20),
+        -1072689136, -804253680);
     poseStack.popPose();
 
     // Border
@@ -183,7 +183,7 @@ public class StatsButton extends Button {
   }
 
   @Override
-  public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+  public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
     RenderSystem.setShader(GameRenderer::getPositionTexShader);
     RenderSystem.setShaderTexture(0, TEXTURE);
     if (isHoveredOrFocused()) {

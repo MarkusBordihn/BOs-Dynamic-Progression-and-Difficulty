@@ -59,7 +59,7 @@ public class GuiManager {
       event.addListener(
           new StatsButton(inventoryScreen.getGuiLeft() + COMMON.guiButtonPositionLeft.get(),
               inventoryScreen.getGuiTop() + COMMON.guiButtonPositionTop.get(), 10, 10, button -> {
-                log.debug("Click clack ...");
+
               }));
     }
 
