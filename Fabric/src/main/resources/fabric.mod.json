@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "dynamic_progression_and_difficulty",
+  "version": "${version}",
+  "name": "Dynamic Progression and Difficulty",
+  "description": "Dynamically balanced the progression and difficulty for new and experienced player on the same server.",
+  "authors": [
+    "Markus Bordihn"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty",
+    "issues": "https://github.com/MarkusBordihn/BOs-Dynamic-Progression-and-Difficulty/issues"
+  },
+  "license": "MIT",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.markusbordihn.dynamicprogressiondifficulty.DynamicProgressionDifficulty"
+    ],
+    "client": [
+      "de.markusbordihn.dynamicprogressiondifficulty.DynamicProgressionDifficultyClient"
+    ]
+  },
+  "mixins": [
+    "dynamicprogressiondifficulty.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13",
+    "fabric": "*",
+    "minecraft": "1.18.2",
+    "java": ">=17"
+  },
+  "suggests": {
+    "tooltipfix": "*"
+  }
+}
+  

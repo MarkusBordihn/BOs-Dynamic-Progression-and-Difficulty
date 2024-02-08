@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:shield",
+    {"id": "ageofweapons:shield_diamond", "required": false},
+    {"id": "ageofweapons:shield_gold", "required": false},
+    {"id": "ageofweapons:shield_iron", "required": false},
+    {"id": "ageofweapons:shield_stone", "required": false},
+    {"id": "ageofweapons:shield_wood", "required": false},
+    {"id": "magistuarmory:bronze_target", "required": false},
+    {"id": "magistuarmory:copper_target", "required": false},
+    {"id": "magistuarmory:diamond_target", "required": false},
+    {"id": "magistuarmory:gold_target", "required": false},
+    {"id": "magistuarmory:iron_target", "required": false},
+    {"id": "magistuarmory:netherite_target", "required": false},
+    {"id": "magistuarmory:silver_target", "required": false},
+    {"id": "magistuarmory:steel_target", "required": false},
+    {"id": "magistuarmory:stone_target", "required": false},
+    {"id": "magistuarmory:tin_target", "required": false},
+    {"id": "magistuarmory:wood_target", "required": false}
+  ]
+}

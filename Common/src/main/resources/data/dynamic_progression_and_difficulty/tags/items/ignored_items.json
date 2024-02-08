@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "immersiveengineering:bannerpattern_hammer", "required": false},
+    {"id": "immersiveengineering:gunpart_hammer", "required": false},
+    {"id": "tombstone:fishing_rod_of_misadventure", "required": false},
+    {"id": "tconstruct:hammer_head", "required": false}
+  ]
+}
