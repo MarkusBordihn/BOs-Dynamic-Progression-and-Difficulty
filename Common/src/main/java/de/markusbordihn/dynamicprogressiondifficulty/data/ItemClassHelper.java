@@ -1,5 +1,8 @@
 package de.markusbordihn.dynamicprogressiondifficulty.data;
 
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.Set;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.AxeItem;
@@ -15,6 +18,99 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TridentItem;
 
 public class ItemClassHelper {
+
+  protected static final EnumMap<ItemClass, Set<String>> itemClassItemsKeywords =
+      new EnumMap<>(ItemClass.class);
+
+  static {
+    // Pre-fill item class keywords with default hash sets.
+    itemClassItemsKeywords.put(
+        ItemClass.AXE,
+        new HashSet<>(
+            Set.of(
+                "battleaxe",
+                "battle_axe",
+                "handaxe",
+                "waraxe",
+                "greataxe",
+                "hatchet",
+                "tomahawk")));
+    itemClassItemsKeywords.put(ItemClass.BOOTS, new HashSet<>(Set.of("shoes", "footwear")));
+    itemClassItemsKeywords.put(ItemClass.BOW, new HashSet<>(Set.of("longbow", "shortbow")));
+    itemClassItemsKeywords.put(ItemClass.CHESTPLATE, new HashSet<>(Set.of("breastplate")));
+    itemClassItemsKeywords.put(ItemClass.CLAW, new HashSet<>(Set.of("claws")));
+    itemClassItemsKeywords.put(ItemClass.CLAYMORE, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(ItemClass.CROSSBOW, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(ItemClass.DAGGER, new HashSet<>(Set.of("dirk", "knife", "messer")));
+    itemClassItemsKeywords.put(ItemClass.FIST, new HashSet<>(Set.of("knuckle")));
+    itemClassItemsKeywords.put(
+        ItemClass.GREAT_SWORD,
+        new HashSet<>(
+            Set.of(
+                "bastardsword",
+                "greatsword",
+                "great_sword",
+                "flamebladedsword",
+                "zweihander",
+                "longsword",
+                "broadsword")));
+    itemClassItemsKeywords.put(
+        ItemClass.GUN,
+        new HashSet<>(
+            Set.of(
+                "pistol",
+                "revolver",
+                "rifle",
+                "shotgun",
+                "magnum",
+                "sniper",
+                "blunderbuss",
+                "musket")));
+    itemClassItemsKeywords.put(
+        ItemClass.HAMMER,
+        new HashSet<>(Set.of("mallet", "sledgehammer", "warhammer", "heavywarhammer", "maul")));
+    itemClassItemsKeywords.put(
+        ItemClass.HAND_TO_HAND,
+        new HashSet<>(Set.of("sai", "nunchaku", "tonfa", "kama", "kusarigama", "shuriken")));
+    itemClassItemsKeywords.put(ItemClass.HELMET, new HashSet<>(Set.of("headgear", "headpiece")));
+    itemClassItemsKeywords.put(ItemClass.HOE, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(ItemClass.KATANA, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(ItemClass.KEYBLADE, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(ItemClass.LEGGINGS, new HashSet<>(Set.of("greaves")));
+    itemClassItemsKeywords.put(
+        ItemClass.MACE, new HashSet<>(Set.of("heavymace", "club", "metal_club", "flail", "bat")));
+    itemClassItemsKeywords.put(
+        ItemClass.SPELL_BOOK, new HashSet<>(Set.of("grimoire", "weapon_book")));
+    itemClassItemsKeywords.put(ItemClass.PAXEL, new HashSet<>(Set.of("aiot", "multitool")));
+    itemClassItemsKeywords.put(ItemClass.PICKAXE, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(
+        ItemClass.POLEARM, new HashSet<>(Set.of("ahlspiess", "ranseur", "pike")));
+    itemClassItemsKeywords.put(ItemClass.SCYTHE, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(
+        ItemClass.SHIELD,
+        new HashSet<>(
+            Set.of(
+                "buckler",
+                "targe",
+                "kite_shield",
+                "tower_shield",
+                "tartsche",
+                "roundshield",
+                "rondache",
+                "pavese")));
+    itemClassItemsKeywords.put(ItemClass.SHOVEL, new HashSet<>(Set.of("excavator", "spade")));
+    itemClassItemsKeywords.put(
+        ItemClass.SPEAR,
+        new HashSet<>(
+            Set.of(
+                "lance", "javelin", "glaive", "halberd", "voulge", "guisarme", "chivalrylance")));
+    itemClassItemsKeywords.put(ItemClass.STAFF, new HashSet<>(Set.of("quarterstaff")));
+    itemClassItemsKeywords.put(
+        ItemClass.SWORD, new HashSet<>(Set.of("shortsword", "rapier", "gladius")));
+    itemClassItemsKeywords.put(ItemClass.TACHI, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(ItemClass.TRIDENT, new HashSet<>(Set.of()));
+    itemClassItemsKeywords.put(ItemClass.WAND, new HashSet<>(Set.of("scepter")));
+  }
 
   protected ItemClassHelper() {}
 
@@ -62,6 +158,39 @@ public class ItemClassHelper {
         case LEGS -> ItemClass.LEGGINGS;
         default -> null;
       };
+    }
+    return null;
+  }
+
+  public static ItemClass getItemClassByItemName(String itemName) {
+    if (itemName == null) {
+      return null;
+    }
+
+    // Remove namespace from item name, if present.
+    if (itemName.contains(":")) {
+      itemName = itemName.split(":")[1];
+    }
+
+    // Iterate over all item classes and check for matches with the item name.
+    for (ItemClass itemClass : ItemClass.values()) {
+      // Quick check for match with the item class name.
+      String itemClassName = itemClass.name().toLowerCase();
+      if (itemName.equals(itemClassName) || itemName.endsWith("_" + itemClassName)) {
+        return itemClass;
+      }
+
+      // Check for keyword matche with the item name.
+      Set<String> keywords = itemClassItemsKeywords.get(itemClass);
+      if (keywords != null && !keywords.isEmpty()) {
+        for (String keyword : keywords) {
+          if (itemName.equals(keyword)
+              || itemName.startsWith(keyword + "_")
+              || itemName.endsWith("_" + keyword)) {
+            return itemClass;
+          }
+        }
+      }
     }
     return null;
   }

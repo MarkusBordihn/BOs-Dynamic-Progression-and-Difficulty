@@ -11,6 +11,7 @@
     {"id": "useless_sword:soul_glaive", "required": false},
     {"id": "useless_sword:sword_of_fate", "required": false},
     {"id": "useless_sword:sword_of_immortality", "required": false},
-    {"id": "useless_sword:wither_sword", "required": false}
+    {"id": "useless_sword:wither_sword", "required": false},
+    {"id": "tconstruct:cleaver", "required": false}
   ]
 }

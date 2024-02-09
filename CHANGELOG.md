@@ -5,6 +5,12 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 5.1.0 beta
+
+- Added registry command to show all unregistered / registered items.
+- Added item name mapping for better item detection.
+- Added additional check to ignore item to avoid false positive detection.
+
 ### 5.0.0 beta
 
 Next major release with new features and improvements.

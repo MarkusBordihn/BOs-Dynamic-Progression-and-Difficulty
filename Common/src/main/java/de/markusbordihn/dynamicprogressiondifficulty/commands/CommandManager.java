@@ -42,6 +42,7 @@ public class CommandManager {
         Commands.literal(Constants.MOD_COMMAND)
             .then(DebugCommand.register())
             .then(LevelCommand.register())
+            .then(RegistryCommand.register())
             .then(StatsCommand.register()));
   }
 }
