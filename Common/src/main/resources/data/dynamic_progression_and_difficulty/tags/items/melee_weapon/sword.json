@@ -7,17 +7,53 @@
     "minecraft:golden_sword",
     "minecraft:diamond_sword",
     "minecraft:netherite_sword",
-    {"id": "immersiveengineering:sword_steel", "required": false},
-    {"id": "magistuarmory:bronze_stylet", "required": false},
-    {"id": "magistuarmory:copper_stylet", "required": false},
-    {"id": "magistuarmory:diamond_stylet", "required": false},
-    {"id": "magistuarmory:gold_stylet", "required": false},
-    {"id": "magistuarmory:iron_stylet", "required": false},
-    {"id": "magistuarmory:netherite_stylet", "required": false},
-    {"id": "magistuarmory:silver_stylet", "required": false},
-    {"id": "magistuarmory:steel_stylet", "required": false},
-    {"id": "magistuarmory:stone_stylet", "required": false},
-    {"id": "magistuarmory:tin_stylet", "required": false},
-    {"id": "magistuarmory:wood_stylet", "required": false}
+    {
+      "id": "immersiveengineering:sword_steel",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:bronze_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:copper_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:diamond_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:gold_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:iron_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:netherite_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:silver_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:steel_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:stone_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:tin_stylet",
+      "required": false
+    },
+    {
+      "id": "magistuarmory:wood_stylet",
+      "required": false
+    }
   ]
 }

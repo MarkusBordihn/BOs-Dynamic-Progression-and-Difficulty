@@ -37,22 +37,44 @@ public enum ItemClass {
       0,
       0.75f,
       1.5f),
-  BOOTS(MainItemClass.ARMOR, "⛨", ModItemTags.ARMOR_BOOTS, 0.5f, 0, 0),
-  BOW(MainItemClass.RANGED_WEAPON, "\uD83C\uDFF9", ModItemTags.RANGED_WEAPON_BOW, 0, 0.5f, 0.25f),
-  CHESTPLATE(MainItemClass.ARMOR, "⛨", ModItemTags.ARMOR_CHESTPLATE, 0.5f, 0, 0),
-  CLAW(MainItemClass.SPECIAL_WEAPON, "╽╽╽", ModItemTags.SPECIAL_WEAPON_CLAWS, 0, 0.5f, 0.25f),
-  CLAYMORE(MainItemClass.MELEE_WEAPON, "⚔", ModItemTags.MELEE_WEAPON_CLAYMORE, 0, 0.5f, 0.25f),
+  BOOTS(MainItemClass.ARMOR, "\uDB80\uDC01", "⛨", ModItemTags.ARMOR_BOOTS, 0.5f, 0, 0),
+  BOW(
+      MainItemClass.RANGED_WEAPON,
+      "\uDB80\uDC02",
+      "\uD83C\uDFF9",
+      ModItemTags.RANGED_WEAPON_BOW,
+      0,
+      0.5f,
+      0.25f),
+  CHESTPLATE(MainItemClass.ARMOR, "\uDB80\uDC03", "⛨", ModItemTags.ARMOR_CHESTPLATE, 0.5f, 0, 0),
+  CLAW(
+      MainItemClass.SPECIAL_WEAPON,
+      "\uDB80\uDC04",
+      "╽╽╽",
+      ModItemTags.SPECIAL_WEAPON_CLAWS,
+      0,
+      0.5f,
+      0.25f),
+  CLAYMORE(MainItemClass.MELEE_WEAPON,
+      "\uDB80\uDC05","⚔", ModItemTags.MELEE_WEAPON_CLAYMORE, 0, 0.5f, 0.25f),
   CROSSBOW(
       MainItemClass.RANGED_WEAPON,
+      "\uDB80\uDC06",
       "\uD83C\uDFF9",
       ModItemTags.RANGED_WEAPON_CROSSBOW,
       0,
       0.5f,
       0.25f),
-  DAGGER(MainItemClass.MELEE_WEAPON, "⚔", ModItemTags.MELEE_WEAPON_DAGGER, 0, 0.5f, 0.25f),
-  FIST(MainItemClass.UNARMED_COMBAT, "╽", null, 0, 1.0f, 0),
+  DAGGER(MainItemClass.MELEE_WEAPON,
+      "\uDB80\uDC07",
+      "⚔", ModItemTags.MELEE_WEAPON_DAGGER, 0, 0.5f, 0.25f),
+  FIST(MainItemClass.UNARMED_COMBAT,
+      "\uDB80\uDC08",
+      "╽", null, 0, 1.0f, 0),
   GREAT_SWORD(
-      MainItemClass.MELEE_WEAPON, "⚔", ModItemTags.MELEE_WEAPON_GREAT_SWORD, 0, 0.5f, 0.25f),
+      MainItemClass.MELEE_WEAPON,
+      "\uDB80\uDC09",
+      "⚔", ModItemTags.MELEE_WEAPON_GREAT_SWORD, 0, 0.5f, 0.25f),
   GUN(MainItemClass.RANGED_WEAPON, "▝▜", ModItemTags.RANGED_WEAPON_GUN, 0, 0.5f, 0.25f),
   HAMMER(MainItemClass.SPECIAL_WEAPON, "╤", ModItemTags.SPECIAL_WEAPON_HAMMER, 0, 0.5f, 0.25f),
   HAND_TO_HAND(MainItemClass.UNARMED_COMBAT, "╽", null, 0, 0.5f, 0.25f),
@@ -157,10 +179,14 @@ public enum ItemClass {
     return new TranslatableComponent(this.translationId);
   }
 
+  public boolean hasFontIcon() {
+    return this.fontIcon != null;
+  }
+
   public MutableComponent getIcon() {
     return this.fontIcon != null
         ? new TextComponent(this.fontIcon).withStyle(Style.EMPTY.withFont(Constants.ICONS_FONT))
-        : null;
+        : new TextComponent(this.textIcon);
   }
 
   public float getArmorIncrease() {

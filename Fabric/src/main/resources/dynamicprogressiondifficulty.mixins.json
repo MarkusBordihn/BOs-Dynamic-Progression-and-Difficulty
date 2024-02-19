@@ -6,7 +6,10 @@
   "mixins": [
     "LivingEntityMixin"
   ],
-  "client": ["CreativeModeInventoryScreenMixin", "InventoryScreenMixin"],
+  "client": [
+    "CreativeModeInventoryScreenMixin",
+    "InventoryScreenMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

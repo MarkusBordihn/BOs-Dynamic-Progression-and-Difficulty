@@ -1,17 +1,53 @@
 {
   "replace": false,
   "values": [
-    {"id": "rpg_style_more_weapins:newgenplzmasword", "required": false},
-    {"id": "rpg_style_more_weapins:plazmaswordhollow", "required": false},
-    {"id": "useless_sword:ancient_guardian_sword", "required": false},
-    {"id": "useless_sword:bugged_diamond_sword", "required": false},
-    {"id": "useless_sword:elder_guardian_sword", "required": false},
-    {"id": "useless_sword:guardian_sword", "required": false},
-    {"id": "useless_sword:nether_striker", "required": false},
-    {"id": "useless_sword:soul_glaive", "required": false},
-    {"id": "useless_sword:sword_of_fate", "required": false},
-    {"id": "useless_sword:sword_of_immortality", "required": false},
-    {"id": "useless_sword:wither_sword", "required": false},
-    {"id": "tconstruct:cleaver", "required": false}
+    {
+      "id": "rpg_style_more_weapins:newgenplzmasword",
+      "required": false
+    },
+    {
+      "id": "rpg_style_more_weapins:plazmaswordhollow",
+      "required": false
+    },
+    {
+      "id": "useless_sword:ancient_guardian_sword",
+      "required": false
+    },
+    {
+      "id": "useless_sword:bugged_diamond_sword",
+      "required": false
+    },
+    {
+      "id": "useless_sword:elder_guardian_sword",
+      "required": false
+    },
+    {
+      "id": "useless_sword:guardian_sword",
+      "required": false
+    },
+    {
+      "id": "useless_sword:nether_striker",
+      "required": false
+    },
+    {
+      "id": "useless_sword:soul_glaive",
+      "required": false
+    },
+    {
+      "id": "useless_sword:sword_of_fate",
+      "required": false
+    },
+    {
+      "id": "useless_sword:sword_of_immortality",
+      "required": false
+    },
+    {
+      "id": "useless_sword:wither_sword",
+      "required": false
+    },
+    {
+      "id": "tconstruct:cleaver",
+      "required": false
+    }
   ]
 }

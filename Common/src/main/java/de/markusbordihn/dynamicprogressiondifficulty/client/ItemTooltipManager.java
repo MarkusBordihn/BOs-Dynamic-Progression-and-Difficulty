@@ -48,13 +48,6 @@ public class ItemTooltipManager {
     PlayerStats playerStats = PlayerStatsManager.getLocalPlayerStats();
     int index = 1;
 
-    // Append nice item class icon, if any.
-    MutableComponent classIcon = itemClass.getIcon();
-    if (classIcon != null) {
-      Component tooltipHeader = tooltip.get(0);
-      tooltip.set(0, new TextComponent("").append(classIcon).append(tooltipHeader));
-    }
-
     // Add item class and icon.
     tooltip.add(index++, formatItemClass(itemClass));
 
@@ -96,7 +89,7 @@ public class ItemTooltipManager {
     return new TranslatableComponent(
             Constants.CLASS_TEXT_PREFIX,
             itemClass.getTranslatedText().withStyle(ChatFormatting.BLUE),
-            new TextComponent(itemClass.getTextIcon()))
+            itemClass.getIcon())
         .withStyle(ChatFormatting.GRAY);
   }
 
