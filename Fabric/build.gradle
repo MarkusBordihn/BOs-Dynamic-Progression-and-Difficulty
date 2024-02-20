@@ -109,7 +109,6 @@ modrinth {
   loaders = ["fabric", "quilt"]
   dependencies {
     required.project "fabric-api"
-    required.project "forge-config-api-port"
     optional.project "tooltipfix"
   }
 }

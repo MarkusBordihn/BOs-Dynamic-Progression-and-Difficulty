@@ -27,6 +27,7 @@ import de.markusbordihn.dynamicprogressiondifficulty.data.PlayerStats;
 import de.markusbordihn.dynamicprogressiondifficulty.data.PlayerStatsManager;
 import de.markusbordihn.dynamicprogressiondifficulty.data.PlayerStatsType;
 import de.markusbordihn.dynamicprogressiondifficulty.debug.DebugManager;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -102,21 +103,41 @@ public class PlayerStatsScreen<T extends AbstractContainerMenu> extends Abstract
         x,
         y + 10f,
         Constants.FONT_COLOR_DEFAULT);
+
+    // Mod damage adjustments
+    float dealtDamageAdjustmentMob = this.playerStats.getMobDealtDamageModifier();
+    float hurtDamageAdjustmentMob = this.playerStats.getMobHurtDamageModifier();
     this.font.draw(
         poseStack,
         new TranslatableComponent(
             Constants.STATS_TEXT_PREFIX + "mob_damage",
             this.playerStats.get(PlayerStatsType.MOB_KILLS),
-            this.playerStats.get(PlayerStatsType.INTERNAL_DAMAGE_LEVEL_MOB)),
+            this.playerStats.get(PlayerStatsType.INTERNAL_DAMAGE_LEVEL_MOB),
+            new TextComponent(String.valueOf(dealtDamageAdjustmentMob))
+                .withStyle(
+                    dealtDamageAdjustmentMob > 1 ? ChatFormatting.GREEN : ChatFormatting.RED),
+            new TextComponent(String.valueOf(hurtDamageAdjustmentMob))
+                .withStyle(
+                    hurtDamageAdjustmentMob > 1 ? ChatFormatting.RED : ChatFormatting.GREEN)),
         x,
         y + 20f,
         Constants.FONT_COLOR_DEFAULT);
+
+    // Player damage adjustments
+    float dealtDamageAdjustmentPlayer = this.playerStats.getPlayerDealtDamageModifier();
+    float hurtDamageAdjustmentPlayer = this.playerStats.getPlayerHurtDamageModifier();
     this.font.draw(
         poseStack,
         new TranslatableComponent(
             Constants.STATS_TEXT_PREFIX + "player_damage",
             this.playerStats.get(PlayerStatsType.PLAYER_KILLS),
-            this.playerStats.get(PlayerStatsType.INTERNAL_DAMAGE_LEVEL_PLAYER)),
+            this.playerStats.get(PlayerStatsType.INTERNAL_DAMAGE_LEVEL_PLAYER),
+            new TextComponent(String.valueOf(dealtDamageAdjustmentPlayer))
+                .withStyle(
+                    dealtDamageAdjustmentPlayer > 1 ? ChatFormatting.GREEN : ChatFormatting.RED),
+            new TextComponent(String.valueOf(hurtDamageAdjustmentPlayer))
+                .withStyle(
+                    hurtDamageAdjustmentPlayer > 1 ? ChatFormatting.RED : ChatFormatting.GREEN)),
         x,
         y + 30f,
         Constants.FONT_COLOR_DEFAULT);

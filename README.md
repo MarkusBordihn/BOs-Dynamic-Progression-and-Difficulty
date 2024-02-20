@@ -1,7 +1,7 @@
-# ⚔️ Dynamic Player Progression and Difficulty (1.18.2)
+# ⚔️ Dynamic Progression and Difficulty (1.18.2)
 
-[![Dynamic Player Progression and Difficulty Downloads](http://cf.way2muchnoise.eu/full_650016_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
-[![Dynamic Player Progression and Difficulty Versions](http://cf.way2muchnoise.eu/versions/Minecraft_650016_all.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
+[![Dynamic Progression and Difficulty Downloads](http://cf.way2muchnoise.eu/full_650016_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
+[![Dynamic Progression and Difficulty Versions](http://cf.way2muchnoise.eu/versions/Minecraft_650016_all.svg)](https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty)
 
 Dynamically balanced the progression and difficulty for new and experienced player on the same
 server.

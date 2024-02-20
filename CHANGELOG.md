@@ -1,9 +1,16 @@
-# Changelog for Player Companions
+# Changelog for Dynamic Progression and Difficulty (1.18.2)
 
 ## Note
 
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
+
+### 5.2.0
+
+- Fixed Fabric port dependencies.
+- Added additional item class icons.
+- Added dealt and hurt damage adjustments to the player stats screen.
+- Improved item tooltip manager.
 
 ### 5.1.0 beta
 
