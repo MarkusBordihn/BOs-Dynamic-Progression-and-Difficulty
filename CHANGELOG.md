@@ -1,9 +1,34 @@
-# Changelog for Player Companions (1.19.3)
+# Changelog for Dynamic Progression and Difficulty (1.19.3)
 
 ## Note
 
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
+
+### 5.2.0
+
+- Fixed Fabric port dependencies.
+- Added additional item class icons.
+- Added dealt and hurt damage adjustments to the player stats screen.
+- Improved item tooltip manager.
+
+### 5.1.0 beta
+
+- Added registry command to show all unregistered / registered items.
+- Added item name mapping for better item detection.
+- Added additional check to ignore item to avoid false positive detection.
+
+### 5.0.0 beta
+
+Next major release with new features and improvements.
+Note: This version is still in beta and should be used with caution.
+
+- Refactored code and improved performance
+- Added Fabric port
+- Added extra player stats button and stats overview
+- Maximum level is now 150.
+- Improved network sync and client side payload for stats.
+- Improved death penalty calculation.
 
 ### 2023.01.15
 
@@ -11,16 +36,13 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 
 ### 2022.12.18
 
-- Optimized stats calculation by skipping empty weapon classes.
+- Optimized stats calculation by skipping empty weapon classes
 - Improved death penalty visibility to avoid confusions about missing experience.
-
-### 2022.12.13
-
-- Refactored code for version 1.19.3-44.0.18
 
 ### 2022.12.12
 
-- Added Tinkers Construct to supported mods after fixed [[#5007](https://github.com/SlimeKnights/TinkersConstruct/issues/5007)].
+- Added Tinkers Construct to supported mods after
+  fixed [[#5007](https://github.com/SlimeKnights/TinkersConstruct/issues/5007)].
 
 ### 2022.11.18
 
@@ -69,11 +91,14 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 ### 2022.08.19
 
 - Added dynamic weapon class detection to covering more mods without manually defining them.
-  **Note:** Please delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
+  **Note:** Please delete your
+  existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate
+  the new one.
 
 ### 2022.08.17
 
-- Added configurable durability adjustments for weapons like axe, hoe, pickaxe so that they could be better used in fights.
+- Added configurable durability adjustments for weapons like axe, hoe, pickaxe so that they could be
+  better used in fights.
 
 ### 2022.08.16
 
@@ -86,12 +111,11 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 
 ### 2022.08.12
 
-- Refactored code for version 1.19.2-43.0.8
-- Refactored code for version 1.19.1-42.0.9
-- Refactored code for version 1.19-41.1.0
 - Changed static text to translated text to allow better language support.
 - Added additional mod items to the default list.
-  **Note:** It could be that you need to delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
+  **Note:** It could be that you need to delete your
+  existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate
+  the new one.
 
 ### 2022.08.10
 
@@ -103,7 +127,9 @@ For the full changelog, please go to the [Git Hub History][history] instead.
 - Added client sync for stats
 - Improved tooltips to display synced client side data
 - Adjusted default config values
-  **Note:** It could be that you need to delete your existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate the new one.
+  **Note:** It could be that you need to delete your
+  existing `config/dynamic_player_progression_and_player_difficulty-common.toml` file to regenerate
+  the new one.
 
 ### 2022.08.01
 

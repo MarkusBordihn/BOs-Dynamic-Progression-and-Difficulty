@@ -1,0 +1,15 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "dynamic_progression_and_difficulty:font/class_icons.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": [
+        "\uDB80\uDC00\uDB80\uDC01\uDB80\uDC02\uDB80\uDC03\uDB80\uDC04",
+        "\uDB80\uDC05\uDB80\uDC06\uDB80\uDC07\uDB80\uDC08\uDB80\uDC09",
+        "\uDB80\uDC0A\uDB80\uDC0B\uDB80\uDC0C\uDB80\uDC0D\uDB80\uDC0E"
+      ]
+    }
+  ]
+}
