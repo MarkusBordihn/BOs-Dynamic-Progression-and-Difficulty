@@ -30,9 +30,8 @@ public class ModMenuTypes {
 
   public static final DeferredRegister<MenuType<?>> MENU_TYPES =
       DeferredRegister.create(ForgeRegistries.MENU_TYPES, Constants.MOD_ID);
-
-  protected ModMenuTypes() {}
-
   public static final RegistryObject<MenuType<PlayerStatsMenu>> PLAYER_STATS_MENU =
       MENU_TYPES.register("player_stats_menu", () -> IForgeMenuType.create(PlayerStatsMenu::new));
+
+  protected ModMenuTypes() {}
 }
