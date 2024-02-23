@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[46,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/MarkusBordihn/BOs-Dynamic-Progression-and-Difficulty/issues"
+
+[[mods]]
+modId = "dynamic_progression_and_difficulty"
+version = "${file.jarVersion}"
+displayName = "Dynamic Progression and Difficulty"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/dynamic-player-progression-and-difficulty"
+logoFile = "logo.png"
+credits = ""
+authors = "Markus Bordihn"
+description = '''Dynamically balanced the progression and difficulty for new and experienced player on the same server.'''
+
+[[dependencies.dynamic_progression_and_difficulty]]
+modId = "forge"
+mandatory = true
+versionRange = "[46,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.dynamic_progression_and_difficulty]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20,1.21)"
+ordering = "NONE"
+side = "BOTH"
