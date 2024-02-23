@@ -1,0 +1,142 @@
+buildscript {
+  repositories {
+    maven { url = 'https://maven.minecraftforge.net' }
+    mavenCentral()
+  }
+  dependencies {
+    classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+  }
+}
+
+plugins {
+  id 'com.matthewprenger.cursegradle' version '1.4.0'
+  id 'nu.studer.credentials' version '3.0'
+  id "com.modrinth.minotaur" version "2.+"
+}
+
+apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+archivesBaseName = "${mod_id}-forge-${minecraft_version}"
+
+minecraft {
+  mappings channel: 'official', version: minecraft_version
+
+  if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    project.logger.debug('Forge Access Transformers are enabled for this project.')
+  }
+
+  runs {
+    client {
+      workingDirectory project.file('run')
+      ideaModule "${rootProject.name}.${project.name}.main"
+      taskName 'Client'
+      property 'forge.logging.markers', 'REGISTRIES'
+      property 'forge.logging.console.level', 'debug'
+      property 'mixin.env.remapRefMap', 'true'
+      property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+      mods {
+        modClientRun {
+          source sourceSets.main
+          source project(":Common").sourceSets.main
+        }
+      }
+    }
+
+    server {
+      workingDirectory project.file('run')
+      ideaModule "${rootProject.name}.${project.name}.main"
+      taskName 'Server'
+      property 'forge.logging.markers', 'REGISTRIES'
+      property 'forge.logging.console.level', 'debug'
+      property 'mixin.env.remapRefMap', 'true'
+      property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+      mods {
+        modServerRun {
+          source sourceSets.main
+          source project(":Common").sourceSets.main
+        }
+      }
+    }
+
+    data {
+      workingDirectory project.file('run')
+      ideaModule "${rootProject.name}.${project.name}.main"
+      args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+      taskName 'Data'
+      property 'forge.logging.markers', 'REGISTRIES'
+      property 'forge.logging.console.level', 'debug'
+      property 'mixin.env.remapRefMap', 'true'
+      property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+      mods {
+        modDataRun {
+          source sourceSets.main
+          source project(":Common").sourceSets.main
+        }
+      }
+    }
+  }
+}
+
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+dependencies {
+  minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+  compileOnly project(":Common")
+}
+
+tasks.withType(JavaCompile) {
+  source(project(":Common").sourceSets.main.allSource)
+}
+
+processResources {
+  from project(":Common").sourceSets.main.resources
+}
+
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      groupId project.group
+      artifactId project.archivesBaseName
+      version project.version
+      artifact jar
+    }
+  }
+  repositories {
+    maven {
+      url "file://" + System.getenv("local_maven")
+    }
+  }
+}
+
+curseforge {
+  apiKey = "${credentials.forKey('curseforge_api_token')}"
+  project {
+    id = "${curseforge_project_id}"
+    changelog = file("../CHANGELOG.md")
+    changelogType = 'markdown'
+    releaseType = "${curseforge_release_type}"
+    addGameVersion("${minecraft_version}")
+    addGameVersion("Forge")
+    addGameVersion("NeoForge")
+  }
+  options {
+    forgeGradleIntegration = true
+  }
+}
+
+modrinth {
+  token = "${credentials.forKey('modrinth_api_token')}"
+  projectId = "${modrinth_project_id}"
+  versionNumber = "${version}"
+  versionType = "${modrinth_release_type}"
+  uploadFile = jar
+  gameVersions = ["${minecraft_version}"]
+  loaders = ["forge", "neoforge"]
+}
