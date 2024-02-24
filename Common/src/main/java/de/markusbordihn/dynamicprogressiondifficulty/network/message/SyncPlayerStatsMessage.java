@@ -26,11 +26,12 @@ import io.netty.buffer.Unpooled;
 import java.util.Date;
 import java.util.UUID;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SyncPlayerStatsMessage {
+public class SyncPlayerStatsMessage implements CustomPacketPayload {
 
   public static final ResourceLocation MESSAGE_ID =
       new ResourceLocation(Constants.MOD_ID, "sync_player_stats_message");
@@ -48,6 +49,13 @@ public class SyncPlayerStatsMessage {
     this.uuid = uuid;
     this.playerStats = playerStats;
     this.lastUpdate = lastUpdate;
+  }
+
+  public SyncPlayerStatsMessage(final FriendlyByteBuf friendlyByteBuf) {
+    this(
+        friendlyByteBuf.readUUID(),
+        new PlayerStats(friendlyByteBuf.readNbt()),
+        new Date(friendlyByteBuf.readLong()));
   }
 
   public static SyncPlayerStatsMessage decode(final FriendlyByteBuf buffer) {
@@ -83,5 +91,17 @@ public class SyncPlayerStatsMessage {
 
   public PlayerStats getPlayerStats() {
     return this.playerStats;
+  }
+
+  @Override
+  public void write(FriendlyByteBuf friendlyByteBuf) {
+    friendlyByteBuf.writeUUID(this.uuid);
+    friendlyByteBuf.writeNbt(this.playerStats.createTag());
+    friendlyByteBuf.writeLong(this.lastUpdate.getTime());
+  }
+
+  @Override
+  public ResourceLocation id() {
+    return MESSAGE_ID;
   }
 }

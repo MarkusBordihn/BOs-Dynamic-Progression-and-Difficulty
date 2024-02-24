@@ -23,9 +23,10 @@ import de.markusbordihn.dynamicprogressiondifficulty.Constants;
 import io.netty.buffer.Unpooled;
 import java.util.UUID;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
-public class UpdatePlayerStatsMessage {
+public class UpdatePlayerStatsMessage implements CustomPacketPayload {
 
   public static final ResourceLocation MESSAGE_ID =
       new ResourceLocation(Constants.MOD_ID, "update_player_stats_message");
@@ -34,6 +35,10 @@ public class UpdatePlayerStatsMessage {
 
   public UpdatePlayerStatsMessage(UUID uuid) {
     this.uuid = uuid;
+  }
+
+  public UpdatePlayerStatsMessage(final FriendlyByteBuf friendlyByteBuf) {
+    this(friendlyByteBuf.readUUID());
   }
 
   public static UpdatePlayerStatsMessage decode(final FriendlyByteBuf buffer) {
@@ -48,5 +53,15 @@ public class UpdatePlayerStatsMessage {
 
   public FriendlyByteBuf encode() {
     return encode(this, new FriendlyByteBuf(Unpooled.buffer()));
+  }
+
+  @Override
+  public void write(FriendlyByteBuf friendlyByteBuf) {
+    friendlyByteBuf.writeUUID(this.uuid);
+  }
+
+  @Override
+  public ResourceLocation id() {
+    return MESSAGE_ID;
   }
 }

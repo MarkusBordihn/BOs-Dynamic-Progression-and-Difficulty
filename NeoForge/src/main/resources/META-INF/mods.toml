@@ -15,14 +15,14 @@ description = '''Dynamically balanced the progression and difficulty for new and
 
 [[dependencies.dynamic_progression_and_difficulty]]
 modId = "neoforge"
-mandatory = true
+type = "required"
 versionRange = "[1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.dynamic_progression_and_difficulty]]
 modId = "minecraft"
-mandatory = true
-versionRange = "[1.20.3,1.21)"
+type = "required"
+versionRange = "[1.20.4,1.21)"
 ordering = "NONE"
 side = "BOTH"

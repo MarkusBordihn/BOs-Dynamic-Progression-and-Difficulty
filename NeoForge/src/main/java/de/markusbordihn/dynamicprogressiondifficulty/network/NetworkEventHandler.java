@@ -25,106 +25,77 @@ import de.markusbordihn.dynamicprogressiondifficulty.menu.PlayerStatsMenu;
 import de.markusbordihn.dynamicprogressiondifficulty.network.message.OpenPlayerStatsMessage;
 import de.markusbordihn.dynamicprogressiondifficulty.network.message.SyncPlayerStatsMessage;
 import de.markusbordihn.dynamicprogressiondifficulty.network.message.UpdatePlayerStatsMessage;
-import net.minecraft.resources.ResourceLocation;
+import java.util.Optional;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.DistExecutor;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.network.NetworkEvent;
-import net.neoforged.neoforge.network.NetworkRegistry;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.PlayNetworkDirection;
-import net.neoforged.neoforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class NetworkEventHandler {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
-  private static final String PROTOCOL_VERSION = String.valueOf(1);
-  private static final SimpleChannel SIMPLE_CHANNEL =
-      NetworkRegistry.newSimpleChannel(
-          new ResourceLocation(Constants.MOD_ID, "network"),
-          () -> PROTOCOL_VERSION,
-          PROTOCOL_VERSION::equals,
-          PROTOCOL_VERSION::equals
-      );
-
-  private static int id = 0;
 
   protected NetworkEventHandler() {}
 
-  public static void registerNetworkHandler(final FMLCommonSetupEvent event) {
-    log.info(
-        "{} Network Handler for {} with version {} ...",
-        Constants.LOG_REGISTER_PREFIX,
-        SIMPLE_CHANNEL,
-        PROTOCOL_VERSION);
+  public static void registerNetworkHandler(final RegisterPayloadHandlerEvent event) {
+    final IPayloadRegistrar registrar = event.registrar(Constants.MOD_ID);
 
-    event.enqueueWork(
-        () -> {
-          SIMPLE_CHANNEL
-              .messageBuilder(
-                  SyncPlayerStatsMessage.class, id++, PlayNetworkDirection.PLAY_TO_CLIENT)
-              .encoder(SyncPlayerStatsMessage::encode)
-              .decoder(SyncPlayerStatsMessage::decode)
-              .consumerNetworkThread(NetworkEventHandler::handlePlayerStatsMessage)
-              .add();
+    log.info("{} Network Handler with {} ...", Constants.LOG_REGISTER_PREFIX, registrar);
 
-          SIMPLE_CHANNEL
-              .messageBuilder(
-                  OpenPlayerStatsMessage.class, id++, PlayNetworkDirection.PLAY_TO_SERVER)
-              .encoder(OpenPlayerStatsMessage::encode)
-              .decoder(OpenPlayerStatsMessage::decode)
-              .consumerNetworkThread(NetworkEventHandler::handleOpenPlayerStatsMessage)
-              .add();
+    registrar.play(
+        SyncPlayerStatsMessage.MESSAGE_ID,
+        SyncPlayerStatsMessage::new,
+        handler -> handler.client(NetworkEventHandler::handlePlayerStatsMessage));
 
-          SIMPLE_CHANNEL
-              .messageBuilder(
-                  UpdatePlayerStatsMessage.class, id++, PlayNetworkDirection.PLAY_TO_SERVER)
-              .encoder(UpdatePlayerStatsMessage::encode)
-              .decoder(UpdatePlayerStatsMessage::decode)
-              .consumerNetworkThread(NetworkEventHandler::handleUpdatePlayerStatsMessage)
-              .add();
-        });
+    registrar.play(
+        OpenPlayerStatsMessage.MESSAGE_ID,
+        OpenPlayerStatsMessage::new,
+        handler -> handler.server(NetworkEventHandler::handleOpenPlayerStatsMessage));
+
+    registrar.play(
+        UpdatePlayerStatsMessage.MESSAGE_ID,
+        UpdatePlayerStatsMessage::new,
+        handler -> handler.server(NetworkEventHandler::handleUpdatePlayerStatsMessage));
   }
 
   private static void handlePlayerStatsMessage(
-      SyncPlayerStatsMessage message, NetworkEvent.Context context) {
-    context.enqueueWork(
-        () ->
-            DistExecutor.unsafeRunWhenOn(
-                Dist.CLIENT, () -> () -> SyncPlayerStatsMessage.handle(message)));
-    context.setPacketHandled(true);
+      SyncPlayerStatsMessage message, PlayPayloadContext playPayloadContext) {
+    playPayloadContext.workHandler().submitAsync(() -> SyncPlayerStatsMessage.handle(message));
   }
 
   private static void handleOpenPlayerStatsMessage(
-      OpenPlayerStatsMessage message, NetworkEvent.Context context) {
-    ServerPlayer serverPlayer = context.getSender();
-    if (serverPlayer != null) {
+      OpenPlayerStatsMessage message, PlayPayloadContext playPayloadContext) {
+    Optional<Player> player = playPayloadContext.player();
+    if (player.isPresent() && player.get() instanceof ServerPlayer serverPlayer) {
       PlayerStatsManager.updatePlayerStats(serverPlayer);
       serverPlayer.openMenu(PlayerStatsMenu.createMenuProvider());
     }
-    context.setPacketHandled(true);
   }
 
   private static void handleUpdatePlayerStatsMessage(
-      UpdatePlayerStatsMessage message, NetworkEvent.Context context) {
-    NetworkMessageHandler.syncPlayerStats(context.getSender());
-    context.setPacketHandled(true);
+      UpdatePlayerStatsMessage message, PlayPayloadContext playPayloadContext) {
+    Optional<Player> player = playPayloadContext.player();
+    if (player.isPresent() && player.get() instanceof ServerPlayer serverPlayer) {
+      PlayerStatsManager.updatePlayerStats(serverPlayer);
+    }
   }
 
-  public static <M> void sendToServer(M message) {
+  public static void sendToServer(CustomPacketPayload message) {
     try {
-      SIMPLE_CHANNEL.send(PacketDistributor.SERVER.noArg(), message);
+      PacketDistributor.SERVER.with(null).send(message);
     } catch (Exception e) {
       log.error("Failed to send {} to server, got error: {}", message, e.getMessage());
     }
   }
 
-  public static <M> void sendToPlayer(M message, ServerPlayer serverPlayer) {
+  public static void sendToPlayer(CustomPacketPayload message, ServerPlayer serverPlayer) {
     try {
-      SIMPLE_CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), message);
+      PacketDistributor.PLAYER.with(serverPlayer).send(message);
     } catch (Exception e) {
       log.error(
           "Failed to send {} to player {}, got error: {}",
