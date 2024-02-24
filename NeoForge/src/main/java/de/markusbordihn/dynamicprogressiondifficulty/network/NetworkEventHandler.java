@@ -40,12 +40,19 @@ public class NetworkEventHandler {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
+  private static final int PROTOCOL_VERSION = 1;
+
   protected NetworkEventHandler() {}
 
   public static void registerNetworkHandler(final RegisterPayloadHandlerEvent event) {
-    final IPayloadRegistrar registrar = event.registrar(Constants.MOD_ID);
+    final IPayloadRegistrar registrar =
+        event.registrar(Constants.MOD_ID).versioned(String.valueOf(PROTOCOL_VERSION));
 
-    log.info("{} Network Handler with {} ...", Constants.LOG_REGISTER_PREFIX, registrar);
+    log.info(
+        "{} Network Handler for {} with version {} ...",
+        Constants.LOG_REGISTER_PREFIX,
+        registrar,
+        PROTOCOL_VERSION);
 
     registrar.play(
         SyncPlayerStatsMessage.MESSAGE_ID,
@@ -81,7 +88,7 @@ public class NetworkEventHandler {
       UpdatePlayerStatsMessage message, PlayPayloadContext playPayloadContext) {
     Optional<Player> player = playPayloadContext.player();
     if (player.isPresent() && player.get() instanceof ServerPlayer serverPlayer) {
-      PlayerStatsManager.updatePlayerStats(serverPlayer);
+      NetworkMessageHandler.syncPlayerStats(serverPlayer);
     }
   }
 
