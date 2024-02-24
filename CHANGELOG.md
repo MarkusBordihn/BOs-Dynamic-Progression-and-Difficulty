@@ -1,4 +1,4 @@
-# Changelog for Dynamic Progression and Difficulty (1.20.1)
+# Changelog for Dynamic Progression and Difficulty (1.20.2)
 
 ## Note
 

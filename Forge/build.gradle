@@ -3,12 +3,10 @@ buildscript {
     maven { url = 'https://maven.minecraftforge.net' }
     mavenCentral()
   }
-  dependencies {
-    classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-  }
 }
 
 plugins {
+  id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
   id 'com.matthewprenger.cursegradle' version '1.4.0'
   id 'nu.studer.credentials' version '3.0'
   id "com.modrinth.minotaur" version "2.+"
@@ -124,7 +122,6 @@ curseforge {
     releaseType = "${curseforge_release_type}"
     addGameVersion("${minecraft_version}")
     addGameVersion("Forge")
-    addGameVersion("NeoForge")
   }
   options {
     forgeGradleIntegration = true
@@ -138,5 +135,5 @@ modrinth {
   versionType = "${modrinth_release_type}"
   uploadFile = jar
   gameVersions = ["${minecraft_version}"]
-  loaders = ["forge", "neoforge"]
+  loaders = ["forge"]
 }

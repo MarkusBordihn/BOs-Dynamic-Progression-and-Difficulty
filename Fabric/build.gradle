@@ -1,5 +1,5 @@
 plugins {
-  id 'fabric-loom' version '0.12-SNAPSHOT'
+  id 'fabric-loom' version '1.4-SNAPSHOT'
   id 'maven-publish'
   id 'idea'
   id 'com.matthewprenger.cursegradle' version '1.4.0'
@@ -17,7 +17,7 @@ dependencies {
   implementation project(":Common")
 
   // Recommended Mods
-  modImplementation "curse.maven:tooltipfix-411557:4577194"
+  modImplementation "curse.maven:tooltipfix-238222:4767570"
 }
 
 loom {
